@@ -17,7 +17,10 @@ public class Affichage extends SurfaceView implements SurfaceHolder.Callback {
 	SurfaceHolder mSurfaceHolder;
 	DrawingThread mThread;
 	Paint mPaint; 
-
+	
+	public void yannick(){
+		int blabla;
+	}
 	
 	public Affichage(Context pContext) {
 		super(pContext);
