@@ -1,5 +1,4 @@
 package app.pack.vue;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -7,12 +6,11 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.renderscript.Type;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import app.pack.gen.R;
-import app.pack.gen.R.drawable;
 import app.pack.modele.Carre;
-import app.pack.modele.Carre.Type;
 
 @SuppressLint("WrongCall")
 public class Affichage extends SurfaceView implements SurfaceHolder.Callback {
@@ -71,11 +69,8 @@ public class Affichage extends SurfaceView implements SurfaceHolder.Callback {
 	//VALEUR DE TESTE TODO
 	int i = 1;
 	//PARCOURS DE COLLECTION SUREMENT
-	Carre testCarre = new Carre(Type.T2, 0,0 );
-	Carre testCarre2 = new Carre(Type.T2, 0,20 );
-	Carre testCarre3 = new Carre(Type.T2, 0,30 );
-	Carre testCarre4 = new Carre(Type.T2, 0,10 );
-	Carre testCarre5 = new Carre(Type.T2, 0,60 );
+	Carre testCarre = new Carre(1, 0,0 );
+	Carre testCarre5 = new Carre(1, 0,60 );
 	int i2 = 1;
 	//******
 	@Override
@@ -98,25 +93,18 @@ public class Affichage extends SurfaceView implements SurfaceHolder.Callback {
 		
 		//COMMENT IL FAUT FAIRE TODO
 		pCanvas.drawRect(testCarre.getRectangle(), mPaint);
-		pCanvas.drawRect(testCarre2.getRectangle(), mPaint);
-		pCanvas.drawRect(testCarre3.getRectangle(), mPaint);
-		pCanvas.drawRect(testCarre3.getRectangle(), mPaint);
-		pCanvas.drawRect(testCarre4.getRectangle(), mPaint);
+
 		pCanvas.drawRect(testCarre5.getRectangle(), mPaint);
 		
 		if(testCarre.posX >= 20) {
 			testCarre.posX  = 0;
 			testCarre.posY = 5; 
 			testCarre5.posX =testCarre.posY+1;
-			testCarre4.posX =testCarre.posY+1;
-			testCarre3.posX =testCarre.posY+1;
-			testCarre2.posX =testCarre.posY+1;
+
 			
 		} else {
 			testCarre.posX =testCarre.posX+1;
-			testCarre2.posX =testCarre.posX+1;
-			testCarre3.posX =testCarre.posX+1;
-			testCarre4.posX =testCarre.posX+1;
+
 			testCarre5.posX =testCarre.posX+1;
 		}
 		

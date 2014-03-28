@@ -9,8 +9,9 @@ public class Carre {
 	private Type mType = null;
 	private RectF mRectangle = null;
 	
-	public Carre(Type pType, int pX, int pY) {
-		this.mType = pType;
+	public Carre(int type, int pX, int pY) {
+		this.mType = Type.T2;
+		
 		this.mRectangle = new RectF(pX * SIZE, pY * SIZE, (pX + 1) * SIZE,(pY + 1) * SIZE);
 		this.posY = pY;
 		this.posX = pX;
