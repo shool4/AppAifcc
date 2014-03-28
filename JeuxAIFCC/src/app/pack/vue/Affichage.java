@@ -1,4 +1,4 @@
-package com.example.jeuxaifcc;
+package app.pack.vue;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -9,8 +9,10 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-
-import com.example.jeuxaifcc.Carre.Type;
+import app.pack.gen.R;
+import app.pack.gen.R.drawable;
+import app.pack.modele.Carre;
+import app.pack.modele.Carre.Type;
 
 @SuppressLint("WrongCall")
 public class Affichage extends SurfaceView implements SurfaceHolder.Callback {

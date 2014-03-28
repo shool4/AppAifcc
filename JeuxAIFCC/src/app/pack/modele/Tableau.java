@@ -1,4 +1,4 @@
-package com.example.jeuxaifcc;
+package app.pack.modele;
 
 import java.util.ArrayList;
 //DECLARER EN INTEGER AU CAS SI OBJECT DANS TB

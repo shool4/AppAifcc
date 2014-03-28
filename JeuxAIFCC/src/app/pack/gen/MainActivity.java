@@ -1,7 +1,8 @@
-package com.example.jeuxaifcc;
+package app.pack.gen;
 
 import android.app.Activity;
 import android.os.Bundle;
+import app.pack.vue.Affichage;
 
 public class MainActivity extends Activity {
 	// Le moteur graphique du jeu

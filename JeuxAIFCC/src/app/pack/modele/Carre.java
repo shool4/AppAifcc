@@ -1,4 +1,4 @@
-package com.example.jeuxaifcc;
+package app.pack.modele;
 
 import android.graphics.RectF;
 
