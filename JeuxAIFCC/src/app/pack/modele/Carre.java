@@ -9,12 +9,12 @@ abstract class Carre {
 	private int valeur;
 	//Postion
 	private Position positionActuel;
-	private Position positionFutur;
+	private Position positionPasse;
 	
 	public Carre(int posActuelX, int posActuelY, int valeur) {
 		super();
 		this.positionActuel = new Position(posActuelX, posActuelY);
-		this.positionFutur = new Position(posActuelX, posActuelY);
+		this.positionPasse = new Position(posActuelX, posActuelY);
 		this.valeur = valeur;
 	}
 
@@ -29,7 +29,13 @@ abstract class Carre {
 		
 		//this.valeur = valeur*2;
 	}
-
+	
+	public void setPositionActuel(Position unePosition){
+		this.positionActuel = unePosition;
+	}
+	public void miseJourPositionPasse() {
+		this.positionPasse = this.positionActuel;
+	}
 
 	/* GETTER - SETTER */
 	//##################
@@ -40,21 +46,21 @@ abstract class Carre {
 	public Position getPostionActuel() {
 		return positionActuel;
 	}
-	public Position getPostionFutur() {
-		return positionFutur;
+	public Position getPostionPasse() {
+		return positionPasse;
 	}
 	/*
 	 * Getter - Setter de position Futur
 	 * 
 	 */
-	public void setPositionActuel(Position unePosition) {
+	/*public void setPositionActuel(Position unePosition) {
 		this.positionActuel.setPosX(unePosition.getPosX());
 		this.positionActuel.setPosY(unePosition.getPosY());
-	}
-	public void setPositionFutur(Position unePosition) {
+	}*/
+	/*public void setPositionPasse(Position unePosition) {
 		this.positionFutur.setPosX(unePosition.getPosX());
 		this.positionFutur.setPosY(unePosition.getPosY());
-	}
+	}*/
 
 	
 	
