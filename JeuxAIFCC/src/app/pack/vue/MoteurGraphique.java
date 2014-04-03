@@ -1,5 +1,5 @@
 package app.pack.vue;
-import java.util.List;
+import java.util.ArrayList;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -8,11 +8,9 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.renderscript.Type;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import app.pack.gen.R;
-import app.pack.modele.Carre;
 
 @SuppressLint("WrongCall")
 public class MoteurGraphique extends SurfaceView implements SurfaceHolder.Callback {
@@ -20,24 +18,24 @@ public class MoteurGraphique extends SurfaceView implements SurfaceHolder.Callba
 	SurfaceHolder mSurfaceHolder;
 	DrawingThread mThread;
 	Paint mPaint; 
-	//TABLEAU DE VALEUR DES POINTEURS VERS LES IMAGES
+
+	//Stokage des bipmap
+	ArrayList<Bitmap> tbBitmapCarre;
+	Bitmap bitmapTableau;
 	
-	
-	public void yannick(){
-		int blabla;
-	}
+
 	
 	public MoteurGraphique(Context pContext) {
 		super(pContext);
 		mSurfaceHolder = getHolder();
 		mSurfaceHolder.addCallback(this);
 		mThread = new DrawingThread();
-		
+
 		mPaint = new Paint();
 		mPaint.setColor(Color.BLACK);
+
+		// VALEUR DE TEST TODO
 		
-		//VALEUR DE TEST TODO
-		testCarre.posY= 50;
 	}
 
 	@Override
@@ -74,8 +72,7 @@ public class MoteurGraphique extends SurfaceView implements SurfaceHolder.Callba
 	//VALEUR DE TESTE TODO
 	int i = 1;
 	//PARCOURS DE COLLECTION SUREMENT
-	Carre testCarre = new Carre(1, 0,0 );
-	Carre testCarre5 = new Carre(1, 0,60 );
+
 	int i2 = 1;
 	//******
 	@Override
@@ -84,7 +81,7 @@ public class MoteurGraphique extends SurfaceView implements SurfaceHolder.Callba
 		//DISINE LE FOND
 		pCanvas.drawColor(Color.YELLOW);
 		//DESINE LE CADRIYAGE DE TEST
-		Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.carre);
+		Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.tableau);
 		bitmap = Bitmap.createScaledBitmap(bitmap, bitmap.getWidth()*2, bitmap.getHeight()*2, false);
 		pCanvas.drawBitmap(bitmap, 50, 500, null);
 		
@@ -97,24 +94,14 @@ public class MoteurGraphique extends SurfaceView implements SurfaceHolder.Callba
 		//i++;
 		
 		//COMMENT IL FAUT FAIRE TODO
-		pCanvas.drawRect(testCarre.getRectangle(), mPaint);
+		//pCanvas.drawRect(testCarre.getRectangle(), mPaint);
 
-		pCanvas.drawRect(testCarre5.getRectangle(), mPaint);
-		
-		if(testCarre.posX >= 20) {
-			testCarre.posX  = 0;
-			testCarre.posY = 5; 
-			testCarre5.posX =testCarre.posY+1;
-
-			
-		} else {
-			testCarre.posX =testCarre.posX+1;
-
-			testCarre5.posX =testCarre.posX+1;
-		}
+		//pCanvas.drawRect(testCarre5.getRectangle(), mPaint);
 		
 
-		drawTextDeTest(pCanvas, "Valeur X pos carre :"+String.valueOf(testCarre.posX),100,30);
+		
+
+		//drawTextDeTest(pCanvas, "Valeur X pos carre :"+String.valueOf(testCarre.posX),100,30);
 		drawTextDeTest(pCanvas, "Valeur i :"+String.valueOf(i),200,100);
 	}
 
