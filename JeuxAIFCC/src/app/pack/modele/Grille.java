@@ -3,7 +3,9 @@ package app.pack.modele;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Scanner;
 
+import android.R.integer;
 import android.util.Log;
 
 public class Grille {
@@ -14,7 +16,10 @@ public class Grille {
 	
 	
 	private final int TAILLE_MAX = 4;
-
+	/*
+	 * CONSTRUCTEUR
+	 * 
+	 */
 	public Grille() {
 		super();
 	
@@ -39,73 +44,67 @@ public class Grille {
 		
 		//*****************************************
 		// TEST
-		Log.i("test1", "Grille OK");
+		Log.i("test1", "INIT GRILLE");
 		Log.i("test1", "Taille grille : "+tableau.size());
-		debogTableau(0);
+		debog_AttrTableau();
 		Log.i("test1", "******************");
 		Log.i("test1", "Test carre");
 		
-		CarreNumero carreDepart = new CarreNumero(0, 0, 2);
-		this.ajoutUnCarre(carreDepart);
-		carreDepart = new CarreNumero(1, 0, 2);
-		this.ajoutUnCarre(carreDepart);
-		carreDepart = new CarreNumero(2, 0, 4);
-		this.ajoutUnCarre(carreDepart);
-		carreDepart = new CarreNumero(3, 0, 4);
-		this.ajoutUnCarre(carreDepart);
+	
+		this.ajoutUnCarre(new CarreNumero(0, 0, 2));
+
+		this.ajoutUnCarre(new CarreNumero(1, 0, 2));
+		
+		this.ajoutUnCarre(new CarreNumero(2, 0, 2));
+		
+		this.ajoutUnCarre(new CarreNumero(3, 0, 16));
 		/*
 		CarreBonus carreDepart2 = new CarreBonus(3,0,0);
 		this.ajoutUnCarre(carreDepart2);*/
 
-		carreDepart = new CarreNumero(0, 1, 8);
-		this.ajoutUnCarre(carreDepart);
-		carreDepart = new CarreNumero(1, 1, 8);
-		this.ajoutUnCarre(carreDepart);
-		carreDepart = new CarreNumero(2, 1, 8);
-		this.ajoutUnCarre(carreDepart);
-		carreDepart = new CarreNumero(3, 1, 8);
-		this.ajoutUnCarre(carreDepart);
+
+		this.ajoutUnCarre(new CarreNumero(0, 1, 2));
+	
+		this.ajoutUnCarre(new CarreNumero(1, 1, 2));
+
+		this.ajoutUnCarre(new CarreNumero(2, 1, 4));
 		
-		carreDepart = new CarreNumero(0, 2, 2);
-		this.ajoutUnCarre(carreDepart);
-		carreDepart = new CarreNumero(1, 2, 4);
-		this.ajoutUnCarre(carreDepart);
-		carreDepart = new CarreNumero(2, 2, 4);
-		this.ajoutUnCarre(carreDepart);
-		carreDepart = new CarreNumero(3, 2, 2);
-		this.ajoutUnCarre(carreDepart);
-		
-		carreDepart = new CarreNumero(0, 3, 2);
-		this.ajoutUnCarre(carreDepart);
-		carreDepart = new CarreNumero(1, 3, 4);
-		this.ajoutUnCarre(carreDepart);
-		carreDepart = new CarreNumero(2, 3, 2);
-		this.ajoutUnCarre(carreDepart);
-		carreDepart = new CarreNumero(3, 3, 4);
-		this.ajoutUnCarre(carreDepart);
-		
-		debogTableau(0);
-		this.deplace(false);
-		debogTableau(0);
-		this.deplace(false);
-		debogTableau(0);
-		
-		carreDepart = new CarreNumero(1, 1, 32);
-		this.ajoutUnCarre(carreDepart);
-		this.deplace(true);
-		debogTableau(0);
-		
-		carreDepart = new CarreNumero(2, 0, 8);
-		this.ajoutUnCarre(carreDepart);
-		carreDepart = new CarreNumero(3, 1, 64);
-		this.ajoutUnCarre(carreDepart);
-		this.deplace(false);
-		debogTableau(0);
-		//*****************************************
+		this.ajoutUnCarre(new CarreNumero(3, 1, 16));
 		
 		
+		this.ajoutUnCarre(new CarreNumero(0, 2, 2));
 		
+		this.ajoutUnCarre(new CarreNumero(1, 2, 2));
+	
+		this.ajoutUnCarre(new CarreNumero(2, 2, 16));
+
+		this.ajoutUnCarre(new CarreNumero(3, 2, 2));
+		
+		
+		this.ajoutUnCarre(new CarreNumero(0, 3, 2));
+		
+		this.ajoutUnCarre(new CarreNumero(1, 3, 2));
+	
+		this.ajoutUnCarre(new CarreNumero(2, 3, 4));
+		
+		this.ajoutUnCarre( new CarreNumero(3, 3, 16));
+		
+		debog_AttrTableau();
+		this.deplaceHautBas(false);
+		debog_AttrTableau();
+		this.deplaceHautBas(true);
+		debog_AttrTableau();
+		this.deplaceDroitGauche(false);
+		debog_AttrTableau();
+		this.deplaceDroitGauche(true);
+		debog_AttrTableau();
+			
 	}
+	
+	//************************************************************************************
+	//	METHODE
+	//************************************************************************************
+
 	/*
 	 * mise à jours des positions carre
 	 */
@@ -163,27 +162,106 @@ public class Grille {
 			return null;
 		}
 	}
-
 	/*
-	 * Methode qui deplace a droit les carres
+	 * Methode qui deplace en Haut et Bas
+	 * @param 	Haut -> False, Bas -> True
+	 * @return 	Void
+	 * @author 	DaRk-_-D0G
+	 * 
 	 */
-	private void deplace(Boolean droitFalseGaucheTrue) {
+	private void deplaceHautBas(Boolean hautFalseBasTrue) {
+		// Ligne vertical pour le traitement
+		//TODO BAS BON LE TRUC
+		int indiceObtention = 0;
+		int indexAjout = 0;
+
+		//Parcours des X
+		for (int i = 0; i < TAILLE_MAX; i++) {
+			List<Carre> nouvelleList = new LinkedList<Carre>();
+			
+			//Parcours des Y
+			for (int j = 0; j < TAILLE_MAX; j++) {
+				//Extrait la ligne a indice J et on prend le carrée à l'indice obtention
+				List<Carre> ligne = tableau.get(j);
+				Carre carre = ligne.get(indiceObtention);
+				
+				//Si carre différent de 0 est une instance de CarreNumero
+				if (carre.getValeur() != 0 && carre instanceof CarreNumero) {
+					
+					//	Si tb temp est pas vide et que l'indexAJout a pas augmenté
+					if (nouvelleList.isEmpty() || nouvelleList.size() != indexAjout + 1) {
+						nouvelleList.add(carre);
+
+					// si carre sur meme valeur ajout
+					} else if (carre.getValeur() == nouvelleList.get(indexAjout).getValeur()) {
+						nouvelleList.get(indexAjout).upValeur();
+						indexAjout++;	//On augmente l'indexajout pour evité qui s'ajoute en cumullé
+
+					// Sinon ajout au tb temp
+					} else {
+						nouvelleList.add(carre);
+						indexAjout++;
+					}
+				
+				//Cas si Carre BONUS a voir
+				} else if (carre instanceof CarreBonus) {
+
+				}
+			}
+
+			//Complete de le TB pour ajout des Carres 0, Si Haut ou Bas
+			while(nouvelleList.size() != TAILLE_MAX ) {
+				if(hautFalseBasTrue) {
+					nouvelleList.add(0, new CarreNumero(0, 0, 0));
+				} else {
+					nouvelleList.add(new CarreNumero(0, 0, 0));
+				}
+					
+			}
+			
+			//AJout au Tableau
+			int indice = 0;
+			for (Carre carre : nouvelleList) {
+				List<Carre> maListCarres = tableau.get(indice);
+				maListCarres.set(indiceObtention, carre);
+				indice++;
+			}
+			
+			//Index ajout remis a 0 est IndiceObtention passe au X suivant
+			indexAjout = 0;
+			indiceObtention++;
+
+		}
+		//Mise à jour des pos des carre dans tableau
+		this.miseJourCarreDansTb();	
 		
+		if(hautFalseBasTrue) {
+			Log.i("test1", "Execution deplacement à BAS *");
+			
+		} else {
+			Log.i("test1", "Execution deplacement à HAUT *");
+		}
+	}
+	
+	/*
+	 * Methode qui deplace a droit et gauche les carrés du tableau
+	 * @param 	Droit -> false, Gauche -> True
+	 * @return 	void
+	 * @author 	DaRk-_-D0G
+	 * 
+	 */
+	private void deplaceDroitGauche(Boolean droitFalseGaucheTrue) {
 		
-		//Parcour chaque ligne
-	
-	
+		//Pacour des Y
 		for (ListIterator<List<Carre>> iteratorLigne = tableau.listIterator(); iteratorLigne.hasNext();) {
 			//Ligne du tableau
 			List<Carre> ligne = (List<Carre>) iteratorLigne.next();
 			//nouvelle ligne
 			List<Carre> nouvelleList = new LinkedList<Carre>();
-		
 			//Index carre ajouter
 			int indexAjout = 0;
 		
-			
-		
+			//Parcours des X
 			for (Carre carre : ligne) {
 				if(carre.getValeur() != 0 && carre instanceof CarreNumero) {
 					
@@ -208,21 +286,19 @@ public class Grille {
 					
 				}
 			}
+			//Clear de la ligne du tableau
 			ligne.clear();
 			
 			while(nouvelleList.size() != TAILLE_MAX) {
 				int indiceDeLajout = 0;
 				if(droitFalseGaucheTrue) {
-		
 					indiceDeLajout = nouvelleList.size();
-				} else {
-					
 				}
 				nouvelleList.add(indiceDeLajout, new CarreNumero(0, 0, 0));
 			}
 			ligne.addAll(nouvelleList);
-		
 		}
+		
 		//MISE A JOUR DES POSITION CARRE;
 		this.miseJourCarreDansTb();
 		
@@ -235,16 +311,33 @@ public class Grille {
 		
 	}	
 	
-	private void deplaceHaut() {
-		
-	}
-	private void deplaceBas() {
-		
+
+	//************************************************************************************
+	//	METHODE DE DEBUG
+	//************************************************************************************
+	
+	/*
+	 * DEBUG d'une list de carre
+	 * @param une liste de carre, String du titre à afficher dans la console
+	 */
+	public void debog_UnTableauCarre(List<Carre> maList,String titre) {
+		Log.i("test1", "******************");
+		Log.i("test1", "*****"+titre+"*****");
+		String chaineAffiche = "";
+		for (ListIterator<Carre> iteratorLigne = maList.listIterator(); iteratorLigne.hasNext();) {
+			Carre carre = (Carre) iteratorLigne.next();
+			
+				chaineAffiche += ":"+carre.getValeur();
+		}
+		Log.i("test1", chaineAffiche);
+		Log.i("test1", "******************");
 	}
 	
-	//METHODE DE DEBUG 
-	//*****************
-	public void debogTableau(int ajoutTaille){
+	/*
+	 * DEBUG de l'attribut tableau en console
+	 * @void
+	 */
+	public void debog_AttrTableau() {
 		Log.i("test1", "******************");
 		Log.i("test1", "TABLEAU : ");
 		String chaineAffiche;
@@ -255,33 +348,12 @@ public class Grille {
 				Carre unCarre = (Carre) iteratorCarre.next();
 				chaineAffiche += ":"+unCarre.getValeur();
 			}
-			Log.i("test1", chaineAffiche);
-			
+			Log.i("test1", chaineAffiche);	
 		}
-		Log.i("test1", "******************");
-		/*Log.i("test1", "******************");
-		Log.i("test1", "POSITION CARRE : ");
-		String chaineAffiche2;
-		for (ListIterator<List<Carre>> iteratorLigne = tableau.listIterator(); iteratorLigne.hasNext();) {
-			List<Carre> ligne = (List<Carre>) iteratorLigne.next();
-			chaineAffiche2 = "";
-			for (ListIterator<Carre> iteratorCarre = ligne.listIterator(); iteratorCarre.hasNext();) {
-				Carre unCarre = (Carre) iteratorCarre.next();
-				chaineAffiche2 += "("+unCarre.getValeur()+")";
-				chaineAffiche2 += " X= "+unCarre.getPostionActuel().getPosX();
-				chaineAffiche2 += " Y= "+unCarre.getPostionActuel().getPosY();
-				chaineAffiche2 += " LastX= "+unCarre.getPostionPasse().getPosX();
-				chaineAffiche2 += " LasrY= "+unCarre.getPostionPasse().getPosY();
-				
-			}
-			Log.i("test1", chaineAffiche2);
-			
-		}
-		Log.i("test1", "******************");*/
-		
-	
+		Log.i("test1", "******************");	
 	}
+
 	
-	
+
 	
 }
