@@ -1,11 +1,10 @@
 package app.pack.modele;
 
-import android.R.integer;
-import android.util.Log;
 
 
 abstract class Carre {
 	
+	//Valeur
 	private int valeur;
 	//Postion
 	private Position positionActuel;
@@ -17,25 +16,37 @@ abstract class Carre {
 		this.positionPasse = new Position(posActuelX, posActuelY);
 		this.valeur = valeur;
 	}
-
+	public Carre(Position position, int valeur) {
+		super();
+		this.positionActuel = position;
+		this.positionPasse = position;
+		this.valeur = valeur;
+	}
 
 	public int getValeur() {
 		return valeur;
 	}
 
-
-	public void upValeur() {
-		this.valeur = valeur*2;
+	public void merge(Carre unCarre){
+		//Multiplication des valeurs des carres
+		this.valeur = unCarre.getValeur()*2;
+		//Mise a jour de la position passé
+		this.setPositionPasse(unCarre.getPostionActuel());
 		
-		//this.valeur = valeur*2;
 	}
+	/*public void upValeur() {
+		this.valeur = valeur*2;
+		setPositionPasse(this.positionActuel);
+		//this.valeur = valeur*2;
+	}*/
 	
 	public void setPositionActuel(Position unePosition){
 		this.positionActuel = unePosition;
 	}
-	public void miseJourPositionPasse() {
-		this.positionPasse = this.positionActuel;
+	public void setPositionPasse(Position unePosition){
+		this.positionPasse = unePosition;
 	}
+
 
 	/* GETTER - SETTER */
 	//##################

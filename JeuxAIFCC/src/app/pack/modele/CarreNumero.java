@@ -13,6 +13,12 @@ public class CarreNumero extends Carre {
 
 	}
 
+	public CarreNumero(Position position,
+			int valeur) {
+		super(position, valeur);
+		// TODO Auto-generated constructor stub
+	}
+
 
 	// GETTER - SETTER 
 	//################
