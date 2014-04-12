@@ -11,6 +11,7 @@ import android.graphics.Paint;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import app.pack.gen.R;
+import app.pack.modele.Grille;
 
 @SuppressLint("WrongCall")
 public class MoteurGraphique extends SurfaceView implements SurfaceHolder.Callback {
@@ -23,10 +24,13 @@ public class MoteurGraphique extends SurfaceView implements SurfaceHolder.Callba
 	ArrayList<Bitmap> tbBitmapCarre;
 	Bitmap bitmapTableau;
 	
+	Grille grille = null;
 
 	
 	public MoteurGraphique(Context pContext) {
 		super(pContext);
+		
+		
 		mSurfaceHolder = getHolder();
 		mSurfaceHolder.addCallback(this);
 		mThread = new DrawingThread();
@@ -37,7 +41,10 @@ public class MoteurGraphique extends SurfaceView implements SurfaceHolder.Callba
 		// VALEUR DE TEST TODO
 		
 	}
-
+	
+	public void setGrille(Grille uneGrille) {
+		this.grille = uneGrille;
+	}
 	@Override
 	public void surfaceCreated(SurfaceHolder holder) {
 		// TODO Auto-generated method stub
