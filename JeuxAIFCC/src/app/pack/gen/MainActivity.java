@@ -19,8 +19,9 @@ public class MainActivity extends Activity {
 		//setContentView(R.layout.activity_main);
 		moteurGraphique = new MoteurGraphique(this);
 		setContentView(moteurGraphique);
-		
 		moteurPhysique = new MoteurPhysique(this);
+		
+		moteurGraphique.setGrille(moteurPhysique.getGrille());
 		
 	
 		Log.v("test1", "#########################");

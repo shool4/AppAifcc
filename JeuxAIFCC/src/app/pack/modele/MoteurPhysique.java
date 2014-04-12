@@ -59,4 +59,7 @@ public class MoteurPhysique {
 	public void bas(){
 		this.grille.deplaceHautBas(true);
 	}
+	public Grille getGrille() {
+		return this.grille;
+	}
 }
