@@ -11,7 +11,9 @@ public class MoteurPhysique {
 
 	public MoteurPhysique(MainActivity pView) {
 		
-		grille = new Grille(pView.taillePlateau);
+		grille = new Grille(4,4);
+		grille.debog_Tableau();
+		
 		this.pView = pView;
 		this.ajoutCarreNumero();
 		this.ajoutCarreNumero();
@@ -19,45 +21,46 @@ public class MoteurPhysique {
 		this.ajoutCarreNumero();
 		this.ajoutCarreNumero();
 		this.ajoutCarreNumero();
+		this.ajoutCarreNumero();
+		this.ajoutCarreNumero();
+		this.ajoutCarreNumero();
+		this.ajoutCarreNumero();
+		
+		this.ajoutCarreNumero();
+		this.ajoutCarreNumero();
+		this.ajoutCarreNumero();
+		this.ajoutCarreNumero();
+		this.ajoutCarreNumero();
+		this.ajoutCarreNumero();
 	//	this.ajoutCarreBonus();
 	//	this.ajoutCarreBonus();
 		grille.debog_Tableau();
 		
-		this.droite();
-		
+		this.gauche();
 		grille.debog_Tableau();
 		this.gauche();
 		grille.debog_Tableau();
-		this.droite();
-		grille.debog_Tableau();
 		this.gauche();
 		grille.debog_Tableau();
-		this.droite();
-		grille.debog_Tableau();
-		this.gauche();
-		grille.debog_Tableau();
-		this.haut();
-		grille.debog_Tableau();
-		this.bas();
-		grille.debog_Tableau();
+	
 	}
 	public void ajoutCarreNumero() {
 		this.grille.ajoutUnCarreAleatoire();
 	}
 	public void ajoutCarreBonus() {
-		this.grille.ajoutUnCarreAleatoireBonus();
+		//this.grille.ajoutUnCarreAleatoireBonus();
 	}
 	public void droite(){
-		this.grille.deplaceDroitGauche(false);
+		this.grille.deplacementDroite();
 	}
 	public void gauche(){
-		this.grille.deplaceDroitGauche(true);
+		this.grille.deplacementGauche();
 	}
 	public void haut(){
-		this.grille.deplaceHautBas(false);
+		//this.grille.deplaceHautBas(false);
 	}
 	public void bas(){
-		this.grille.deplaceHautBas(true);
+		//this.grille.deplaceHautBas(true);
 	}
 	public Grille getGrille() {
 		return this.grille;

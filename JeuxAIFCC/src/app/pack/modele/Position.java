@@ -12,7 +12,7 @@ public class Position {
 	private float posGrapX = 0;
 	private float posGrapY = 0;
 	
-	public Position(int posX, int posY) {
+	public Position(int posY, int posX) {
 		super();
 		this.posX = posX;
 		this.posY = posY;
