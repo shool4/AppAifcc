@@ -1,5 +1,6 @@
 package app.pack.modele;
 
+import android.util.Log;
 import app.pack.gen.MainActivity;
 
 //DECLARER EN INTEGER AU CAS SI OBJECT DANS TB
@@ -16,8 +17,8 @@ public class MoteurPhysique {
 		
 		this.pView = pView;
 	
+	
 		
-	/*	this.ajoutTuileAleatoire();
 		this.ajoutTuileAleatoire();
 		this.ajoutTuileAleatoire();
 		this.ajoutTuileAleatoire();
@@ -26,14 +27,21 @@ public class MoteurPhysique {
 		this.ajoutTuileAleatoire();
 		this.ajoutTuileAleatoire();
 		this.ajoutTuileAleatoire();
-		this.ajoutTuileAleatoire();*/
+		this.ajoutTuileAleatoire();
+		this.ajoutTuileAleatoire();
 		
-	/*	ajoutTuile(new Tuile(0, 0, 2));
-		ajoutTuile(new Tuile(0, 1, 0));
-		ajoutTuile(new Tuile(0, 2, 2));
-		ajoutTuile(new Tuile(0, 3, 2));*/
+		this.ajoutTuileAleatoire();
+		this.ajoutTuileAleatoire();
+		this.ajoutTuileAleatoire();
+		this.ajoutTuileAleatoire();
+		this.ajoutTuileAleatoire();
+		this.ajoutTuileAleatoire();
+		this.ajoutTuileAleatoire();
+		this.ajoutTuileAleatoire();
+		this.ajoutTuileAleatoire();
+		this.ajoutTuileAleatoire();
 		
-		ajoutTuile(new Tuile(0, 0, 2));
+		/*ajoutTuile(new Tuile(0, 0, 2));
 		ajoutTuile(new Tuile(0, 1, 2));
 		ajoutTuile(new Tuile(0, 2, 0));
 		ajoutTuile(new Tuile(0, 3, 2));
@@ -51,21 +59,25 @@ public class MoteurPhysique {
 		ajoutTuile(new Tuile(3, 0, 0));
 		ajoutTuile(new Tuile(3, 1, 2));
 		ajoutTuile(new Tuile(3, 2, 2));
-		ajoutTuile(new Tuile(3, 3, 2));
+		ajoutTuile(new Tuile(3, 3, 2));*/
 	//	this.ajoutCarreBonus();
 	//	this.ajoutCarreBonus();
 		grille.debog_Tableau();
 		
-		this.droite();
+		this.bas();
 		grille.debog_Tableau();
 		this.droite();
 		grille.debog_Tableau();
-		this.droite();
+		this.gauche();
+		grille.debog_Tableau();
+		this.haut();
 		grille.debog_Tableau();
 	
 	}
 	public void ajoutTuileAleatoire() {
-		this.grille.ajoutUneTuileAleatoire();
+		if(!this.grille.ajoutTuileAleatoire()) {
+			Log.i("test1","---> Grille plien ajout imposible <---");
+		}
 	}
 	public void ajoutTuileBonus() {
 		//this.grille.ajoutUnCarreAleatoireBonus();
@@ -80,10 +92,10 @@ public class MoteurPhysique {
 		this.grille.deplacementGauche();
 	}
 	public void haut(){
-		//this.grille.deplaceHautBas(false);
+		this.grille.deplacementHaut();
 	}
 	public void bas(){
-		//this.grille.deplaceHautBas(true);
+		this.grille.deplacementBas();
 	}
 	public Grille getGrille() {
 		return this.grille;

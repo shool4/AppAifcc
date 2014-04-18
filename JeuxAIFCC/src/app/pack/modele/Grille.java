@@ -163,16 +163,19 @@ public class Grille {
 	}
 
 	// ************************************************************************************
-	// MISE A JOUR
+	// MOUVEMENT
 	// ************************************************************************************
-	/*
-	 * Mise a jour des positino des carrées dans le tableau
+	/**
+	 * Permet le deplacement des tuiles vers la Droite
+	 * 
+	 * @param 	void
+	 * @return 	les tuiles à bouger coter graphique
+	 * 
 	 */
-
-	public void deplacementDroite() {
-		Log.i("test1", "************ GAUCHE **************");
+	public ArrayList<Tuile> deplacementDroite() {
+		Log.i("test1", "************ DROITE **************");
 		// Pacour des Y
-		int dejafait = 0;
+
 		ArrayList<Tuile> tuileMerged = new ArrayList<Tuile>();
 		// int indiceIncrement = 0;
 
@@ -181,12 +184,12 @@ public class Grille {
 			
 			// On statue sur un tuile pour faire un parcours des tuiles
 			// suivante
-			dejafait = 0;
-			for (int j = this.getSizeX(); j > 0  + dejafait; j--) {
+		
+			for (int j = this.getSizeX()-1; j > 0  ; j--) {
 
 				// Pacours sur les tuiles suivante de la tuile ou on statue
 				// -1 						0				--
-				for (int j2 = j - 1; j2 > 0 ; j2--) {
+				for (int j2 = j - 1; j2 >= 0 ; j2--) {
 
 					// Si la valeur courante et différente de zeros
 					if (this.grille[i][j].getValeur() != 0) {
@@ -213,7 +216,7 @@ public class Grille {
 						if (this.grille[i][j].getValeur() != 0) {
 							tuileMerged.add(this.grille[i][j]);
 						}
-						dejafait += 1;
+						
 						
 					}
 
@@ -222,7 +225,8 @@ public class Grille {
 
 		}
 
-		debog_ListTuile(tuileMerged, "tuileMerge");
+		debog_ListTuile(tuileMerged, "---> Tuile Merged <---");
+		return tuileMerged;
 
 	}
 	/**
@@ -232,10 +236,9 @@ public class Grille {
 	 * @return 	les tuiles à bouger coter graphique
 	 * 
 	 */
-	public void deplacementGauche() {
+	public ArrayList<Tuile> deplacementGauche() {
 		Log.i("test1", "************ GAUCHE **************");
 		// Pacour des Y
-		int dejafait = 0;
 		ArrayList<Tuile> tuileMerged = new ArrayList<Tuile>();
 		// int indiceIncrement = 0;
 
@@ -244,8 +247,8 @@ public class Grille {
 			
 			// On statue sur un tuile pour faire un parcours des tuiles
 			// suivante
-			dejafait = 0;
-			for (int j = 0; j < this.getSizeX() - dejafait; j++) {
+			
+			for (int j = 0; j < this.getSizeX() ; j++) {
 
 				// Pacours sur les tuiles suivante de la tuile ou on statue
 				// -1 						0				--
@@ -276,7 +279,7 @@ public class Grille {
 						if (this.grille[i][j].getValeur() != 0) {
 							tuileMerged.add(this.grille[i][j]);
 						}
-						dejafait += 1;
+						
 						
 					}
 
@@ -285,10 +288,130 @@ public class Grille {
 
 		}
 
-		debog_ListTuile(tuileMerged, "tuileMerge");
+		debog_ListTuile(tuileMerged, "---> Tuile Merged <---");
+		return tuileMerged;
 
 	}
+	/**
+	 * Permet le deplacement des tuiles vers le Haut
+	 * 
+	 * @param 	void
+	 * @return 	les tuiles à bouger coter graphique
+	 * 
+	 */
+	public ArrayList<Tuile> deplacementHaut() {
+		Log.i("test1", "************ Haut **************");
+		// Pacour des Y
+	
+		ArrayList<Tuile> tuileMerged = new ArrayList<Tuile>();
+		// int indiceIncrement = 0;
 
+		for (int i = 0; i < this.getSizeX(); i++) {
+
+			
+			// On statue sur un tuile pour faire un parcours des tuiles
+			// suivante
+			
+			for (int j = 0; j < this.getSizeY() ; j++) {
+
+				// Pacours sur les tuiles suivante de la tuile ou on statue
+				// -1 						0				--
+				for (int j2 = j + 1; j2 < this.getSizeY() ; j2++) {
+
+					// Si la valeur courante et différente de zeros
+					if (this.grille[j][i].getValeur() != 0) {
+
+						// Si la valeur courant est = a la valeur prochaine
+						// Si pas egal on avant 1 tuile la valeur prochaine
+						// pour comparais
+						if (this.grille[j][i].getValeur() == this.grille[j2][i].getValeur()) {
+							if (!tuileMerged.contains(this.grille[j][i])) {
+								tuileMerged.add(this.grille[j][i]);
+							}
+
+							this.grille[j][i].merge(this.grille[j2][i]);
+							this.grille[j2][i].setValeur(0);
+							break;
+						} else if (this.grille[j2][i].getValeur() != 0) {
+							break;
+						}
+			
+					} else {
+						// Si la valeur courant et 0 on avance le zeros a la
+						// case prochaine
+						this.inverseY(i, j, j2);
+						if (this.grille[j][i].getValeur() != 0) {
+							tuileMerged.add(this.grille[j][i]);
+						}
+						
+						
+					}
+
+				}
+			}
+
+		}
+
+		debog_ListTuile(tuileMerged, "---> Tuile Merged <---");
+		return tuileMerged;
+	}
+	public ArrayList<Tuile> deplacementBas() {
+		Log.i("test1", "************ BAS **************");
+		// Pacour des Y
+
+		ArrayList<Tuile> tuileMerged = new ArrayList<Tuile>();
+		// int indiceIncrement = 0;
+
+		for (int i = 0; i < this.getSizeY(); i++) {
+
+			
+			// On statue sur un tuile pour faire un parcours des tuiles
+			// suivante
+		
+			for (int j = this.getSizeX()-1; j > 0  ; j--) {
+
+				// Pacours sur les tuiles suivante de la tuile ou on statue
+				// -1 						0				--
+				for (int j2 = j - 1; j2 >= 0 ; j2--) {
+
+					// Si la valeur courante et différente de zeros
+					if (this.grille[j][i].getValeur() != 0) {
+
+						// Si la valeur courant est = a la valeur prochaine
+						// Si pas egal on avant 1 tuile la valeur prochaine
+						// pour comparais
+						if (this.grille[j][i].getValeur() == this.grille[j2][i].getValeur()) {
+							if (!tuileMerged.contains(this.grille[j][i])) {
+								tuileMerged.add(this.grille[j][i]);
+							}
+
+							this.grille[j][i].merge(this.grille[j2][i]);
+							this.grille[j2][i].setValeur(0);
+							break;
+						} else if (this.grille[j2][i].getValeur() != 0) {
+							break;
+						}
+			
+					} else {
+						// Si la valeur courant et 0 on avance le zeros a la
+						// case prochaine
+						this.inverseY(i, j2, j);
+						if (this.grille[j][i].getValeur() != 0) {
+							tuileMerged.add(this.grille[j][i]);
+						}
+						
+						
+					}
+
+				}
+			}
+
+		}
+
+		debog_ListTuile(tuileMerged, "---> Tuile Merged <---");
+		return tuileMerged;
+
+	}
 	/**
 	 * Change 2 tuile sur un axe Y (i) et un indice X (j et j2)
 	 * 
@@ -296,6 +419,7 @@ public class Grille {
 	 * @return 	void
 	 * 
 	 */
+
 	public void inverseX(int i, int j, int j2) {
 		// Var tuile 0 et position de son prédeseur
 		Tuile unTuileTemp = this.grille[i][j];
@@ -310,9 +434,9 @@ public class Grille {
 		this.grille[i][j2] = unTuileTemp;
 	}
 	/**
-	 * Change 2 tuile sur un axe Y (i) et un indice X (j et j2)
+	 * Change 2 tuile sur un axe X (i) et un indice Y (j et j2)
 	 * 
-	 * @param 	int i pour l'axe Y, j et j2 pour l'axe x
+	 * @param 	int i pour l'axe X, j et j2 pour l'axe Y
 	 * @return 	void
 	 * 
 	 */
@@ -339,7 +463,7 @@ public class Grille {
 	 * @return 	Boolean (True posé, false non posé)
 	 * 
 	 */
-	public Boolean ajoutUneTuileAleatoire() {
+	public Boolean ajoutTuileAleatoire() {
 		// GENERE un tableau de tuile vide sur la grille (permet de les
 		// modifiers en pointant decu)
 		ArrayList<Tuile> lesTuileVides = getFreeTuille();
