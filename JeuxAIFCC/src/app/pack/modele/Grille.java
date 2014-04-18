@@ -146,7 +146,7 @@ public class Grille {
 	 * @return 	Boolean
 	 * 
 	 */
-	private Boolean ajoutUnCarre(Tuile uneTuile) {
+	public Boolean ajoutUneTuile(Tuile uneTuile) {
 
 		int posX = uneTuile.getPostionActuel().getPosX();
 		int posY = uneTuile.getPostionActuel().getPosY();
@@ -187,13 +187,15 @@ public class Grille {
 
 		for (int i = 0; i < this.getSizeY(); i++) {
 
-			int j = 0;
+			
 			// On statue sur un tuile pour faire un parcours des tuiles
 			// suivante
-			for (j = 0; j < this.getSizeX() - 1; j++) {
+			int dejafait = 0;
+			for (int j = 0; j < this.getSizeX() - dejafait; j++) {
 
 				// Pacours sur les tuiles suivante de la tuile ou on statue
-				for (int j2 = j + 1; j2 <= this.getSizeX() - 1; j2++) {
+				// -1 						0				--
+				for (int j2 = j + 1; j2 < this.getSizeX() ; j2++) {
 
 					// Si la valeur courante et différente de zeros
 					if (this.grille[i][j].getValeur() != 0) {
@@ -208,15 +210,20 @@ public class Grille {
 
 							this.grille[i][j].merge(this.grille[i][j2]);
 							this.grille[i][j2].setValeur(0);
-
+							break;
+						} else if (this.grille[i][j2].getValeur() != 0) {
+							break;
 						}
-
-						break;
-
+			
 					} else {
 						// Si la valeur courant et 0 on avance le zeros a la
 						// case prochaine
 						this.inverseX(i, j, j2);
+						if (this.grille[i][j].getValeur() != 0) {
+							tuileMerged.add(this.grille[i][j]);
+						}
+						dejafait += 1;
+						
 					}
 
 				}
@@ -259,7 +266,7 @@ public class Grille {
 	 * @return 	Boolean (True posé, false non posé)
 	 * 
 	 */
-	public Boolean ajoutUnCarreAleatoire() {
+	public Boolean ajoutUneTuileAleatoire() {
 		// GENERE un tableau de tuile vide sur la grille (permet de les
 		// modifiers en pointant decu)
 		ArrayList<Tuile> lesTuileVides = getFreeTuille();
