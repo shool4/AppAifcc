@@ -129,14 +129,6 @@ public class MoteurGraphique extends SurfaceView implements SurfaceHolder.Callba
 		Bitmap grilleTemp = Bitmap.createBitmap(this.bitmapTableau);
 		Canvas c = new Canvas(grilleTemp);
 		
-		for (ListIterator<List<Carre>> iteratorLigne = this.grille.getTableau().listIterator(); iteratorLigne.hasNext();) {
-			List<Carre> uneligneDuTableau = (List<Carre>) iteratorLigne.next();
-			for (Carre unCarre : uneligneDuTableau) {
-				CarreGraphique carreG = new CarreGraphique(unCarre, bitmapTableau.getWidth());
-				c.drawBitmap(carreG.getImgCarre(), 0, 0, carreG.getPaint());
-			}
-		}
-		
 		pCanvas.drawBitmap(grilleTemp, 54, 192, mPaint);
 		
 		drawTextDeTest(pCanvas, "Height recFond : "+ getHeight(),50,50);

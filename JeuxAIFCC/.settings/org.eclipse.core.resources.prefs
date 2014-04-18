@@ -1,6 +1,4 @@
 eclipse.preferences.version=1
-encoding//src/app/pack/modele/Carre.java=UTF-8
-encoding//src/app/pack/modele/Grille.java=UTF-8
 encoding//src/app/pack/modele/MoteurPhysique.java=UTF-8
 encoding//src/app/pack/modele/Position.java=UTF-8
 encoding//src/app/pack/vue/MoteurGraphique.java=UTF-8

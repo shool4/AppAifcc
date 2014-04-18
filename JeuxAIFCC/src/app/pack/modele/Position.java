@@ -8,7 +8,8 @@ public class Position {
 	private int posY = 0;
 	private int posX = 0;
 	
-	public Position(int posX, int posY) {
+	public Position(int posY, int posX) {
+		super();
 		this.posX = posX;
 		this.posY = posY;
 	}
