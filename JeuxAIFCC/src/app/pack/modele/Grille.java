@@ -170,6 +170,60 @@ public class Grille {
 	 */
 
 	public void deplacementDroite() {
+		Log.i("test1", "************ GAUCHE **************");
+		// Pacour des Y
+		int dejafait = 0;
+		ArrayList<Tuile> tuileMerged = new ArrayList<Tuile>();
+		// int indiceIncrement = 0;
+
+		for (int i = 0; i < this.getSizeY(); i++) {
+
+			
+			// On statue sur un tuile pour faire un parcours des tuiles
+			// suivante
+			dejafait = 0;
+			for (int j = this.getSizeX(); j > 0  + dejafait; j--) {
+
+				// Pacours sur les tuiles suivante de la tuile ou on statue
+				// -1 						0				--
+				for (int j2 = j - 1; j2 > 0 ; j2--) {
+
+					// Si la valeur courante et différente de zeros
+					if (this.grille[i][j].getValeur() != 0) {
+
+						// Si la valeur courant est = a la valeur prochaine
+						// Si pas egal on avant 1 tuile la valeur prochaine
+						// pour comparais
+						if (this.grille[i][j].getValeur() == this.grille[i][j2].getValeur()) {
+							if (!tuileMerged.contains(this.grille[i][j])) {
+								tuileMerged.add(this.grille[i][j]);
+							}
+
+							this.grille[i][j].merge(this.grille[i][j2]);
+							this.grille[i][j2].setValeur(0);
+							break;
+						} else if (this.grille[i][j2].getValeur() != 0) {
+							break;
+						}
+			
+					} else {
+						// Si la valeur courant et 0 on avance le zeros a la
+						// case prochaine
+						this.inverseX(i, j2, j);
+						if (this.grille[i][j].getValeur() != 0) {
+							tuileMerged.add(this.grille[i][j]);
+						}
+						dejafait += 1;
+						
+					}
+
+				}
+			}
+
+		}
+
+		debog_ListTuile(tuileMerged, "tuileMerge");
+
 	}
 	/**
 	 * Permet le deplacement des tuiles vers la gauche
@@ -181,7 +235,7 @@ public class Grille {
 	public void deplacementGauche() {
 		Log.i("test1", "************ GAUCHE **************");
 		// Pacour des Y
-
+		int dejafait = 0;
 		ArrayList<Tuile> tuileMerged = new ArrayList<Tuile>();
 		// int indiceIncrement = 0;
 
@@ -190,7 +244,7 @@ public class Grille {
 			
 			// On statue sur un tuile pour faire un parcours des tuiles
 			// suivante
-			int dejafait = 0;
+			dejafait = 0;
 			for (int j = 0; j < this.getSizeX() - dejafait; j++) {
 
 				// Pacours sur les tuiles suivante de la tuile ou on statue
@@ -255,7 +309,26 @@ public class Grille {
 		this.grille[i][j] = this.grille[i][j2];
 		this.grille[i][j2] = unTuileTemp;
 	}
+	/**
+	 * Change 2 tuile sur un axe Y (i) et un indice X (j et j2)
+	 * 
+	 * @param 	int i pour l'axe Y, j et j2 pour l'axe x
+	 * @return 	void
+	 * 
+	 */
+	public void inverseY(int i, int j, int j2) {
+		// Var tuile 0 et position de son prédeseur
+		Tuile unTuileTemp = this.grille[j][i];
+		Position nouvellePositionFuturZeros = this.grille[j2][i].getPostionActuel();
 
+		// CHangement des position
+		this.grille[j2][i].setPositionActuel(unTuileTemp.getPostionActuel());
+		unTuileTemp.setPositionActuel(nouvellePositionFuturZeros);
+
+		// Inverse les tuiles
+		this.grille[j][i] = this.grille[j2][i];
+		this.grille[j2][i] = unTuileTemp;
+	}
 	// ************************************************************************************
 	// AJOUTER-OBTENIR CARRE
 	// ************************************************************************************
@@ -285,121 +358,7 @@ public class Grille {
 		}
 	}
 
-	/*
-	 * AjoutUnCarrer permet ajouter un carre (ce placera automatiquement en
-	 * fonction de la posXY du carre)
-	 * 
-	 * @param unCarre (qui hérite de la class abstrait carre)
-	 * 
-	 * @return Boolean (True posé, false non posé)
-	 */
-	/*
-	 * public void ajoutUnCarreAleatoireBonus() { //int uneValeurCarreAleatoire
-	 * = aleatoireDeuxQuatre(); Position unePositionAleatoire = null; int
-	 * uneValeurCarreAleatoireX = 0; int uneValeurCarreAleatoireY = 0; boolean
-	 * pasValide = false; while(!pasValide) { uneValeurCarreAleatoireX =
-	 * aleatoireNombreEntier(0,this.tailleGrille); uneValeurCarreAleatoireY =
-	 * aleatoireNombreEntier(0,this.tailleGrille); unePositionAleatoire = new
-	 * Position(uneValeurCarreAleatoireX,uneValeurCarreAleatoireY); pasValide =
-	 * ajoutUnCarre(new CarreBonus(unePositionAleatoire,
-	 * 4,Type_Bonus.Bonus_Delete)); } Log.w("test1",
-	 * "Carre Ajout aléatoirement : " + 4+ "** x= "+uneValeurCarreAleatoireX+
-	 * " Y= "+uneValeurCarreAleatoireY); }
-	 */
-	/*
-	 * AjoutUnCarrer permet ajouter un carre (ce placera automatiquement en
-	 * fonction de la posXY du carre)
-	 * 
-	 * @param unCarre (qui hérite de la class abstrait carre)
-	 * 
-	 * @return Boolean (True posé, false non posé)
-	 */
 
-	/*
-	 * getLigne permet obtenir la ligne sur le tableau
-	 * 
-	 * @param Le numero de la ligne
-	 * 
-	 * @return une List de carre (la ligne) exemple :
-	 * [Carre,null,null,CarreBonus]
-	 *//*
-		 * private List<Carre> getLigne(int numeroLigne) { if(numeroLigne <=
-		 * this.tailleGrille) { return tableau.get(numeroLigne); } else {
-		 * Log.w("test1", "Le numero de ligne trop grand au tableau " +
-		 * numeroLigne); return null; } }
-		 */
-	// ************************************************************************************
-	// MOUVEMENT
-	// ************************************************************************************
-
-	/*
-	 * Methode qui deplace en Haut et Bas
-	 * 
-	 * @param Haut -> False, Bas -> True
-	 * 
-	 * @return Void
-	 * 
-	 * @author DaRk-_-D0G
-	 *//*
-		 * public void deplaceHautBas(Boolean hautFalseBasTrue) { // Ligne
-		 * vertical pour le traitement //TODO BAS BON LE TRUC int
-		 * indiceObtention = 0;
-		 * 
-		 * //Indice qui permet de savoir si ajoute ou compilé deux est fait
-		 * alors on passe à un ajout aprés(evite de compilé tout les carrés
-		 * ensemble si meme valeur) int indiceDejaCompile = 0;
-		 * 
-		 * //Parcours des X for (int i = 0; i < this.tailleGrille; i++) {
-		 * List<Carre> listTemporaire = new LinkedList<Carre>();
-		 * 
-		 * //Parcours des Y for (int j = 0; j < this.tailleGrille; j++) {
-		 * //Extrait la ligne a indice J et on prend le carrée à l'indice
-		 * obtention List<Carre> ligne = tableau.get(j); Carre unCarre =
-		 * ligne.get(indiceObtention);
-		 * 
-		 * //Si carre différent de 0 est une instance de CarreNumero if
-		 * (unCarre.getValeur() != 0 && unCarre instanceof CarreNumero ) {
-		 * 
-		 * // Si tb temp est pas vide et que l'indexAJout a pas augmenté if
-		 * (listTemporaire.isEmpty() || listTemporaire.size() !=
-		 * indiceDejaCompile + 1) { listTemporaire.add(unCarre);
-		 * 
-		 * // si carre sur meme valeur ajout } else if (unCarre.getValeur() ==
-		 * listTemporaire.get(indiceDejaCompile).getValeur()) {
-		 * listTemporaire.get(indiceDejaCompile).merge(unCarre);
-		 * indiceDejaCompile++; //On augmente l'indexajout pour evité qui
-		 * s'ajoute en cumullé
-		 * 
-		 * // Sinon ajout au tb temp } else { listTemporaire.add(unCarre);
-		 * indiceDejaCompile++; }
-		 * 
-		 * //Cas si Carre BONUS a voir } else if (unCarre instanceof CarreBonus)
-		 * {
-		 * 
-		 * } }
-		 * 
-		 * //Complete de le TB pour ajout des Carres 0, Si Haut ou Bas
-		 * while(listTemporaire.size() != this.tailleGrille ) {
-		 * if(hautFalseBasTrue) { listTemporaire.add(0, new CarreNumero(0, 0,
-		 * 0)); } else { listTemporaire.add(new CarreNumero(0, 0, 0)); }
-		 * 
-		 * }
-		 * 
-		 * //AJout au Tableau int indice = 0; for (Carre carre : listTemporaire)
-		 * { List<Carre> maListCarres = tableau.get(indice);
-		 * maListCarres.set(indiceObtention, carre); indice++; }
-		 * 
-		 * //Index ajout remis a 0 est IndiceObtention passe au X suivant
-		 * indiceDejaCompile = 0; indiceObtention++;
-		 * 
-		 * } //Mise à jour des pos des carre dans tableau
-		 * this.miseJourCarreDansTb();
-		 * 
-		 * if(hautFalseBasTrue) { Log.i("test1",
-		 * "Execution deplacement à BAS *");
-		 * 
-		 * } else { Log.i("test1", "Execution deplacement à HAUT *"); } }
-		 */
 
 	
 
@@ -469,31 +428,6 @@ public class Grille {
 		Log.i("test1", "******************");
 
 	}
-	/*
-	 * DEBUG de l'attribut tableau en console
-	 * 
-	 * @void
-	 */
-	/*
-	 * public void debog_TableauAffichePosition() { Log.i("test1",
-	 * "******************"); Log.i("test1", "Position ACTUEL : "); String
-	 * chaineAffiche; for (ListIterator<List<Carre>> iteratorLigne =
-	 * tableau.listIterator(); iteratorLigne.hasNext();) { List<Carre> ligne =
-	 * (List<Carre>) iteratorLigne.next(); chaineAffiche = ""; for
-	 * (ListIterator<Carre> iteratorCarre = ligne.listIterator();
-	 * iteratorCarre.hasNext();) { Carre unCarre = (Carre) iteratorCarre.next();
-	 * chaineAffiche += ":X="+unCarre.getPostionActuel().getPosX();
-	 * chaineAffiche += "/Y="+unCarre.getPostionActuel().getPosY(); }
-	 * Log.i("test1", chaineAffiche); } Log.i("test1", "******************");
-	 * Log.i("test1", "Position PASSE : "); chaineAffiche = ""; for
-	 * (ListIterator<List<Carre>> iteratorLigne = tableau.listIterator();
-	 * iteratorLigne.hasNext();) { List<Carre> ligne = (List<Carre>)
-	 * iteratorLigne.next(); chaineAffiche = ""; for (ListIterator<Carre>
-	 * iteratorCarre = ligne.listIterator(); iteratorCarre.hasNext();) { Carre
-	 * unCarre = (Carre) iteratorCarre.next(); chaineAffiche +=
-	 * ":X="+unCarre.getPostionPasse().getPosX(); chaineAffiche +=
-	 * "/Y="+unCarre.getPostionPasse().getPosY(); } Log.i("test1",
-	 * chaineAffiche); } Log.i("test1", "******************"); }
-	 */
+
 
 }

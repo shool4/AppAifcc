@@ -28,10 +28,14 @@ public class MoteurPhysique {
 		this.ajoutTuileAleatoire();
 		this.ajoutTuileAleatoire();*/
 		
-		
-		ajoutTuile(new Tuile(0, 0, 0));
+	/*	ajoutTuile(new Tuile(0, 0, 2));
 		ajoutTuile(new Tuile(0, 1, 0));
 		ajoutTuile(new Tuile(0, 2, 2));
+		ajoutTuile(new Tuile(0, 3, 2));*/
+		
+		ajoutTuile(new Tuile(0, 0, 2));
+		ajoutTuile(new Tuile(0, 1, 2));
+		ajoutTuile(new Tuile(0, 2, 0));
 		ajoutTuile(new Tuile(0, 3, 2));
 		
 		ajoutTuile(new Tuile(1, 0, 0));
@@ -52,11 +56,11 @@ public class MoteurPhysique {
 	//	this.ajoutCarreBonus();
 		grille.debog_Tableau();
 		
-		this.gauche();
+		this.droite();
 		grille.debog_Tableau();
-		this.gauche();
+		this.droite();
 		grille.debog_Tableau();
-		this.gauche();
+		this.droite();
 		grille.debog_Tableau();
 	
 	}
