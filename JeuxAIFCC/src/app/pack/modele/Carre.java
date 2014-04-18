@@ -2,7 +2,7 @@ package app.pack.modele;
 
 
 
-abstract class Carre {
+public abstract class Carre {
 	
 	//Valeur
 	private int valeur;

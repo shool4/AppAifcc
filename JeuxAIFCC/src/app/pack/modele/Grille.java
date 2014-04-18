@@ -4,18 +4,29 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Random;
-import app.pack.modele.CarreBonus.Type_Bonus;
-import android.R.integer;
+
 import android.util.Log;
+import app.pack.modele.CarreBonus.Type_Bonus;
 
 public class Grille {
 	
-
- 
 	private List<List<Carre>> tableau = null;
 	
+	public List<List<Carre>> getTableau() {
+		return tableau;
+	}
+
+	public void setTableau(List<List<Carre>> tableau) {
+		this.tableau = tableau;
+	}
 	
 	private int tailleGrille;
+	
+	private float tailleFondGrille;
+	
+	private float hauteurEcran;
+	private float largeurEcran;
+	
 	/*
 	 * CONSTRUCTEUR
 	 * 
@@ -50,10 +61,32 @@ public class Grille {
 		Log.i("test1", "******************");
 		Log.i("test1", "Test carre");
 		
-	
-		
 	}
 	
+	public float getHauteurEcran() {
+		return hauteurEcran;
+	}
+
+	public void setHauteurEcran(float hauteurEcran) {
+		this.hauteurEcran = hauteurEcran;
+	}
+
+	public float getLargeurEcran() {
+		return largeurEcran;
+	}
+
+	public void setLargeurEcran(float largeurEcran) {
+		this.largeurEcran = largeurEcran;
+	}
+	
+	public float getTailleFondGrille() {
+		return tailleFondGrille;
+	}
+
+	public void setTailleFondGrille(float tailleFondGrille) {
+		this.tailleFondGrille = tailleFondGrille;
+	}
+
 	//************************************************************************************
 	//	MISE A JOUR
 	//************************************************************************************

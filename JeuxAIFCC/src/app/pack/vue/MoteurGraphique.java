@@ -1,18 +1,18 @@
 package app.pack.vue;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.ListIterator;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import app.pack.gen.R;
-import app.pack.modele.Grille;
+import app.pack.modele.*;
 
 @SuppressLint("WrongCall")
 public class MoteurGraphique extends SurfaceView implements SurfaceHolder.Callback {
@@ -20,34 +20,71 @@ public class MoteurGraphique extends SurfaceView implements SurfaceHolder.Callba
 	SurfaceHolder mSurfaceHolder;
 	DrawingThread mThread;
 	Paint mPaint;
-
-	//Stokage des bipmap
+	Paint mPaintCarre;
+	
+	//Stokage des bitmap
 	ArrayList<Bitmap> tbBitmapCarre;
+	public ArrayList<Bitmap> getTbBitmapCarre() {
+		return tbBitmapCarre;
+	}
+	public void setTbBitmapCarre(ArrayList<Bitmap> tbBitmapCarre) {
+		this.tbBitmapCarre = tbBitmapCarre;
+	}
+
 	Bitmap bitmapTableau;
 	
 	Grille grille = null;
+	
+	CarreGraphique carreGraphique;
+	
+	MoteurPhysique mPhysique;
+	
+	public MoteurPhysique getmPhysique() {
+		return mPhysique;
+	}
+	public void setmPhysique(MoteurPhysique mPhysique) {
+		this.mPhysique = mPhysique;
+	}
+
+	private RectF recFond;
+	public RectF getRecFond() {
+		return recFond;
+	}
+	public void setRecFond(RectF recFond) {
+		this.recFond = recFond;
+	}
+
 	public MoteurGraphique(Context pContext) {
 		super(pContext);
+		
 		mSurfaceHolder = getHolder();
 		mSurfaceHolder.addCallback(this);
 		mThread = new DrawingThread();
 
 		mPaint = new Paint();
 		mPaint.setColor(Color.BLACK);
-
-		// VALEUR DE TEST TODO
+		
+		mPaintCarre = new Paint();
+		mPaintCarre.setColor(Color.RED);
+		
+		//Log.v("testo", "MG / taille : " + this.largeurEcran);
 		
 	}
 	
 	public void setGrille(Grille uneGrille) {
 		this.grille = uneGrille;
 	}
+	
+	public Grille getGrille() {
+		return grille;
+	}
+	
 	@Override
 	public void surfaceCreated(SurfaceHolder holder) {
-		// TODO Auto-generated method stub
 		mThread.keepDrawing = true;
 		mThread.start();
 		
+		this.bitmapTableau = mPhysique.constructionFondGrille(getWidth(), getHeight());
 	}
 
 	@Override
@@ -84,16 +121,27 @@ public class MoteurGraphique extends SurfaceView implements SurfaceHolder.Callba
 		
 		//DESSINE LE FOND
 		pCanvas.drawColor(Color.WHITE);
-		//DESSINE LE CADRILLAGE DE TEST
-		//Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.tableau);
-		RectF fond = new RectF(100, 100, 800, 800);
-		pCanvas.drawRoundRect(fond, 10, 10, mPaint);
 		
-		//drawTextDeTest(pCanvas, "Valeur X pos carre :"+String.valueOf(testCarre.posX),100,30);
-		drawTextDeTest(pCanvas, "Valeur i :"+String.valueOf(i),200,100);
+		//AFFICHAGE DE LA GRILLE
+		pCanvas.drawBitmap(this.bitmapTableau, 54, 192, mPaint);
+        //pCanvas.drawBitmap(this.bitmapTableau, (getWidth() - this.bitmapTableau.getWidth()) / 2, 192, mPaint);
+		
+		Bitmap grilleTemp = Bitmap.createBitmap(this.bitmapTableau);
+		Canvas c = new Canvas(grilleTemp);
+		
+		for (ListIterator<List<Carre>> iteratorLigne = this.grille.getTableau().listIterator(); iteratorLigne.hasNext();) {
+			List<Carre> uneligneDuTableau = (List<Carre>) iteratorLigne.next();
+			for (Carre unCarre : uneligneDuTableau) {
+				CarreGraphique carreG = new CarreGraphique(unCarre, bitmapTableau.getWidth());
+				c.drawBitmap(carreG.getImgCarre(), 0, 0, carreG.getPaint());
+			}
+		}
+		
+		pCanvas.drawBitmap(grilleTemp, 54, 192, mPaint);
+		
+		drawTextDeTest(pCanvas, "Height recFond : "+ getHeight(),50,50);
 	}
 
-	
 	private void drawTextDeTest(Canvas canvas, String stringTest, int posX, int posY) {
 		// TODO Auto-generated method stub
 		Paint paint = new Paint();
@@ -105,7 +153,8 @@ public class MoteurGraphique extends SurfaceView implements SurfaceHolder.Callba
 	
 	private class DrawingThread extends Thread {
 		boolean keepDrawing = true;
-
+		
+		
 		@Override
 		public void run() {
 			Canvas canvas;
