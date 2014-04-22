@@ -55,11 +55,9 @@ public class MoteurPhysique {
 		/*ajoutTuile(new Tuile(0, 0, 0));
 		ajoutTuile(new Tuile(0, 1, 0));
 		ajoutTuile(new Tuile(0, 2, 2));
-=======
 		/*ajoutTuile(new Tuile(0, 0, 2));
 		ajoutTuile(new Tuile(0, 1, 2));
 		ajoutTuile(new Tuile(0, 2, 0));
->>>>>>> branch 'master' of https://github.com/shool4/AppAifcc.git
 		ajoutTuile(new Tuile(0, 3, 2));
 		
 		ajoutTuile(new Tuile(1, 0, 0));
@@ -80,6 +78,30 @@ public class MoteurPhysique {
 	//	this.ajoutCarreBonus();
 		grille.debog_Tableau();
 		
+		
+		
+		/*Log.i("test1","Jeux est perdant : "+grille.isGameLost());
+		Log.i("test1","****************************************");
+		Log.i("test1","Jeux est perdant : "+grille.isGameLost());
+		Log.i("test1","****************************************");
+		  
+		List<Integer> tbDesPosibilite = grille.possibiliteMouvement();
+		for (Integer integer : tbDesPosibilite) {
+			Log.i("test1","----------> POSIBLE ----> "+integer);
+		}*/
+		
+		
+	/*	this.ajoutTuileAleatoire();
+		this.ajoutTuileAleatoire();
+		this.ajoutTuileAleatoire();
+		this.ajoutTuileAleatoire();
+		this.ajoutTuileAleatoire();
+		this.ajoutTuileAleatoire();
+		this.ajoutTuileAleatoire();
+		this.ajoutTuileAleatoire();
+		this.ajoutTuileAleatoire();
+		this.ajoutTuileAleatoire();
+		grille.debog_Tableau();
 		this.bas();
 		grille.debog_Tableau();
 		this.droite();
@@ -88,8 +110,32 @@ public class MoteurPhysique {
 		grille.debog_Tableau();
 		this.haut();
 		grille.debog_Tableau();
-	
+		
+		Log.i("test1","****************************************");
+		Log.i("test1","Jeux est perdant : "+grille.isGameLost());
+		Log.i("test1","****************************************");*/
 	}
+	/*
+	 * 
+	 ******************************************************************************************************************************
+	 * GETTE - SETTER
+	 ******************************************************************************************************************************
+	 *
+	 */
+	/**
+	 * Getter de la grille
+	 * @return 	Grille
+	 */
+	public Grille getGrille() {
+		return this.grille;
+	}
+	/*
+	 * 
+	 ******************************************************************************************************************************
+	 * LES METHODES
+	 ******************************************************************************************************************************
+	 *
+	 */
 	
 	public Bitmap constructionFondGrille(int largeurEcran, int hauteurEcran){
 		Bitmap fond;
@@ -144,9 +190,31 @@ public class MoteurPhysique {
 			Log.i("test1","---> Grille plien ajout imposible <---");
 		}
 	}
-	public void ajoutTuileBonus() {
-		//this.grille.ajoutUnCarreAleatoireBonus();
-	}
+	
+	/**
+	 * Ajout d'une tuile bonus
+	 * 
+	 */
+	public void ajoutTuileBonus() {}
+	
+	/**
+	 * Ajout d'un tuile
+	 * @param uneTuile
+	 * 
+	 */
+	public void ajoutTuile(Tuile uneTuile) {this.grille.ajoutUneTuile(uneTuile);}
+	
+	/*
+	 * 
+	 ******************************************************************************************************************************
+	 * LES MOUVEMENTS
+	 ******************************************************************************************************************************
+	 *
+	 */
+	/**
+	 * Deplacemencement a droite
+	 * 
+	 */
 	public void droite(){
 		this.grille.deplacementDroite();
 	}
@@ -158,9 +226,6 @@ public class MoteurPhysique {
 	}
 	public void bas(){
 		this.grille.deplacementBas();
-	}
-	public Grille getGrille() {
-		return this.grille;
 	}
 
 	public void setGrille(Grille grille) {

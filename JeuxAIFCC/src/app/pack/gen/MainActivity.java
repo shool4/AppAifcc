@@ -24,9 +24,13 @@ public class MainActivity extends Activity {
 		
 		moteurPhysique = new MoteurPhysique(this);
 		
+		
 		moteurGraphique.setGrille(moteurPhysique.getGrille());
 		moteurGraphique.setTbBitmapCarre(moteurPhysique.ConstructionCarre());
 		moteurGraphique.setmPhysique(moteurPhysique);
+		
+		//EcouteurToucherEcran ecouteurToucherEcran = new EcouteurToucherEcran(moteurPhysique);
+		//moteurGraphique.setOnTouchListener(ecouteurToucherEcran);
 		
 		//Log.v("testo", "Taille fond : " + moteurGraphique.getRecFond().width());
 		
@@ -36,6 +40,5 @@ public class MainActivity extends Activity {
 	}
 	
 	
-
-
+	
 }
