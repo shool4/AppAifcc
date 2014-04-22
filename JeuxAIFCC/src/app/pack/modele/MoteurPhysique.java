@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.graphics.Bitmap;
+import android.graphics.Bitmap.Config;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
-import android.graphics.Bitmap.Config;
 import android.util.Log;
 import app.pack.gen.MainActivity;
 
@@ -30,8 +30,17 @@ public class MoteurPhysique {
 		
 		this.pView = pView;
 	
+		this.ajoutTuileAleatoire();
+		this.ajoutTuileAleatoire();
+		this.ajoutTuileAleatoire();
+		this.ajoutTuileAleatoire();
+		this.ajoutTuileAleatoire();
+		this.ajoutTuileAleatoire();
+		this.ajoutTuileAleatoire();
+		this.ajoutTuileAleatoire();
+		this.ajoutTuileAleatoire();
+		this.ajoutTuileAleatoire();
 		
-	/*	this.ajoutTuileAleatoire();
 		this.ajoutTuileAleatoire();
 		this.ajoutTuileAleatoire();
 		this.ajoutTuileAleatoire();
@@ -40,12 +49,17 @@ public class MoteurPhysique {
 		this.ajoutTuileAleatoire();
 		this.ajoutTuileAleatoire();
 		this.ajoutTuileAleatoire();
-		this.ajoutTuileAleatoire();*/
-		
+		this.ajoutTuileAleatoire();
+		this.ajoutTuileAleatoire();
 		
 		/*ajoutTuile(new Tuile(0, 0, 0));
 		ajoutTuile(new Tuile(0, 1, 0));
 		ajoutTuile(new Tuile(0, 2, 2));
+=======
+		/*ajoutTuile(new Tuile(0, 0, 2));
+		ajoutTuile(new Tuile(0, 1, 2));
+		ajoutTuile(new Tuile(0, 2, 0));
+>>>>>>> branch 'master' of https://github.com/shool4/AppAifcc.git
 		ajoutTuile(new Tuile(0, 3, 2));
 		
 		ajoutTuile(new Tuile(1, 0, 0));
@@ -66,11 +80,13 @@ public class MoteurPhysique {
 	//	this.ajoutCarreBonus();
 		grille.debog_Tableau();
 		
-		this.gauche();
+		this.bas();
+		grille.debog_Tableau();
+		this.droite();
 		grille.debog_Tableau();
 		this.gauche();
 		grille.debog_Tableau();
-		this.gauche();
+		this.haut();
 		grille.debog_Tableau();
 	
 	}
@@ -124,7 +140,9 @@ public class MoteurPhysique {
 	}
 	
 	public void ajoutTuileAleatoire() {
-		this.grille.ajoutUneTuileAleatoire();
+		if(!this.grille.ajoutTuileAleatoire()) {
+			Log.i("test1","---> Grille plien ajout imposible <---");
+		}
 	}
 	public void ajoutTuileBonus() {
 		//this.grille.ajoutUnCarreAleatoireBonus();
@@ -136,10 +154,10 @@ public class MoteurPhysique {
 		this.grille.deplacementGauche();
 	}
 	public void haut(){
-		//this.grille.deplaceHautBas(false);
+		this.grille.deplacementHaut();
 	}
 	public void bas(){
-		//this.grille.deplaceHautBas(true);
+		this.grille.deplacementBas();
 	}
 	public Grille getGrille() {
 		return this.grille;
