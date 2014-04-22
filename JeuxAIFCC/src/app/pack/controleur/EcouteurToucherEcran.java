@@ -89,7 +89,7 @@ public class EcouteurToucherEcran implements OnTouchListener {
 					float laps = event.getEventTime() - event.getDownTime();
 					gestionMouvement.setPositionFin(event.getX(), event.getY(), laps);
 					
-					int add = gestionMouvement.indexSlideHorizontal(5000);
+					int add = gestionMouvement.indexSlideHorizontal(500);
 					
 					boolean okHonrizontal = gestionMouvement.valideMouvementHonrizontal(0.2f);
 					boolean okVertical = gestionMouvement.valideMouvementVertical(0.2f);
@@ -97,11 +97,11 @@ public class EcouteurToucherEcran implements OnTouchListener {
 					gestionMouvement.reinitialiserEtat();
 					
 					if(add != 0) {
-						
+						if (okHonrizontal) moteurPhysiqueEcouteur.gauche();
+						else if (okVertical) moteurPhysiqueEcouteur.haut();
 					}
-					if (okHonrizontal) moteurPhysiqueEcouteur.gauche();
-					else if (okVertical) moteurPhysiqueEcouteur.haut();
-						
+
+					
 					
 					
 					/*pointDuTracerX.add(posX);

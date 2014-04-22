@@ -14,17 +14,17 @@ public class MoteurPhysique {
 
 	private Grille grille = null;
 	//private int tailleMax = 4;
-	private MainActivity pView = null;
+	
 /**
  * Construcuteur du moteur physique
  * @param pView
  */
-	public MoteurPhysique(MainActivity pView) {
+	public MoteurPhysique() {
 		
 		grille = new Grille(4,4);
 		grille.debog_Tableau();
 		
-		this.pView = pView;
+		
 	
 	
 		
@@ -167,6 +167,7 @@ public class MoteurPhysique {
 	 */
 	public void droite(){
 		this.grille.deplacementDroite();
+		this.grille.debog_Tableau();
 	}
 	
 	/**
@@ -175,7 +176,8 @@ public class MoteurPhysique {
 	 */
 	public void gauche(){
 		this.grille.deplacementGauche();
-		grille.debog_Tableau();
+		this.grille.debog_Tableau();
+		
 	}
 	
 	/**
@@ -184,6 +186,7 @@ public class MoteurPhysique {
 	 */
 	public void haut(){
 		this.grille.deplacementHaut();
+		this.grille.debog_Tableau();
 	}
 	
 	/**
@@ -192,6 +195,7 @@ public class MoteurPhysique {
 	 */
 	public void bas(){
 		this.grille.deplacementBas();
+		this.grille.debog_Tableau();
 	}
 
 }

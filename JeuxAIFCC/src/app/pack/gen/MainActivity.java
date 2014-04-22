@@ -26,7 +26,7 @@ public class MainActivity extends Activity {
 		//setContentView(R.layout.activity_main);
 		moteurGraphique = new MoteurGraphique(this);
 		setContentView(moteurGraphique);
-		moteurPhysique = new MoteurPhysique(this);
+		moteurPhysique = new MoteurPhysique();
 		
 		EcouteurToucherEcran ecouteurToucherEcran = new EcouteurToucherEcran(moteurPhysique);
 		moteurGraphique.setOnTouchListener(ecouteurToucherEcran);
@@ -40,7 +40,9 @@ public class MainActivity extends Activity {
 
 	}
 
-	
+	public void test() {
+		
+	}
         
  
 
