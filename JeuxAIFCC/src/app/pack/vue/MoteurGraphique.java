@@ -8,8 +8,11 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.util.Log;
+import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import app.pack.controleur.EcouteurToucherEcran;
 import app.pack.gen.R;
 import app.pack.modele.Grille;
 
@@ -31,7 +34,13 @@ public class MoteurGraphique extends SurfaceView implements SurfaceHolder.Callba
 		super(pContext);
 		
 		
+		
+		
+		
 		mSurfaceHolder = getHolder();
+	
+		//ecouteurEcran = new EcouteurToucherEcran(mSurfaceHolder, null);
+		
 		mSurfaceHolder.addCallback(this);
 		mThread = new DrawingThread();
 
@@ -157,4 +166,7 @@ public class MoteurGraphique extends SurfaceView implements SurfaceHolder.Callba
 			}
 		}
 	}
+	
+	
+	
 }
