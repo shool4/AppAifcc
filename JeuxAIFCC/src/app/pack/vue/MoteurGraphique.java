@@ -1,7 +1,5 @@
 package app.pack.vue;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.ListIterator;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -12,7 +10,9 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import app.pack.modele.*;
+import app.pack.modele.CarreGraphique;
+import app.pack.modele.Grille;
+import app.pack.modele.MoteurPhysique;
 
 @SuppressLint("WrongCall")
 public class MoteurGraphique extends SurfaceView implements SurfaceHolder.Callback {
@@ -57,7 +57,13 @@ public class MoteurGraphique extends SurfaceView implements SurfaceHolder.Callba
 	public MoteurGraphique(Context pContext) {
 		super(pContext);
 		
+		
+		
+		
 		mSurfaceHolder = getHolder();
+	
+		//ecouteurEcran = new EcouteurToucherEcran(mSurfaceHolder, null);
+		
 		mSurfaceHolder.addCallback(this);
 		mThread = new DrawingThread();
 
@@ -171,4 +177,7 @@ public class MoteurGraphique extends SurfaceView implements SurfaceHolder.Callba
 			}
 		}
 	}
+	
+	
+	
 }
