@@ -217,15 +217,20 @@ public class MoteurPhysique {
 	 */
 	public void droite(){
 		this.grille.deplacementDroite();
+		this.grille.debog_Tableau();
 	}
 	public void gauche(){
 		this.grille.deplacementGauche();
+		this.grille.debog_Tableau();
+		
 	}
 	public void haut(){
 		this.grille.deplacementHaut();
+		this.grille.debog_Tableau();
 	}
 	public void bas(){
 		this.grille.deplacementBas();
+		this.grille.debog_Tableau();
 	}
 
 	public void setGrille(Grille grille) {
