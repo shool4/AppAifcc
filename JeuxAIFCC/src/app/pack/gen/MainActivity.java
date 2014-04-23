@@ -5,41 +5,31 @@ import java.util.ArrayList;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import app.pack.controleur.EcouteurToucherEcran;
 import app.pack.modele.MoteurPhysique;
 import app.pack.modele.Tuile;
 import app.pack.modele.TypePartie;
 import app.pack.vue.MoteurGraphique;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity{
 	// Le moteur graphique du jeu
 	public MoteurGraphique moteurGraphique = null;
 	public MoteurPhysique moteurPhysique = null;
 	
+	
 	public int taillePlateau = 4;
+
+	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		setContentView(R.layout.menu);		
 		
-		
-
-		
-		
-		
-		//setContentView(R.layout.activity_main);
 		moteurGraphique = new MoteurGraphique(this);
-		setContentView(moteurGraphique);
-		
-	
-		moteurPhysique = new MoteurPhysique(TypePartie.normal);
-		
 		EcouteurToucherEcran ecouteurToucherEcran = new EcouteurToucherEcran(this);
 		moteurGraphique.setOnTouchListener(ecouteurToucherEcran);
-		
-		
-		
-		moteurGraphique.setGrille(moteurPhysique.getGrille());
 		
 
 	}
@@ -70,5 +60,24 @@ public class MainActivity extends Activity {
 		
 
 	} 
+	
+
+	public void ButtonOnClick(View v) {
+		
+		//CHARGEMENT DE LA VUE GRAPHIQUE
+		setContentView(moteurGraphique);
+	
+	    switch (v.getId()) {
+	      case R.id.button1:
+			moteurPhysique = new MoteurPhysique(TypePartie.easy);
+
+	        break;
+	      case R.id.button2:
+			moteurPhysique = new MoteurPhysique(TypePartie.normal);
+				
+	        break;
+	      }
+
+	}
 
 }
