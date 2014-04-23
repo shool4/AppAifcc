@@ -62,7 +62,7 @@
                 android:layout_gravity="center_horizontal|top"
                 android:layout_row="5"
                 android:onClick="ButtonOnClick"
-                android:text="Autre mode" />
+                android:text="Author" />
 
         </GridLayout>
 

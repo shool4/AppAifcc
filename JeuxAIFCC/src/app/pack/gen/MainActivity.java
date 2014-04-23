@@ -3,9 +3,12 @@ package app.pack.gen;
 import java.util.ArrayList;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 import app.pack.controleur.EcouteurToucherEcran;
 import app.pack.modele.MoteurPhysique;
 import app.pack.modele.Tuile;
@@ -65,7 +68,12 @@ public class MainActivity extends Activity{
 	public void ButtonOnClick(View v) {
 		
 		//CHARGEMENT DE LA VUE GRAPHIQUE
-		setContentView(moteurGraphique);
+		if(		v.getId() == R.id.button1 ||
+				v.getId() == R.id.button2 ||	
+				v.getId() == R.id.button3
+		) {
+			setContentView(moteurGraphique);
+		}
 	
 	    switch (v.getId()) {
 	      case R.id.button1:
@@ -74,6 +82,36 @@ public class MainActivity extends Activity{
 	        break;
 	      case R.id.button2:
 			moteurPhysique = new MoteurPhysique(TypePartie.normal);
+				
+	        break;
+	      case R.id.button3:
+			moteurPhysique = new MoteurPhysique(TypePartie.normal);
+				
+	        break;
+	      case R.id.button4:
+	    	  AlertDialog alertDialog = new AlertDialog.Builder(
+	    		        MainActivity.this).create();
+	    		 
+	    		// Le titre
+	    		alertDialog.setTitle("LES SUPER CREATEUR");
+	    		 
+	    		// Le message
+	    		alertDialog.setMessage("Aurélien blaise & Yannick Stephan");
+	    		 
+	    		// L'icône
+	    		alertDialog.setIcon(android.R.drawable.btn_star);
+	    		 
+	    		// Ajout du bouton "OK"
+	    		alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+	    		    public void onClick(DialogInterface dialog, int which) {
+	    		        // Le code à exécuter après le clique sur le bouton
+	    		        Toast.makeText(getApplicationContext(), "Bravos ta cliqué sur ok ;)",
+	    		                Toast.LENGTH_SHORT).show();
+	    		    }
+	    		});
+	    		 
+	    		// Affichage
+	    		alertDialog.show();
 				
 	        break;
 	      }
