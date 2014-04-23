@@ -4,7 +4,7 @@ import java.util.Vector;
 
 import android.util.Log;
 
-public class GestionMouvement {
+public class ANNULEGestionMouvement {
 	/* la position de départ du doigt */
 	private float start_x;
 	private float start_y;
@@ -28,7 +28,7 @@ public class GestionMouvement {
 	public static final int STATE_END = 2;
 	public static final int STATE_CANCEL = 3;
 
-	public GestionMouvement() {
+	public ANNULEGestionMouvement() {
 		move_x = new Vector<Float>();
 		move_y = new Vector<Float>();
 		reinitialiserEtat();
@@ -62,7 +62,12 @@ public class GestionMouvement {
 		Log.i("test1","OK setPositionDepart");
 		state = STATE_START;
 	}
-
+	public float getPositionXDepart() {
+		return this.start_x;
+	}
+	public float getPositionYDepart() {
+		return this.start_y;
+	}
 	public void addPositionBouger(float x, float y) {
 		if ((state == STATE_START) || (state == STATE_MOVE)) {
 			move_x.add(x);
@@ -85,8 +90,10 @@ public class GestionMouvement {
 	 * Si la longueur horizontale entre le point de départ et de fin est
 	 * supérieure à 80% de celle de l'écran et à moins de 20 % de la hauteur de
 	 * l'écran. De plus la durée du déplacement devra être inférieure à la durée
-	 * maxDuration en ms. La valeur retourné sera de -1 pour un déplacement
-	 * valide de gauche à droite, +1 pour un déplacement valide de droite à
+	 * maxDuration en ms. La valeur retourné sera de 
+	 * -1 pour un déplacement
+	 * valide de gauche à droite, 
+	 * +1 pour un déplacement valide de droite à
 	 * gauche et 0 pour les autres cas.
 	 */
 	public int indexSlideHorizontal(int maxDuration) {
@@ -95,8 +102,8 @@ public class GestionMouvement {
 		float dy = end_y - start_y;
 		float dxa = Math.abs(dx);
 		float dya = Math.abs(dy);
-		boolean okx = (dxa > 0.8 * view_dx);
-		boolean oky = (dya < 0.2 * view_dy);
+		boolean okx = (dxa > 0.3 * view_dx);
+		boolean oky = (dya < 0.1 * view_dy);
 		boolean okTime = (duration < (int) maxDuration);
 		boolean valide = okx && oky && okTime;
 		if (valide) {
@@ -120,8 +127,8 @@ public class GestionMouvement {
 		float dxa = Math.abs(dx);
 		float dya = Math.abs(dy);
 		
-		boolean okx = (dxa > 0.2 * view_dx);
-		boolean oky = (dya < 0.8 * view_dy);
+		boolean okx = (dxa > 0.1 * view_dx);
+		boolean oky = (dya < 0.3 * view_dy);
 		
 		
 		boolean okTime = (duration < (int) maxDuration);
@@ -188,7 +195,7 @@ public class GestionMouvement {
 			
 			float ex = Math.abs(vx - evx);
 			
-			Log.v("smb116rssview", "ex = " + ex);
+			Log.v("test1", "ex = " + ex);
 			
 			if (ex > dx_max)
 				return false;

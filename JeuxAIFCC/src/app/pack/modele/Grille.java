@@ -77,7 +77,7 @@ public class Grille {
 		
 		return sum;
 	}
-	
+
 	/**
 	 * Obtenir nombre de tuile != 0
 	 * @return	int
@@ -177,7 +177,7 @@ public class Grille {
 	 */
 	public Boolean isGameWon() {
 		for (int i = 0; i < getSizeY(); i++) for (int u = 0; u < getSizeX(); u++) 
-			if (this.grille[i][u].getValeur() == 2048) return true;
+			if (this.grille[i][u].getValeur() == 128) return true;
 		
 		return false;
 	}
@@ -324,7 +324,7 @@ public class Grille {
 	 * 
 	 */
 	public ArrayList<Tuile> deplacementDroite() {
-		Log.i("test1", "************ DROITE **************");
+		//Log.i("test1", "************ DROITE **************");
 		// Pacour des Y
 
 		ArrayList<Tuile> tuileMerged = new ArrayList<Tuile>();
@@ -377,7 +377,7 @@ public class Grille {
 	 * 
 	 */
 	public ArrayList<Tuile> deplacementGauche() {
-		Log.i("test1", "************ GAUCHE **************");
+	//	Log.i("test1", "************ GAUCHE **************");
 		ArrayList<Tuile> tuileMerged = new ArrayList<Tuile>();
 
 		for (int i = 0; i < this.getSizeY(); i++) {
@@ -412,7 +412,7 @@ public class Grille {
 	 * 
 	 */
 	public ArrayList<Tuile> deplacementHaut() {
-		Log.i("test1", "************ HAUT **************");
+		//Log.i("test1", "************ HAUT **************");
 	
 		ArrayList<Tuile> tuileMerged = new ArrayList<Tuile>();
 
@@ -448,7 +448,7 @@ public class Grille {
 	 * 
 	 */
 	public ArrayList<Tuile> deplacementBas() {
-		Log.i("test1", "************ BAS **************");
+		//Log.i("test1", "************ BAS **************");
 
 		ArrayList<Tuile> tuileMerged = new ArrayList<Tuile>();
 

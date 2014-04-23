@@ -1,5 +1,6 @@
 package app.pack.modele;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.util.Log;
@@ -33,6 +34,10 @@ public class MoteurPhysique {
 		this.ajoutTuileAleatoire();
 		this.ajoutTuileAleatoire();
 		this.ajoutTuileAleatoire();
+		/*this.ajoutTuileAleatoire();
+		this.ajoutTuileAleatoire();
+		this.ajoutTuileAleatoire();
+		this.ajoutTuileAleatoire();
 		this.ajoutTuileAleatoire();
 		this.ajoutTuileAleatoire();
 		this.ajoutTuileAleatoire();
@@ -48,7 +53,7 @@ public class MoteurPhysique {
 		this.ajoutTuileAleatoire();
 		this.ajoutTuileAleatoire();
 		this.ajoutTuileAleatoire();
-		this.ajoutTuileAleatoire();
+		this.ajoutTuileAleatoire();*/
 	
 		
 	/*	ajoutTuile(new Tuile(0, 0, 1));
@@ -161,22 +166,65 @@ public class MoteurPhysique {
 	 ******************************************************************************************************************************
 	 *
 	 */
+
 	/**
 	 * Deplacemencement a droite
 	 * 
 	 */
-	public void droite(){
-		this.grille.deplacementDroite();
+	public ArrayList<Tuile> droite() {
+		ArrayList<Tuile> arrayTuile = null;
+		if (this.grille.getNombreTuileVide() > 0 || this.grille.chekcIsPossibleDroiteGauche(false)) {
+			arrayTuile = this.grille.deplacementDroite();
+			if (arrayTuile.size() > 0) {
+
+				this.grille.ajoutTuileAleatoire();
+
+			} else {
+				Log.i("test1", "---> Pas deplacement pas possible");
+			}
+		} 
+		if (this.grille.isGameLost()) {
+				Log.i("test1", "!!!! !!!! PERDU !!!! !!!!");
+		}
+		if(this.grille.isGameWon()) {
+			Log.i("test1", "!!!! !!!! YOU WIN !!!! !!!!");
+		}	
+		
+
 		this.grille.debog_Tableau();
+		return arrayTuile;
+
 	}
 	
 	/**
 	 * Deplacemencement a Gauche
 	 * 
 	 */
-	public void gauche(){
-		this.grille.deplacementGauche();
+	public ArrayList<Tuile>  gauche(){
+		ArrayList<Tuile> arrayTuile = null;
+		if(this.grille.getNombreTuileVide() > 0 || this.grille.chekcIsPossibleDroiteGauche(false)) {
+			arrayTuile =  this.grille.deplacementGauche();
+			if(arrayTuile.size() > 0) {
+				
+				this.grille.ajoutTuileAleatoire();
+				
+			}else {
+				Log.i("test1", "---> Pas deplacement pas possible");
+			}
+		}
+		if (this.grille.isGameLost()) {
+			Log.i("test1", "!!!! !!!! PERDU !!!! !!!!");
+		}
+		if(this.grille.isGameWon()) {
+			Log.i("test1", "!!!! !!!! YOU WIN !!!! !!!!");
+		}
+	
+
+
+		
 		this.grille.debog_Tableau();
+		return arrayTuile;
+		
 		
 	}
 	
@@ -184,18 +232,60 @@ public class MoteurPhysique {
 	 * Deplacemencement a Haut
 	 * 
 	 */
-	public void haut(){
-		this.grille.deplacementHaut();
+	public ArrayList<Tuile> haut() {
+		ArrayList<Tuile> arrayTuile = null;
+		if (this.grille.getNombreTuileVide() > 0 || this.grille.chekcIsPossiblehHautBas(false)) {
+			arrayTuile = this.grille.deplacementHaut();
+			if (arrayTuile.size() > 0) {
+
+				this.grille.ajoutTuileAleatoire();
+
+			} else {
+				Log.i("test1", "---> Pas deplacement pas possible");
+			}
+		} 
+		if (this.grille.isGameLost()) {
+			Log.i("test1", "!!!! !!!! PERDU !!!! !!!!");
+		}
+		if(this.grille.isGameWon()) {
+			Log.i("test1", "!!!! !!!! YOU WIN !!!! !!!!");
+		}
+	
+
 		this.grille.debog_Tableau();
+		return arrayTuile;
+
 	}
 	
 	/**
 	 * Deplacemencement a Bas
 	 * 
 	 */
-	public void bas(){
-		this.grille.deplacementBas();
+	public ArrayList<Tuile> bas() {
+		ArrayList<Tuile> arrayTuile = null;
+		if (this.grille.getNombreTuileVide() > 0 || this.grille.chekcIsPossiblehHautBas(false)) {
+			arrayTuile = this.grille.deplacementBas();
+			if (arrayTuile.size() > 0) {
+
+				this.grille.ajoutTuileAleatoire();
+
+			} else {
+				Log.i("test1", "---> Pas deplacement pas possible");
+			}
+		} 
+		if (this.grille.isGameLost()) {
+		
+			Log.i("test1", "!!!! !!!! PERDU !!!! !!!!");
+		}
+		if(this.grille.isGameWon()) {
+			Log.i("test1", "!!!! !!!! YOU WIN !!!! !!!!");
+		}
+	
+
 		this.grille.debog_Tableau();
+		return arrayTuile;
+
 	}
+	
 
 }

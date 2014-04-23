@@ -1,11 +1,13 @@
 package app.pack.gen;
 
+import java.util.ArrayList;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MotionEvent;
 import app.pack.controleur.EcouteurToucherEcran;
 import app.pack.modele.MoteurPhysique;
+import app.pack.modele.Tuile;
 import app.pack.vue.MoteurGraphique;
 
 public class MainActivity extends Activity {
@@ -28,7 +30,7 @@ public class MainActivity extends Activity {
 		setContentView(moteurGraphique);
 		moteurPhysique = new MoteurPhysique();
 		
-		EcouteurToucherEcran ecouteurToucherEcran = new EcouteurToucherEcran(moteurPhysique);
+		EcouteurToucherEcran ecouteurToucherEcran = new EcouteurToucherEcran(this);
 		moteurGraphique.setOnTouchListener(ecouteurToucherEcran);
 		
 		
@@ -40,11 +42,27 @@ public class MainActivity extends Activity {
 
 	}
 
-	public void test() {
+	public void gauche() {
+		Log.i("test1", "************ GAUCHE **************");
+		ArrayList<Tuile> arrayTuile = this.moteurPhysique.gauche();
+	
+		
 		
 	}
-        
- 
+	public void droite() {
+		Log.i("test1", "************ DROITE **************");
+		ArrayList<Tuile> arrayTuile = this.moteurPhysique.droite();
+	}    
+	public void haut() {
+		Log.i("test1", "************ HAUT **************");
+		ArrayList<Tuile> arrayTuile = this.moteurPhysique.haut();
+		
+	}  
+	public void bas() {
+		Log.i("test1", "************ BAS **************");
+		ArrayList<Tuile> arrayTuile = this.moteurPhysique.bas();
+		
 
+	} 
 
 }
