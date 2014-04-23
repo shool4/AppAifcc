@@ -16,10 +16,10 @@ public class CarreGraphique {
 	private Tuile tuile;
 	private int tailleFond;
 	
-	public CarreGraphique(Tuile carre, int taille){
+	public CarreGraphique(Tuile tuile, int taille){
 		this.tailleFond = taille;
-		this.tuile = carre;
-		this.posG = new PositionGraphique(carre.getPostionActuel(), taille);
+		this.tuile = tuile;
+		this.posG = new PositionGraphique(tuile.getPostionActuel(), taille);
 		determinerCouleur();
 		bitmapCarre();
 	}
@@ -66,7 +66,7 @@ public class CarreGraphique {
 
 	private Paint determinerCouleur(){
 		paint = new Paint();
-		paint.setColor(Color.BLACK);
+		paint.setColor(Color.BLUE);
 		if(tuile != null){
 			// Faire un switch case pour déterminer la couleur de la case
 			
@@ -81,7 +81,7 @@ public class CarreGraphique {
         c.drawRoundRect(new RectF(this.posG.getX1(), this.posG.getY1(), this.posG.getX2(), this.posG.getY2()), 10, 10, this.paint);
         Paint mPaintText = new Paint();
         mPaintText.setTextSize(60);
-        c.drawText("2", 90, 90, mPaintText);
+        c.drawText("" + this.tuile.getValeur(), 90, 90, mPaintText);
 		
 		return this.imgCarre;
 	}

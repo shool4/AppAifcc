@@ -13,6 +13,7 @@ import android.view.SurfaceView;
 import app.pack.modele.CarreGraphique;
 import app.pack.modele.Grille;
 import app.pack.modele.MoteurPhysique;
+import app.pack.modele.Tuile;
 
 @SuppressLint("WrongCall")
 public class MoteurGraphique extends SurfaceView implements SurfaceHolder.Callback {
@@ -56,9 +57,6 @@ public class MoteurGraphique extends SurfaceView implements SurfaceHolder.Callba
 
 	public MoteurGraphique(Context pContext) {
 		super(pContext);
-		
-		
-		
 		
 		mSurfaceHolder = getHolder();
 	
@@ -132,10 +130,10 @@ public class MoteurGraphique extends SurfaceView implements SurfaceHolder.Callba
 		pCanvas.drawBitmap(this.bitmapTableau, 54, 192, mPaint);
         //pCanvas.drawBitmap(this.bitmapTableau, (getWidth() - this.bitmapTableau.getWidth()) / 2, 192, mPaint);
 		
-		Bitmap grilleTemp = Bitmap.createBitmap(this.bitmapTableau);
-		Canvas c = new Canvas(grilleTemp);
+		Tuile tuile = new Tuile(3, 1, 2);
+		carreGraphique = new CarreGraphique(tuile, this.bitmapTableau.getWidth());
 		
-		pCanvas.drawBitmap(grilleTemp, 54, 192, mPaint);
+		pCanvas.drawBitmap(this.carreGraphique.getImgCarre(), 54, 192, this.carreGraphique.getPaint());
 		
 		drawTextDeTest(pCanvas, "Height recFond : "+ getHeight(),50,50);
 	}
