@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 
+import android.R.integer;
 import android.util.Log;
 /**
  * Class permettant de gerer la grille de tuile
@@ -175,9 +176,9 @@ public class Grille {
 	 * @return	Boolean (True gagner 2048 : False pas encore)
 	 * 
 	 */
-	public Boolean isGameWon() {
+	public Boolean isGameWon(int nombreForWin) {
 		for (int i = 0; i < getSizeY(); i++) for (int u = 0; u < getSizeX(); u++) 
-			if (this.grille[i][u].getValeur() == 128) return true;
+			if (this.grille[i][u].getValeur() == nombreForWin) return true;
 		
 		return false;
 	}
@@ -448,7 +449,7 @@ public class Grille {
 	 * 
 	 */
 	public ArrayList<Tuile> deplacementBas() {
-		//Log.i("test1", "************ BAS **************");
+		//Log.i("test1", "*********************** BAS ************************");
 
 		ArrayList<Tuile> tuileMerged = new ArrayList<Tuile>();
 
@@ -508,17 +509,25 @@ public class Grille {
 	 * 
 	 */
 	public void debog_Tableau() {
-		Log.i("test1", "******************");
-		Log.i("test1", "TABLEAU : ");
+		Log.i("test1", "****************************************************");
 		String chaineAffiche = "";
 		for (int i = 0; i < getSizeY(); i++) {
 			chaineAffiche = "";
 			for (int u = 0; u < getSizeX(); u++) {
-				chaineAffiche += ":" + this.grille[i][u].getValeur();
+				int valeurRetour = this.grille[i][u].getValeur();
+				
+				if(valeurRetour > 9) {
+					chaineAffiche += "  " + valeurRetour;
+				} else if(valeurRetour > 99) {
+					chaineAffiche += " " + valeurRetour;
+				} else {
+					chaineAffiche += "   " + valeurRetour;
+				}
+				
 			}
 			Log.i("test1", chaineAffiche);
 		}
-		Log.i("test1", "******************");
+
 
 	}
 

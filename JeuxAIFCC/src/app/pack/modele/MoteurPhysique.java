@@ -3,6 +3,7 @@ package app.pack.modele;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.R.integer;
 import android.util.Log;
 import app.pack.gen.MainActivity;
 
@@ -14,47 +15,36 @@ import app.pack.gen.MainActivity;
 public class MoteurPhysique {
 
 	private Grille grille = null;
-	//private int tailleMax = 4;
+	
+	private int nombreForWin = 2048;
+	private int nombreDeTuilePartTour = 1;
 	
 /**
  * Construcuteur du moteur physique
  * @param pView
  */
-	public MoteurPhysique() {
+	public MoteurPhysique(TypePartie uneTypeDePartie) {
+		Log.i("test1", "*********************** START **********************");
+		Log.v("test1", "PARTI EN MODE : "+uneTypeDePartie.name());
+		Log.i("test1", "****************************************************");	
 		
-		grille = new Grille(4,4);
+		//GENERE LA TAILLE DE LA GRILLE
+		grille = new Grille(uneTypeDePartie.getTailleY(),uneTypeDePartie.getTailleX());
+		
+		//LE NOMBRE POUR GAGNER LA PARTIE
+		this.nombreForWin = uneTypeDePartie.getNombreForWinGame();
+		//LE NOMBRE DE TUILE PART TOUR
+		this.nombreDeTuilePartTour = uneTypeDePartie.getNombreAjoutTuilePartTour();		
+		
+		//LE NOMBRE DAJOUT DE DEPART
+		for (int i = 1; i <= uneTypeDePartie.getNombreAjoutTuileDepart(); i++) {
+			this.grille.ajoutTuileAleatoire();
+		}
+		
+		
+		
+		
 		grille.debog_Tableau();
-		
-		
-	
-	
-		
-		this.ajoutTuileAleatoire();
-		this.ajoutTuileAleatoire();
-		this.ajoutTuileAleatoire();
-		this.ajoutTuileAleatoire();
-		this.ajoutTuileAleatoire();
-		/*this.ajoutTuileAleatoire();
-		this.ajoutTuileAleatoire();
-		this.ajoutTuileAleatoire();
-		this.ajoutTuileAleatoire();
-		this.ajoutTuileAleatoire();
-		this.ajoutTuileAleatoire();
-		this.ajoutTuileAleatoire();
-		this.ajoutTuileAleatoire();
-		this.ajoutTuileAleatoire();
-		
-		this.ajoutTuileAleatoire();
-		this.ajoutTuileAleatoire();
-		this.ajoutTuileAleatoire();
-		this.ajoutTuileAleatoire();
-		this.ajoutTuileAleatoire();
-		this.ajoutTuileAleatoire();
-		this.ajoutTuileAleatoire();
-		this.ajoutTuileAleatoire();
-		this.ajoutTuileAleatoire();
-		this.ajoutTuileAleatoire();*/
-	
 		
 	/*	ajoutTuile(new Tuile(0, 0, 1));
 		ajoutTuile(new Tuile(0, 1, 2));
@@ -77,7 +67,7 @@ public class MoteurPhysique {
 		ajoutTuile(new Tuile(3, 3, 17));*/
 	//	this.ajoutCarreBonus();
 	//	this.ajoutCarreBonus();
-		grille.debog_Tableau();
+		
 		
 		
 		
@@ -177,7 +167,11 @@ public class MoteurPhysique {
 			arrayTuile = this.grille.deplacementDroite();
 			if (arrayTuile.size() > 0) {
 
-				this.grille.ajoutTuileAleatoire();
+				//Nombre de tuile ajout par tour
+				for (int i = 1; i <= this.nombreDeTuilePartTour; i++) {
+					this.grille.ajoutTuileAleatoire();
+				}
+				
 
 			} else {
 				Log.i("test1", "---> Pas deplacement pas possible");
@@ -186,7 +180,7 @@ public class MoteurPhysique {
 		if (this.grille.isGameLost()) {
 				Log.i("test1", "!!!! !!!! PERDU !!!! !!!!");
 		}
-		if(this.grille.isGameWon()) {
+		if(this.grille.isGameWon(this.nombreForWin)) {
 			Log.i("test1", "!!!! !!!! YOU WIN !!!! !!!!");
 		}	
 		
@@ -206,7 +200,10 @@ public class MoteurPhysique {
 			arrayTuile =  this.grille.deplacementGauche();
 			if(arrayTuile.size() > 0) {
 				
-				this.grille.ajoutTuileAleatoire();
+				//Nombre de tuile ajout par tour
+				for (int i = 1; i <= this.nombreDeTuilePartTour; i++) {
+					this.grille.ajoutTuileAleatoire();
+				}
 				
 			}else {
 				Log.i("test1", "---> Pas deplacement pas possible");
@@ -215,7 +212,7 @@ public class MoteurPhysique {
 		if (this.grille.isGameLost()) {
 			Log.i("test1", "!!!! !!!! PERDU !!!! !!!!");
 		}
-		if(this.grille.isGameWon()) {
+		if(this.grille.isGameWon(this.nombreForWin)) {
 			Log.i("test1", "!!!! !!!! YOU WIN !!!! !!!!");
 		}
 	
@@ -238,7 +235,10 @@ public class MoteurPhysique {
 			arrayTuile = this.grille.deplacementHaut();
 			if (arrayTuile.size() > 0) {
 
-				this.grille.ajoutTuileAleatoire();
+				//Nombre de tuile ajout par tour
+				for (int i = 1; i <= this.nombreDeTuilePartTour; i++) {
+					this.grille.ajoutTuileAleatoire();
+				}
 
 			} else {
 				Log.i("test1", "---> Pas deplacement pas possible");
@@ -247,7 +247,7 @@ public class MoteurPhysique {
 		if (this.grille.isGameLost()) {
 			Log.i("test1", "!!!! !!!! PERDU !!!! !!!!");
 		}
-		if(this.grille.isGameWon()) {
+		if(this.grille.isGameWon(this.nombreForWin)) {
 			Log.i("test1", "!!!! !!!! YOU WIN !!!! !!!!");
 		}
 	
@@ -267,7 +267,10 @@ public class MoteurPhysique {
 			arrayTuile = this.grille.deplacementBas();
 			if (arrayTuile.size() > 0) {
 
-				this.grille.ajoutTuileAleatoire();
+				//Nombre de tuile ajout par tour
+				for (int i = 1; i <= this.nombreDeTuilePartTour; i++) {
+					this.grille.ajoutTuileAleatoire();
+				}
 
 			} else {
 				Log.i("test1", "---> Pas deplacement pas possible");
@@ -277,7 +280,7 @@ public class MoteurPhysique {
 		
 			Log.i("test1", "!!!! !!!! PERDU !!!! !!!!");
 		}
-		if(this.grille.isGameWon()) {
+		if(this.grille.isGameWon(this.nombreForWin)) {
 			Log.i("test1", "!!!! !!!! YOU WIN !!!! !!!!");
 		}
 	
