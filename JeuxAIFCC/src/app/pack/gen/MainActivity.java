@@ -15,12 +15,13 @@ import app.pack.modele.Tuile;
 import app.pack.modele.TypePartie;
 import app.pack.vue.MoteurGraphique;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity{
 	// Le moteur graphique du jeu
 	public MoteurGraphique moteurGraphique = null;
 	public MoteurPhysique moteurPhysique = null;
+
 	public int taillePlateau = 4;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -34,16 +35,21 @@ public class MainActivity extends Activity {
 		
 		Log.v("test1", "#########################");
 		Log.v("test1", "Initialisation");
+
+		moteurGraphique = new MoteurGraphique(this);
+		EcouteurToucherEcran ecouteurToucherEcran1 = new EcouteurToucherEcran(this);
+		moteurGraphique.setOnTouchListener(ecouteurToucherEcran1);
 		
+
 	}
-	
+
 	public void gauche() {
 		Log.i("test1", "*********************** GAUCHE *********************");
 	
 		ArrayList<Tuile> arrayTuile = this.moteurPhysique.gauche();
-		
-		//this.moteurGraphique.setGrilleTuiles(arrayTuile);
+	
 	}
+
 	public void droite() {
 		Log.i("test1", "*********************** DROITE *********************");
 		// TODO ICI
@@ -114,5 +120,4 @@ public class MainActivity extends Activity {
 	      }
 
 	}
-	
 }
