@@ -46,9 +46,6 @@ public class MoteurPhysique {
 			this.grille.ajoutTuileAleatoire();
 		}
 		
-		
-		
-		
 		grille.debog_Tableau();
 		
 	/*	ajoutTuile(new Tuile(0, 0, 1));
@@ -170,8 +167,8 @@ public class MoteurPhysique {
 	 * Getter de la grille
 	 * @return 	Grille
 	 */
-	public Grille getGrille() {
-		return this.grille;
+	public  ArrayList<Tuile>  getGrille() {
+		return this.grille.getGrille();
 	}
 	/*
 	 * 

@@ -26,16 +26,11 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.menu);		
 		
-		moteurGraphique = new MoteurGraphique(this);
-		setContentView(moteurGraphique);
-		
-		moteurGraphique.setTbBitmapCarre(moteurPhysique.ConstructionCarre());
-		moteurGraphique.setmPhysique(moteurPhysique);
-		
 		EcouteurToucherEcran ecouteurToucherEcran = new EcouteurToucherEcran(this);
-		moteurGraphique.setOnTouchListener(ecouteurToucherEcran);
+		this.moteurGraphique = new MoteurGraphique(this);
+		this.moteurGraphique.setOnTouchListener(ecouteurToucherEcran);
 		
-		//Log.v("testo", "Taille fond : " + moteurGraphique.getRecFond().width());
+		//moteurGraphique.setTbBitmapCarre(moteurPhysique.ConstructionCarre());
 		
 		Log.v("test1", "#########################");
 		Log.v("test1", "Initialisation");
@@ -46,18 +41,17 @@ public class MainActivity extends Activity {
 		Log.i("test1", "*********************** GAUCHE *********************");
 	
 		ArrayList<Tuile> arrayTuile = this.moteurPhysique.gauche();
-	
 		
-		
+		//this.moteurGraphique.setGrilleTuiles(arrayTuile);
 	}
 	public void droite() {
 		Log.i("test1", "*********************** DROITE *********************");
-		
+		// TODO ICI
 		ArrayList<Tuile> arrayTuile = this.moteurPhysique.droite();
 	}    
 	public void haut() {
 		Log.i("test1", "*********************** HAUT ***********************");
-	
+	//ICI AUSSI
 		ArrayList<Tuile> arrayTuile = this.moteurPhysique.haut();
 		
 	}  
@@ -65,11 +59,8 @@ public class MainActivity extends Activity {
 		Log.i("test1", "*********************** BAS ************************");
 		
 		ArrayList<Tuile> arrayTuile = this.moteurPhysique.bas();
-		
-
 	} 
 	
-
 	@SuppressWarnings("deprecation")
 	public void ButtonOnClick(View v) {
 		
@@ -84,15 +75,15 @@ public class MainActivity extends Activity {
 	    switch (v.getId()) {
 	      case R.id.button1:
 			moteurPhysique = new MoteurPhysique(TypePartie.easy);
-
+			this.moteurGraphique.setGrilleTuiles(this.moteurPhysique.getGrille());
 	        break;
 	      case R.id.button2:
 			moteurPhysique = new MoteurPhysique(TypePartie.normal);
-				
+			this.moteurGraphique.setGrilleTuiles(this.moteurPhysique.getGrille());
 	        break;
 	      case R.id.button3:
 			moteurPhysique = new MoteurPhysique(TypePartie.normal);
-				
+			this.moteurGraphique.setGrilleTuiles(this.moteurPhysique.getGrille());
 	        break;
 	      case R.id.button4:
 	    	  AlertDialog alertDialog = new AlertDialog.Builder(

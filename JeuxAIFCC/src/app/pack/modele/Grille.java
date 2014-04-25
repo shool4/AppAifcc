@@ -57,7 +57,16 @@ public class Grille {
 	 * Getter de Grille
 	 * @return	une grille
 	 */
-	public Tuile[][]  getGrille() {return this.grille;}
+	public ArrayList<Tuile>  getGrille() {
+		//2 sec 
+		// hey il me faut une array list des tuiles aléatoires de départ mais pas celle a 0
+		// OUI Jai compris enfait des que la grille va etre init ta juste a le get la grille car sera a cette instant a zeros
+		ArrayList<Tuile> list = new ArrayList<Tuile>();
+		for (int i = 0; i < this.getSizeY(); i++) for (int u = 0; u < this.getSizeX(); u++) 
+			list.add(this.grille[i][u]);
+		return list;
+		//;)
+	}
 	
 	/**
 	 * Setter de Grille

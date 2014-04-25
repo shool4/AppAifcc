@@ -16,7 +16,7 @@ public class PositionGraphique {
 	}
 	
 	public PositionGraphique(int X, int Y, int taille) {
-		this.pos = new Position(X, Y);
+		this.pos = new Position(Y, X);
 		this.tailleFond = taille;
 		conversionPosition();
 	}
@@ -52,15 +52,15 @@ public class PositionGraphique {
 	public void setY2(float y2) {
 		this.y2 = y2;
 	}
-
+	
 	public void conversionPosition(){
 		float ecart = tailleFond * 0.02f;
 		float tailleCarre = (tailleFond - (5 * ecart)) / 4;
 		
-		this.x1 = (this.pos.getPosY() * ecart) + ((this.pos.getPosY() - 1) * tailleCarre);
-		this.y1 = (this.pos.getPosX() * ecart) + ((this.pos.getPosX() - 1) * tailleCarre);
-		this.x2 = this.pos.getPosY() * (ecart + tailleCarre);
-		this.y2 = this.pos.getPosX() * (ecart + tailleCarre);
+		this.x1 = ((this.pos.getPosY() + 1) * ecart) + (this.pos.getPosY() * tailleCarre);
+		this.y1 = ((this.pos.getPosX() + 1) * ecart) + (this.pos.getPosX() * tailleCarre);
+		this.x2 = (this.pos.getPosY() + 1) * (ecart + tailleCarre);
+		this.y2 = (this.pos.getPosX() + 1) * (ecart + tailleCarre);
 	}
 	
 }
