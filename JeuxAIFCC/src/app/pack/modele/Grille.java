@@ -57,10 +57,8 @@ public class Grille {
 	 * Getter de Grille
 	 * @return	une grille
 	 */
-	public ArrayList<Tuile>  getGrille() {
-		//2 sec 
-		// hey il me faut une array list des tuiles aléatoires de départ mais pas celle a 0
-		// OUI Jai compris enfait des que la grille va etre init ta juste a le get la grille car sera a cette instant a zeros
+	public ArrayList<Tuile> getGrille() {
+		
 		ArrayList<Tuile> list = new ArrayList<Tuile>();
 		for (int i = 0; i < this.getSizeY(); i++) for (int u = 0; u < this.getSizeX(); u++) 
 			list.add(this.grille[i][u]);
@@ -153,8 +151,13 @@ public class Grille {
 		if (lesTuileVides.size() != 0) {
 			int uneValeurCarreAleatoire = Outil.aleatoireDeuxQuatre();
 			int unNombreAleatoire = 0;
-			if (!(lesTuileVides.size() == 1)) unNombreAleatoire = Outil.aleatoireNombreEntier(0, lesTuileVides.size());
-			lesTuileVides.get(unNombreAleatoire).setValeur(uneValeurCarreAleatoire);
+			if (!(lesTuileVides.size() == 1)){
+				unNombreAleatoire = Outil.aleatoireNombreEntier(0, lesTuileVides.size());
+			}
+			Tuile tuileSelect = lesTuileVides.get(unNombreAleatoire);
+			tuileSelect.setValeur(uneValeurCarreAleatoire);
+			tuileSelect.setPositionPasse(tuileSelect.getPostionActuel());
+			
 			//Log.w("test1", "Tuile aleatoirement valeur : " + uneValeurCarreAleatoire);
 			return true;
 			
@@ -346,14 +349,15 @@ public class Grille {
 			// suivante
 		
 			for (int j = this.getSizeX()-1; j > 0  ; j--) {
-
+				this.grille[i][j].setPositionPasse(this.grille[i][j].getPostionActuel());
+				
 				// Pacours sur les tuiles suivante de la tuile ou on statue
 				// -1 						0				--
 				for (int j2 = j - 1; j2 >= 0 ; j2--) {
 
 					// Si la valeur courante et differente de zeros
 					if (this.grille[i][j].getValeur() != 0) {
-
+						
 						// Si la valeur courant est = a la valeur prochaine
 						// Si pas egal on avant 1 tuile la valeur prochaine
 						// pour comparais
@@ -392,6 +396,7 @@ public class Grille {
 
 		for (int i = 0; i < this.getSizeY(); i++) {
 			for (int j = 0; j < this.getSizeX() ; j++) {
+				this.grille[i][j].setPositionPasse(this.grille[i][j].getPostionActuel());
 				for (int j2 = j + 1; j2 < this.getSizeX() ; j2++) {
 
 					if (this.grille[i][j].getValeur() != 0) {
@@ -428,6 +433,7 @@ public class Grille {
 
 		for (int i = 0; i < this.getSizeX(); i++) {
 			for (int j = 0; j < this.getSizeY() ; j++) {
+				this.grille[i][j].setPositionPasse(this.grille[i][j].getPostionActuel());
 				for (int j2 = j + 1; j2 < this.getSizeY() ; j2++) {
 
 					if (this.grille[j][i].getValeur() != 0) {
@@ -464,8 +470,9 @@ public class Grille {
 
 		for (int i = 0; i < this.getSizeY(); i++) {
 			for (int j = this.getSizeX()-1; j > 0  ; j--) {	
+				this.grille[i][j].setPositionPasse(this.grille[i][j].getPostionActuel());
 				for (int j2 = j - 1; j2 >= 0 ; j2--) {
-
+					
 					if (this.grille[j][i].getValeur() != 0) {
 
 						if (this.grille[j][i].getValeur() == this.grille[j2][i].getValeur()) {
@@ -533,6 +540,11 @@ public class Grille {
 					chaineAffiche += "   " + valeurRetour;
 				}
 				
+				if(valeurRetour != 0){
+					Log.i("test1", "Tuile " + valeurRetour + " : PP -> " 
+							+ this.grille[i][u].getPostionPasse().getPosX() + "/" + this.grille[i][u].getPostionPasse().getPosY()
+							+ " PA -> " + this.grille[i][u].getPostionActuel().getPosX() + "/" + this.grille[i][u].getPostionActuel().getPosY());
+				}
 			}
 			Log.i("test1", chaineAffiche);
 		}

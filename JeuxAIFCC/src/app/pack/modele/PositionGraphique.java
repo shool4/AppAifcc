@@ -54,7 +54,8 @@ public class PositionGraphique {
 	}
 	
 	public void conversionPosition(){
-		float ecart = tailleFond * 0.02f;
+		float ecart = tailleFond * (1f/45f);
+		//float ecart = tailleFond * 0.022222222222222222f;
 		float tailleCarre = (tailleFond - (5 * ecart)) / 4;
 		
 		this.x1 = ((this.pos.getPosY() + 1) * ecart) + (this.pos.getPosY() * tailleCarre);

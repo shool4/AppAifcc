@@ -2,17 +2,7 @@ package app.pack.modele;
 
 import java.util.ArrayList;
 
-import java.util.List;
-
 import android.graphics.Bitmap;
-import android.graphics.Bitmap.Config;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.RectF;
-
-import android.R.integer;
-
 import android.util.Log;
 
 /**
@@ -53,114 +43,9 @@ public class MoteurPhysique {
 		
 		grille.debog_Tableau();
 		
-	/*	ajoutTuile(new Tuile(0, 0, 1));
-		ajoutTuile(new Tuile(0, 1, 2));
-		ajoutTuile(new Tuile(0, 2, 3));
-		ajoutTuile(new Tuile(0, 3, 4));
-		
-		ajoutTuile(new Tuile(1, 0, 5));
-		ajoutTuile(new Tuile(1, 1, 6));
-		ajoutTuile(new Tuile(1, 2, 11));
-		ajoutTuile(new Tuile(1, 3, 8));
-		
-		ajoutTuile(new Tuile(2, 0, 9));
-		ajoutTuile(new Tuile(2, 1, 10));
-		ajoutTuile(new Tuile(2, 2, 11));
-		ajoutTuile(new Tuile(2, 3, 12));
-		
-		ajoutTuile(new Tuile(3, 0, 13));
-		ajoutTuile(new Tuile(3, 1, 14));
-		ajoutTuile(new Tuile(3, 2, 15));
-		ajoutTuile(new Tuile(3, 3, 17));*/
-	//	this.ajoutCarreBonus();
-	//	this.ajoutCarreBonus();
-		
-		
-		
-		
-		/*Log.i("test1","Jeux est perdant : "+grille.isGameLost());
-		Log.i("test1","****************************************");
-		Log.i("test1","Jeux est perdant : "+grille.isGameLost());
-		Log.i("test1","****************************************");
-		  
-		List<Integer> tbDesPosibilite = grille.possibiliteMouvement();
-		for (Integer integer : tbDesPosibilite) {
-			Log.i("test1","----------> POSIBLE ----> "+integer);
-		}*/
-		
-		
-	/*	this.ajoutTuileAleatoire();
-		this.ajoutTuileAleatoire();
-		this.ajoutTuileAleatoire();
-		this.ajoutTuileAleatoire();
-		this.ajoutTuileAleatoire();
-		this.ajoutTuileAleatoire();
-		this.ajoutTuileAleatoire();
-		this.ajoutTuileAleatoire();
-		this.ajoutTuileAleatoire();
-		this.ajoutTuileAleatoire();
-		grille.debog_Tableau();
-		this.bas();
-		grille.debog_Tableau();
-		this.droite();
-		grille.debog_Tableau();
-		this.gauche();
-		grille.debog_Tableau();
-		this.haut();
-		grille.debog_Tableau();
-		
-		Log.i("test1","****************************************");
-		Log.i("test1","Jeux est perdant : "+grille.isGameLost());
-		Log.i("test1","****************************************");*/
 	}
 	
-	public Bitmap constructionFondGrille(int largeurEcran, int hauteurEcran){
-		Bitmap fond;
-		Paint mPaintCarre = new Paint();
-		mPaintCarre.setARGB(255, 187, 173, 160);
-		Paint mPaintC = new Paint();
-		mPaintC.setARGB(255, 204, 192, 179);
-		
-		int tailleFond = (int) (largeurEcran * 0.9f);
-		Log.v("testo", "Taille fond : " + tailleFond);
-		
-		fond = Bitmap.createBitmap(tailleFond, tailleFond, Config.ARGB_8888);
-		Canvas c = new Canvas(fond);
-		c.drawRoundRect(new RectF(0, 0, tailleFond, tailleFond), 10, 10, mPaintCarre);
-		
-		int i ,j;
-		for(i=1; i<=4; i++){
-			for(j=1; j<=4; j++){
-				PositionGraphique posG = new PositionGraphique(i, j, tailleFond);
-				c.drawRoundRect(new RectF(posG.getX1(), posG.getY1(), posG.getX2(), posG.getY2()), 10, 10, mPaintC);
-			}
-		}
-		
-		return fond;
-	}
 	
-	public ArrayList<Bitmap> ConstructionCarre(){
-		tbBitmapCarre = new ArrayList<Bitmap>();
-		int i = 2;
-		
-		Paint mPaintCarre = new Paint();
-		mPaintCarre.setColor(Color.BLUE);
-		
-		while(i <= 16){
-			Bitmap carre = Bitmap.createBitmap(200, 200, Config.ARGB_8888);
-			Canvas c = new Canvas(carre);
-	        c.drawRoundRect(new RectF(0, 0, 200, 200), 10, 10, mPaintCarre);
-	        Paint mPaintText = new Paint();
-	        mPaintText.setTextSize(60);
-	        c.drawText("" + i, 90, 90, mPaintText);
-	        
-	        tbBitmapCarre.add(carre);
-			
-			i = i*2;
-		}
-		
-		return tbBitmapCarre;
-	}
 	/*
 	 * 
 	 ******************************************************************************************************************************
@@ -172,7 +57,7 @@ public class MoteurPhysique {
 	 * Getter de la grille
 	 * @return 	Grille
 	 */
-	public  ArrayList<Tuile>  getGrille() {
+	public  ArrayList<Tuile> getGrille() {
 		return this.grille.getGrille();
 	}
 	/*
@@ -339,10 +224,23 @@ public class MoteurPhysique {
 			Log.i("test1", "!!!! !!!! YOU WIN !!!! !!!!");
 		}
 	
-
 		this.grille.debog_Tableau();
 		return arrayTuile;
-
+		
+	}
+	
+	public ArrayList<TuileGraphique> conversionTuile(int tailleGrille){
+		ArrayList<TuileGraphique> listTuilesG = new ArrayList<TuileGraphique>();
+		
+		for(Tuile uneTuile : this.grille.getGrille()){
+			if(uneTuile.getValeur() != 0){
+				TuileGraphique tuileG = new TuileGraphique(uneTuile, tailleGrille);
+				listTuilesG.add(tuileG);
+				//tuileG.setPosGPasse(tuileG.getPosGActuel());
+			}
+		}
+		
+		return listTuilesG;
 	}
 	
 

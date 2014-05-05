@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -19,7 +20,8 @@ public class MainActivity extends Activity{
 	// Le moteur graphique du jeu
 	public MoteurGraphique moteurGraphique = null;
 	public MoteurPhysique moteurPhysique = null;
-
+	public static Resources resources;
+	
 	public int taillePlateau = 4;
 
 	@Override
@@ -40,32 +42,34 @@ public class MainActivity extends Activity{
 		EcouteurToucherEcran ecouteurToucherEcran1 = new EcouteurToucherEcran(this);
 		moteurGraphique.setOnTouchListener(ecouteurToucherEcran1);
 		
-
+		this.resources = getResources();
 	}
 
 	public void gauche() {
 		Log.i("test1", "*********************** GAUCHE *********************");
-	
 		ArrayList<Tuile> arrayTuile = this.moteurPhysique.gauche();
-	
+		this.moteurGraphique.mouvement = 1;
+		this.moteurGraphique.setListTuilesG(this.moteurPhysique.conversionTuile(1080));
 	}
 
 	public void droite() {
 		Log.i("test1", "*********************** DROITE *********************");
-		// TODO ICI
 		ArrayList<Tuile> arrayTuile = this.moteurPhysique.droite();
-	}    
+		this.moteurGraphique.mouvement = 2;
+		this.moteurGraphique.setListTuilesG(this.moteurPhysique.conversionTuile(1080));
+	}
 	public void haut() {
 		Log.i("test1", "*********************** HAUT ***********************");
-	//ICI AUSSI
 		ArrayList<Tuile> arrayTuile = this.moteurPhysique.haut();
-		
-	}  
+		this.moteurGraphique.mouvement = 3;
+		this.moteurGraphique.setListTuilesG(this.moteurPhysique.conversionTuile(1080));
+	}
 	public void bas() {
 		Log.i("test1", "*********************** BAS ************************");
-		
 		ArrayList<Tuile> arrayTuile = this.moteurPhysique.bas();
-	} 
+		this.moteurGraphique.mouvement = 4;
+		this.moteurGraphique.setListTuilesG(this.moteurPhysique.conversionTuile(1080));
+	}
 	
 	@SuppressWarnings("deprecation")
 	public void ButtonOnClick(View v) {
@@ -77,19 +81,19 @@ public class MainActivity extends Activity{
 		) {
 			setContentView(moteurGraphique);
 		}
-	
+		
 	    switch (v.getId()) {
 	      case R.id.button1:
 			moteurPhysique = new MoteurPhysique(TypePartie.easy);
-			this.moteurGraphique.setGrilleTuiles(this.moteurPhysique.getGrille());
+			this.moteurGraphique.setListTuilesG(this.moteurPhysique.conversionTuile(1080));
 	        break;
 	      case R.id.button2:
 			moteurPhysique = new MoteurPhysique(TypePartie.normal);
-			this.moteurGraphique.setGrilleTuiles(this.moteurPhysique.getGrille());
+			this.moteurGraphique.setListTuilesG(this.moteurPhysique.conversionTuile(1080));
 	        break;
 	      case R.id.button3:
 			moteurPhysique = new MoteurPhysique(TypePartie.normal);
-			this.moteurGraphique.setGrilleTuiles(this.moteurPhysique.getGrille());
+			this.moteurGraphique.setListTuilesG(this.moteurPhysique.conversionTuile(1080));
 	        break;
 	      case R.id.button4:
 	    	  AlertDialog alertDialog = new AlertDialog.Builder(

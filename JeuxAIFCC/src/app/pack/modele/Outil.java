@@ -2,6 +2,14 @@ package app.pack.modele;
 
 import java.util.Random;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import app.pack.gen.R;
+import android.content.Context;
+
 /**
  * Class regroupant la Boite a outil
  * 
@@ -27,4 +35,5 @@ public class Outil {
 		int unNombreAleatoire = aleatoireNombreEntier(0, 10);
 		return maList[unNombreAleatoire];
 	}
+	
 }
