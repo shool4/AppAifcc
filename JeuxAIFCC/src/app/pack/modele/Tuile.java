@@ -37,6 +37,18 @@ public class Tuile {
 		this.positionPasse = position;
 		this.valeur = valeur;
 	}
+
+    /**
+     * 3eme Constructeur
+     * @param position
+     * @param valeur
+     */
+    public Tuile(Tuile tuile) {
+        super();
+        this.positionActuel = tuile.getPostionActuel();
+        this.positionPasse = tuile.getPostionPasse();
+        this.valeur = tuile.getValeur();
+    }
 	/*
 	 * 
 	 ******************************************************************************************************************************
