@@ -1,50 +1,46 @@
 package app.pack.modele;
 
 import android.graphics.Bitmap;
-import android.graphics.Bitmap.Config;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.RectF;
-import app.pack.gen.MainActivity;
-import app.pack.gen.R;
 
-public class TuileGraphique {
+public class TuileGraphique extends Tuile {
 	
-	private Bitmap imgCarre;
+	//private Bitmap imgCarre;
 	
 	private float taille;
 	private Paint paint;
 	private PositionGraphique posGPasse;
 	private PositionGraphique posGActuel;
-	private Tuile tuile;
+	//private Tuile tuile;
 	private int tailleFond;
 	
-	public TuileGraphique(Tuile tuile, int taille){
-		this.tailleFond = taille;
-		this.tuile = tuile;
-		this.posGPasse = new PositionGraphique(tuile.getPostionPasse(), taille);
-		this.posGActuel = new PositionGraphique(tuile.getPostionActuel(), taille);
-		determinerCouleur();
-		bitmapCarre();
+	public TuileGraphique(Tuile tuile){
+		super(tuile);
+		
+		//this.tailleFond = taille;
+		//this.tuile = tuile;
+		//this.imgCarre = uneBipmap;
+		this.posGPasse = new PositionGraphique(tuile.getPostionPasse());
+		this.posGActuel = new PositionGraphique(tuile.getPostionActuel());
+		//determinerCouleur();
+		//bitmapCarre();
 	}
-	
+	/*
 	public Tuile getTuile() {
 		return tuile;
 	}
 
 	public void setTuile(Tuile tuile) {
 		this.tuile = tuile;
-	}
-	
+	}*/
+	/*
 	public Bitmap getImgCarre() {
 		return imgCarre;
 	}
 
 	public void setImgCarre(Bitmap imgCarre) {
 		this.imgCarre = imgCarre;
-	}
+	}*/
 
 	public float getTaille() {
 		return taille;
@@ -61,7 +57,7 @@ public class TuileGraphique {
 	public void setPaint(Paint paint) {
 		this.paint = paint;
 	}
-
+/*
 	public Tuile getCarre() {
 		return tuile;
 	}
@@ -69,7 +65,7 @@ public class TuileGraphique {
 	public void setCarre(Tuile carre) {
 		this.tuile = carre;
 	}
-
+*/
 	public PositionGraphique getPosGPasse() {
 		return posGPasse;
 	}
@@ -86,7 +82,7 @@ public class TuileGraphique {
 		this.posGActuel = posGActuel;
 	}
 
-	private Paint determinerCouleur(){
+	/*private Paint determinerCouleur(){
 		paint = new Paint();
 		paint.setColor(Color.BLUE);
 		if(tuile != null){
@@ -94,9 +90,9 @@ public class TuileGraphique {
 			
 		}
 		return paint;
-	}
+	}*/
 	
-	public void bitmapCarre(){
+	/*public void bitmapCarre(){
 		//this.imgCarre = Bitmap.createBitmap(this.tailleFond, this.tailleFond, Config.ARGB_8888);
 		Bitmap carre = BitmapFactory.decodeResource(MainActivity.resources, R.drawable.carre);
 		carre = Bitmap.createScaledBitmap(carre, carre.getWidth(), carre.getHeight(), false);
@@ -110,7 +106,7 @@ public class TuileGraphique {
         c.drawText("" + this.tuile.getValeur(), 60, 150, mPaintText);
 		
 		this.imgCarre = copieCarre;
-	}
+	}*/
 
 	public void mouvDroite(int valeur){
 		this.posGPasse.setY1(posGPasse.getY1() + valeur);
