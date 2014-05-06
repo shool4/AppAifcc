@@ -1,6 +1,5 @@
 package app.pack.modele;
 
-import android.graphics.Bitmap;
 import android.graphics.Paint;
 
 public class TuileGraphique extends Tuile {
@@ -14,14 +13,15 @@ public class TuileGraphique extends Tuile {
 	//private Tuile tuile;
 	private int tailleFond;
 	
-	public TuileGraphique(Tuile tuile){
-		super(tuile);
-		
+	public TuileGraphique(Tuile uneTuile){
+		super(uneTuile);
+
+
 		//this.tailleFond = taille;
 		//this.tuile = tuile;
 		//this.imgCarre = uneBipmap;
-		this.posGPasse = new PositionGraphique(tuile.getPostionPasse());
-		this.posGActuel = new PositionGraphique(tuile.getPostionActuel());
+		this.posGPasse = new PositionGraphique(uneTuile.getPostionPasse());
+		this.posGActuel = new PositionGraphique(uneTuile.getPostionActuel());
 		//determinerCouleur();
 		//bitmapCarre();
 	}
