@@ -229,19 +229,7 @@ public class MoteurPhysique {
 		
 	}
 	
-	public ArrayList<TuileGraphique> conversionTuile(int tailleGrille){
-		ArrayList<TuileGraphique> listTuilesG = new ArrayList<TuileGraphique>();
-		
-		for(Tuile uneTuile : this.grille.getGrille()){
-			if(uneTuile.getValeur() != 0){
-				TuileGraphique tuileG = new TuileGraphique(uneTuile, tailleGrille);
-				listTuilesG.add(tuileG);
-				//tuileG.setPosGPasse(tuileG.getPosGActuel());
-			}
-		}
-		
-		return listTuilesG;
-	}
+
 	
 
 }
