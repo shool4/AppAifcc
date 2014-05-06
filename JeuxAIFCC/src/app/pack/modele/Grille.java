@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 
-import android.R.integer;
 import android.util.Log;
 /**
  * Class permettant de gerer la grille de tuile
