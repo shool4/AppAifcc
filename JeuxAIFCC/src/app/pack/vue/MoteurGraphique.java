@@ -4,39 +4,30 @@ import java.util.ArrayList;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.RectF;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import app.pack.gen.R;
-import app.pack.modele.*;
+import app.pack.modele.ClasseurImages;
+import app.pack.modele.TuileGraphique;
 
 @SuppressLint("WrongCall")
 public class MoteurGraphique extends SurfaceView implements SurfaceHolder.Callback {
 	
-	SurfaceHolder mSurfaceHolder;
-	DrawingThread mThread;
-	Paint mPaint;
-	Paint mPaintCarre;
+	private SurfaceHolder mSurfaceHolder;
+	private DrawingThread mThread;
+	private  int mouvement = 0;
+	private ArrayList<TuileGraphique> listTuilesG = null;
 	
-	public int mouvement = 0;
-	
-	//Stokage des bitmap
-	ArrayList<Bitmap> tbBitmapCarre;
-	
-	private Bitmap fondTableau;
-	private Bitmap imgCarre;
-	
-	TuileGraphique carreGraphique;
-	
-	ArrayList<Tuile> grilleTuiles = null;
-	
-	ArrayList<TuileGraphique> listTuilesG = null;
+	/* 
+	 * MODIF YANNICK
+	 */
+	public ClasseurImages classeurImages = null;
+	/*
+	 * END MODIF YANNICK
+	 */
+
 	/**
 	 * Constructeur
 	 * 
@@ -46,42 +37,36 @@ public class MoteurGraphique extends SurfaceView implements SurfaceHolder.Callba
 		super(pContext);
 		
 		mSurfaceHolder = getHolder();
-	
 		mSurfaceHolder.addCallback(this);
 		mThread = new DrawingThread();
-
-		mPaint = new Paint();
-		mPaint.setColor(Color.WHITE);
-		
-		mPaintCarre = new Paint();
-		mPaintCarre.setColor(Color.RED);
-		
-		Bitmap tableau = BitmapFactory.decodeResource(getResources(), R.drawable.fond_grille);
-		this.fondTableau = Bitmap.createScaledBitmap(tableau, tableau.getWidth(), tableau.getHeight(), false);
-		
+		/* 
+		 * MODIF YANNICK
+		 */
+		this.classeurImages = new ClasseurImages(pContext);
+		/*
+		 * END MODIF YANNICK
+		 */
+	
 	}
 	
 	//##################
 	// GETTERS - SETTERS
 	//##################
+	/*
+	 * MODIF YANNICK
+	 */
+
+	public int getMouvement() {
+		return mouvement;
+	}
+
+	public void setMouvement(int mouvement) {
+		this.mouvement = mouvement;
+	}
+	/*
+	 * END MODIF YANNICK
+	 */
 	
-	public ArrayList<Bitmap> getTbBitmapCarre() {
-		return tbBitmapCarre;
-	}
-	public void setTbBitmapCarre(ArrayList<Bitmap> tbBitmapCarre) {
-		this.tbBitmapCarre = tbBitmapCarre;
-	}
-	
-	//##################
-
-	public ArrayList<Tuile> getGrilleTuiles() {
-		return grilleTuiles;
-	}
-
-	public void setGrilleTuiles(ArrayList<Tuile> grilleTuiles) {
-		this.grilleTuiles = grilleTuiles;
-	}
-
 	public ArrayList<TuileGraphique> getListTuilesG() {
 		return listTuilesG;
 	}
@@ -97,9 +82,7 @@ public class MoteurGraphique extends SurfaceView implements SurfaceHolder.Callba
 	public void surfaceCreated(SurfaceHolder holder) {
 		mThread.keepDrawing = true;
 		mThread.start();
-		
-		this.imgCarre = BitmapFactory.decodeResource(getResources(), R.drawable.carre2);
-		this.imgCarre = Bitmap.createScaledBitmap(imgCarre, imgCarre.getWidth(), imgCarre.getHeight(), false);
+
 	}
 
 	@Override
@@ -125,19 +108,6 @@ public class MoteurGraphique extends SurfaceView implements SurfaceHolder.Callba
 
 	}
 	
-	protected Bitmap imageTuile(int valeurTuile){
-		Bitmap carre = BitmapFactory.decodeResource(getResources(), R.drawable.carre);
-		carre = Bitmap.createScaledBitmap(carre, carre.getWidth(), carre.getHeight(), false);
-		
-		Canvas canvasNumero = new Canvas(carre);
-		
-		Paint pinceauNumero = new Paint();
-		pinceauNumero.setColor(Color.WHITE);
-		canvasNumero.drawText("2", 10, 10, pinceauNumero);
-		
-		return carre;
-	}
-
 	@Override
 	protected void onDraw(Canvas pCanvas) {
 		
@@ -145,17 +115,34 @@ public class MoteurGraphique extends SurfaceView implements SurfaceHolder.Callba
 		pCanvas.drawColor(Color.WHITE);
 		
 		// Affichage du fond de la grille
-		pCanvas.drawBitmap(this.fondTableau, 0, 192, null);
+		
+		pCanvas.drawBitmap(this.classeurImages.getFondImage(), 0, 192, null);
+		Log.i("test","ok");
+		
 		//Log.v("testo", "X : " + fondTableau.getWidth() + " / Y : " + fondTableau.getHeight());
         //pCanvas.drawBitmap(this.bitmapTableau, (getWidth() - this.bitmapTableau.getWidth()) / 2, 192, mPaint);
 		//Log.v("testo", "Mouvement : " + mouvement);
 		
 		if(this.listTuilesG != null){
 			for(TuileGraphique uneTuile : this.listTuilesG){
-				if(uneTuile.getTuile().getValeur() != 0){
+				/*
+				 *  MODIF YANNICK
+				 */
+				int valeurTuile = uneTuile.getValeur();
+				/*
+				 * END MODIF YANNICK ok
+				 */
+				if(valeurTuile != 0){
 					//Log.v("testo", "X : " + uneTuile.getPostionActuel().getPosX() + " / Y : " + uneTuile.getPostionActuel().getPosY());
 					
 					//carreGraphique = new TuileGraphique(uneTuile, this.fondTableau.getWidth());
+					/*
+					 * MODIF YANNICK
+					 */
+					Bitmap imageTuile = classeurImages.getTuileImage(valeurTuile);
+					/*
+					 * END MODIF YANNICK
+					 */
 					
 					switch(this.mouvement){
 						case 1:
@@ -163,12 +150,24 @@ public class MoteurGraphique extends SurfaceView implements SurfaceHolder.Callba
 							Log.v("testo", "Valeur Y1 PASSE : " + uneTuile.getPosGPasse().getY1());
 							Log.v("testo", "Valeur Y1 ACTUEL : " + uneTuile.getPosGActuel().getY1());
 							if(uneTuile.getPosGPasse().getY1() >= uneTuile.getPosGActuel().getY1()){
-								pCanvas.drawBitmap(uneTuile.getImgCarre(), uneTuile.getPosGPasse().getY1(), uneTuile.getPosGPasse().getX1() + 192, null);
+								//classeurImages.getTuileImage(uneTuile.getValeur())
+								/*
+								 * MODIF YANNICK
+								 */
+								pCanvas.drawBitmap(imageTuile, uneTuile.getPosGPasse().getY1(), uneTuile.getPosGPasse().getX1() + 192, null);
+								//pCanvas.drawBitmap(uneTuile.getImgCarre(), uneTuile.getPosGPasse().getY1(), uneTuile.getPosGPasse().getX1() + 192, null);
+								/*
+								 * END MODIF YANNICK
+								 */
+								
 								Log.v("testo", "Valeur Y1 départ  : " + uneTuile.getPosGPasse().getY1());
 								uneTuile.mouvGauche(10);
 								Log.v("testo", "Valeur Y1 après modif : " + uneTuile.getPosGPasse().getY1());
 							}else{
-								pCanvas.drawBitmap(uneTuile.getImgCarre(), uneTuile.getPosGActuel().getY1(), uneTuile.getPosGActuel().getX1() + 192, null);
+								//pCanvas.drawBitmap(uneTuile.getImgCarre(), uneTuile.getPosGActuel().getY1(), uneTuile.getPosGActuel().getX1() + 192, null);
+								pCanvas.drawBitmap(imageTuile, uneTuile.getPosGActuel().getY1(), uneTuile.getPosGActuel().getX1() + 192, null);
+								
+								//classeurImages
 								//this.mouvement = 0;
 							}
 						break;
@@ -177,39 +176,51 @@ public class MoteurGraphique extends SurfaceView implements SurfaceHolder.Callba
 							Log.v("testo", "Valeur Y1 PASSE : " + uneTuile.getPosGPasse().getY1());
 							Log.v("testo", "Valeur Y1 ACTUEL : " + uneTuile.getPosGActuel().getY1());
 							if(uneTuile.getPosGPasse().getY1() <= uneTuile.getPosGActuel().getY1()){
-								pCanvas.drawBitmap(uneTuile.getImgCarre(), uneTuile.getPosGPasse().getY1(), uneTuile.getPosGPasse().getX1() + 192, null);
+								
+								////classeurImages.getTuileImage(uneTuile.getValeur())
+								//pCanvas.drawBitmap(uneTuile.getImgCarre(), uneTuile.getPosGPasse().getY1(), uneTuile.getPosGPasse().getX1() + 192, null);
+								pCanvas.drawBitmap(imageTuile, uneTuile.getPosGPasse().getY1(), uneTuile.getPosGPasse().getX1() + 192, null);
+								
+								
 								uneTuile.mouvDroite(10);
 								Log.v("testo", "Valeur Y1 : " + uneTuile.getPosGPasse().getY1());
 							}else{
-								pCanvas.drawBitmap(uneTuile.getImgCarre(), uneTuile.getPosGActuel().getY1(), uneTuile.getPosGActuel().getX1() + 192, null);
+								////classeurImages.getTuileImage(uneTuile.getValeur())
+								//pCanvas.drawBitmap(uneTuile.getImgCarre(), uneTuile.getPosGActuel().getY1(), uneTuile.getPosGActuel().getX1() + 192, null);
+								
+								pCanvas.drawBitmap(imageTuile, uneTuile.getPosGActuel().getY1(), uneTuile.getPosGActuel().getX1() + 192, null);
 								//this.mouvement = 0;
 							}
 						break;
 						case 3:
 							Log.v("testo", "*********************** HAUT *********************");
 							if(uneTuile.getPosGPasse().getX1() >= uneTuile.getPosGActuel().getX1()){
-								pCanvas.drawBitmap(uneTuile.getImgCarre(), uneTuile.getPosGPasse().getY1(), uneTuile.getPosGPasse().getX1() + 192, null);
+								
+								
+						
+								pCanvas.drawBitmap(imageTuile, uneTuile.getPosGPasse().getY1(), uneTuile.getPosGPasse().getX1() + 192, null);
+								
 								uneTuile.mouvHaut(10);
 								Log.v("testo", "Valeur X1 : " + uneTuile.getPosGPasse().getX1());
 							}else{
-								pCanvas.drawBitmap(uneTuile.getImgCarre(), uneTuile.getPosGActuel().getY1(), uneTuile.getPosGActuel().getX1() + 192, null);
+								pCanvas.drawBitmap(imageTuile, uneTuile.getPosGActuel().getY1(), uneTuile.getPosGActuel().getX1() + 192, null);
 								//this.mouvement = 0;
 							}
 						break;
 						case 4:
 							Log.v("testo", "*********************** BAS *********************");
 							if(uneTuile.getPosGPasse().getX1() <= uneTuile.getPosGActuel().getX1()){
-								pCanvas.drawBitmap(uneTuile.getImgCarre(), uneTuile.getPosGPasse().getY1(), uneTuile.getPosGPasse().getX1() + 192, null);
+								pCanvas.drawBitmap(imageTuile, uneTuile.getPosGPasse().getY1(), uneTuile.getPosGPasse().getX1() + 192, null);
 								uneTuile.mouvBas(10);
 								Log.v("testo", "Valeur X1 : " + uneTuile.getPosGPasse().getX1());
 							}else{
-								pCanvas.drawBitmap(uneTuile.getImgCarre(), uneTuile.getPosGActuel().getY1(), uneTuile.getPosGActuel().getX1() + 192, null);
+								pCanvas.drawBitmap(imageTuile, uneTuile.getPosGActuel().getY1(), uneTuile.getPosGActuel().getX1() + 192, null);
 								//this.mouvement = 0;
 							}
 						break;
 						default:
 							Log.v("testo", "*********************** AUCUN *********************");
-							pCanvas.drawBitmap(uneTuile.getImgCarre(), uneTuile.getPosGActuel().getY1(), uneTuile.getPosGActuel().getX1() + 192, null);
+							pCanvas.drawBitmap(imageTuile, uneTuile.getPosGActuel().getY1(), uneTuile.getPosGActuel().getX1() + 192, null);
 						break;
 					}
 					//pCanvas.drawBitmap(carreGraphique.getImgCarre(), carreGraphique.getPosGActuel().getY1(), carreGraphique.getPosGActuel().getX1() + 192, null);
@@ -229,14 +240,14 @@ public class MoteurGraphique extends SurfaceView implements SurfaceHolder.Callba
 		
 	}
 
-	private void drawTextDeTest(Canvas canvas, String stringTest, int posX, int posY) {
+/*	private void drawTextDeTest(Canvas canvas, String stringTest, int posX, int posY) {
 		// TODO Auto-generated method stub
 		Paint paint = new Paint();
 		paint.setColor(Color.BLACK);
 		paint.setTextSize(30);
 		String text = stringTest;
 		canvas.drawText(text, posX, posY, paint);
-	}
+	}*/
 	
 	private class DrawingThread extends Thread {
 		boolean keepDrawing = true;
