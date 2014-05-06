@@ -1,71 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/fond"
 
-    <GridLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:columnCount="1" >
+    android:orientation="vertical"
+    android:layout_gravity="center_vertical|center_horizontal"
+    
+    
+    
+    >
 
-        <GridLayout
-            android:layout_width="132dp"
-            android:layout_height="212dp"
-            android:layout_column="0"
-            android:layout_gravity="center"
-            android:layout_row="0"
-            android:columnCount="1" >
+    <LinearLayout
+     	android:layout_marginTop="150dp"
+     	
 
-            <TextView
-                android:id="@+id/textView1"
-                android:layout_column="0"
-                android:layout_gravity="center_horizontal|top"
-                android:layout_row="0"
-                android:text="SQUARE" />
+        android:layout_centerHorizontal="true"
+        
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+      
+        android:background="@drawable/fond_menu"
+        android:orientation="vertical" >
 
-            <Button
-                android:id="@+id/button1"
-                android:layout_width="130dp"
-                android:layout_height="40dp"
-                android:layout_column="0"
-                android:layout_gravity="center_horizontal|bottom"
-                android:layout_row="2"
-                android:onClick="ButtonOnClick"
-                android:text="Easy" />
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|bottom"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/select_bleu"
+            android:onClick="ButtonOnClick"
+            android:text="Easy" />
 
-            <Button
-                android:id="@+id/button2"
-                android:layout_width="130dp"
-                android:layout_height="40dp"
-                android:layout_column="0"
-                android:layout_gravity="center_horizontal|bottom"
-                android:layout_row="3"
-                android:onClick="ButtonOnClick"
-                android:text="Normal" />
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="150dp"
+            android:layout_height="62.5dp"
+            android:layout_gravity="center_horizontal|bottom"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/select_rouge"
+            android:onClick="ButtonOnClick"
+            android:text="Hard" />
 
-            <Button
-                android:id="@+id/button3"
-                android:layout_width="130dp"
-                android:layout_height="40dp"
-                android:layout_column="0"
-                android:layout_gravity="center_horizontal|bottom"
-                android:layout_row="4"
-                android:onClick="ButtonOnClick"
-                android:text="Hard" />
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="150dp"
+            android:layout_height="62.5dp"
+            android:layout_gravity="center_horizontal|bottom"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/select_orange"
+            android:onClick="ButtonOnClick"
+            android:text="Normal" />
 
-            <Button
-                android:id="@+id/button4"
-                android:layout_width="130dp"
-                android:layout_height="40dp"
-                android:layout_column="0"
-                android:layout_gravity="center_horizontal|top"
-                android:layout_row="5"
-                android:onClick="ButtonOnClick"
-                android:text="Author" />
+        <Button
+            android:id="@+id/button4"
+            android:layout_width="150dp"
+            android:layout_height="62.5dp"
+            android:layout_gravity="center_horizontal|bottom"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/select_vert"
+            android:onClick="ButtonOnClick"
+            android:text="Author" />
+    </LinearLayout>
 
-        </GridLayout>
-
-    </GridLayout>
-
-</LinearLayout>
+</RelativeLayout>
