@@ -7,48 +7,46 @@ package app.pack.modele;
  */
 
 public class Tuile {
-	
+
+
+    private boolean aleatoire;
 	//Valeur
 	private int valeur;
 	//Postion
-	private Position positionActuel;
-	private Position positionPasse;
-	
-	/**
-	 * 1er Constructeur
-	 * @param posActuelY
-	 * @param posActuelX
-	 * @param valeur
-	 */
-	public Tuile(int posActuelY, int posActuelX, int valeur) {
-		super();
-		this.positionActuel = new Position(posActuelY, posActuelX);
-		this.positionPasse = new Position(posActuelY, posActuelX);
-		this.valeur = valeur;
-	}
+	protected Position positionActuel;
+	protected Position positionPasse;
+
+
+
 	/**
 	 * 2er Constructeur
 	 * @param position
 	 * @param valeur
 	 */
-	public Tuile(Position position, int valeur) {
-		super();
-		this.positionActuel = position;
-		this.positionPasse = position;
+	public Tuile(Position unePositionActuel, Position unePositionPasse, int valeur) {
+		this.positionActuel = unePositionActuel;
+		this.positionPasse = unePositionPasse;
 		this.valeur = valeur;
+        this.aleatoire = false;
 	}
 
     /**
-     * 3eme Constructeur
-     * @param position
-     * @param valeur
+     * Constructeur
+     * @param uneTuile
      */
-    public Tuile(Tuile tuile) {
-        super();
-        this.positionActuel = tuile.getPostionActuel();
-        this.positionPasse = tuile.getPostionPasse();
-        this.valeur = tuile.getValeur();
-    }
+   /* public Tuile(Tuile uneTuile) {
+        this(uneTuile.getPostionActuel(),uneTuile.getPostionPasse(),uneTuile.getValeur());
+    }*/
+
+
+   /* public Tuile(int unePositionActuelY, int unePositionActuelX,int unePositionPasseY, int unePositionPasseX, int uneValeur) {
+
+        this(
+                new Position(unePositionActuelY, unePositionActuelX),
+                new Position(unePositionPasseY, unePositionPasseX),
+                uneValeur
+        );
+    }*/
 	/*
 	 * 
 	 ******************************************************************************************************************************
@@ -61,10 +59,11 @@ public class Tuile {
 	 * @return int
 	 */
 	public int getValeur() {return valeur;}
-	/**
-	 * Setter valeur
-	 * @return void
-	 */
+
+    /**
+     * Setteur de valeur
+     * @param sValeur
+     */
 	public void setValeur(int sValeur) {this.valeur = sValeur;}
 	/**
 	 * Getter de position actuel
@@ -76,11 +75,11 @@ public class Tuile {
 	 * @return	Position
 	 */
 	public Position getPostionPasse() {return positionPasse;}
-	/**
-	 * Setter de position actuel
-	 * @param	Position
-	 * @return	void
-	 */
+
+    /**
+     * Setter de position actuel
+     * @param unePosition
+     */
 	public void setPositionActuel(Position unePosition){this.positionActuel = unePosition;}
 	/**
 	 * Setter de position passe
@@ -95,21 +94,29 @@ public class Tuile {
 	 ******************************************************************************************************************************
 	 *
 	 */
-	/**
-	 * Permet de merged 2 tuiles
-	 * @param 	uneTuille
-	 * @return 	void
-	 */
+
+    /**
+     * merger les tuiles
+     * @param uneTuille
+     */
 	public void merge(Tuile uneTuille){
+
 		//Multiplication des valeurs des carres
 		this.valeur = uneTuille.getValeur()*2;
 		//Mise a jour de la position passe
 		this.setPositionPasse(uneTuille.getPostionActuel());
-		
+
 	}
 
 
 
-	
-	
+
+    public boolean isAleatoire() {
+        return aleatoire;
+    }
+
+    public void setAleatoire(boolean aleatoire) {
+        this.aleatoire = aleatoire;
+    }
+
 }

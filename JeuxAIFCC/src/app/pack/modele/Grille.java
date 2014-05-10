@@ -1,10 +1,10 @@
 package app.pack.modele;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
-
-import android.util.Log;
 /**
  * Class permettant de gerer la grille de tuile
  * @author dark_d0g
@@ -12,7 +12,7 @@ import android.util.Log;
  */
 public class Grille {
 
-	private Tuile[][] grille = null;
+	private TuileGraphique[][] grille = null;
 
 	/**
 	 * Constructeur 
@@ -21,7 +21,7 @@ public class Grille {
 	 */
 	public Grille(int tailleY, int tailleX) {
 		super();
-		this.grille = new Tuile[tailleY][tailleX];
+		this.grille = new TuileGraphique[tailleY][tailleX];
 		this.mettreZero();
 
 	}
@@ -50,17 +50,24 @@ public class Grille {
 	 * @return int
 	 * 
 	 */
-	public int getSize() {return getSizeX() * getSizeY();}
+	//public int getSize() {return getSizeX() * getSizeY();}
 	
 	/**
 	 * Getter de Grille
 	 * @return	une grille
 	 */
-	public ArrayList<Tuile> getGrille() {
+	public ArrayList<TuileGraphique> getTuileNonVide() {
 		
-		ArrayList<Tuile> list = new ArrayList<Tuile>();
-		for (int i = 0; i < this.getSizeY(); i++) for (int u = 0; u < this.getSizeX(); u++) 
-			list.add(this.grille[i][u]);
+		ArrayList<TuileGraphique> list = new ArrayList<TuileGraphique>();
+		for (int i = 0; i < this.getSizeY(); i++) {
+            for (int u = 0; u < this.getSizeX(); u++) {
+                if(this.grille[i][u].getValeur() != 0){
+                    list.add(this.grille[i][u]);
+                }
+
+            }
+
+        }
 		return list;
 		//;)
 	}
@@ -70,7 +77,7 @@ public class Grille {
 	 * @param 	Tuile[][] de tuile
 	 * @return	Tuile[][] de tuile
 	 */
-	public void setGrille(Tuile[][] arrayTuile) {this.grille = arrayTuile;}
+	//public void setGrille(Tuile[][] arrayTuile) {this.grille = arrayTuile;}
 	
 	/**
 	 * Obtenir nombre de tuile = 0
@@ -79,8 +86,13 @@ public class Grille {
 	 */
 	public int getNombreTuileVide() {
 		int sum = 0;
-		for (int i = 0; i < getSizeY(); i++) for (int u = 0; u < getSizeX(); u++) 
-			if (this.grille[i][u].getValeur() == 0) sum++;
+		for (int i = 0; i < getSizeY(); i++) {
+            for (int u = 0; u < getSizeX(); u++) {
+                if (this.grille[i][u].getValeur() == 0) {
+                    sum++;
+                }
+            }
+        }
 		
 		return sum;
 	}
@@ -89,7 +101,7 @@ public class Grille {
 	 * Obtenir nombre de tuile != 0
 	 * @return	int
 	 */
-	public int getNombreOccurenceTuileNonVide() {return getSize() - getNombreTuileVide();}
+	//public int getNombreOccurenceTuileNonVide() {return getSize() - getNombreTuileVide();}
 	
 	/**
 	 * set valeur d'une tuile en fonction (x,y) sur la grille
@@ -98,7 +110,7 @@ public class Grille {
 	 * @param value
 	 * 
 	 */
-	public void setValue(int y, int x, int value) {this.grille[y][x].setValeur(value);}
+	//public void setValue(int y, int x, int value) {this.grille[y][x].setValeur(value);}
 	
 	/**
 	 * ajoute une tuile en fonction de ca position
@@ -107,7 +119,7 @@ public class Grille {
 	 * @return 	Boolean
 	 * 
 	 */
-	public Boolean ajoutUneTuile(Tuile uneTuile) {
+	public Boolean ajoutUneTuile(TuileGraphique uneTuile) {
 
 		int posX = uneTuile.getPostionActuel().getPosX();
 		int posY = uneTuile.getPostionActuel().getPosY();
@@ -132,9 +144,17 @@ public class Grille {
 	 * Charge la grille de tuile Zeros
 	 * 
 	 */
-	private void mettreZero() {
-		for (int i = 0; i < this.getSizeY(); i++) for (int u = 0; u < this.getSizeX(); u++) 
-			this.grille[i][u] = new Tuile(i, u, 0);
+	public void mettreZero() {
+		for (int i = 0; i < this.getSizeY(); i++) {
+            for (int u = 0; u < this.getSizeX(); u++){
+                Position unePosition = new Position(i,u);
+                this.grille[i][u] = new TuileGraphique(unePosition,unePosition, 0);
+            }
+
+        }
+
+
+
 	}
 	
 	/**
@@ -143,10 +163,10 @@ public class Grille {
 	 * @return 	Boolean (True pose, false non pose)
 	 * 
 	 */
-	public Boolean ajoutTuileAleatoire() {
+	public Tuile ajoutTuileAleatoire() {
 		// GENERE un tableau de tuile vide sur la grille (permet de les
 		// modifiers en pointant decu)
-		ArrayList<Tuile> lesTuileVides = getFreeTuille();
+		ArrayList<TuileGraphique> lesTuileVides = getFreeTuille();
 		if (lesTuileVides.size() != 0) {
 			int uneValeurCarreAleatoire = Outil.aleatoireDeuxQuatre();
 			int unNombreAleatoire = 0;
@@ -156,11 +176,13 @@ public class Grille {
 			Tuile tuileSelect = lesTuileVides.get(unNombreAleatoire);
 			tuileSelect.setValeur(uneValeurCarreAleatoire);
 			tuileSelect.setPositionPasse(tuileSelect.getPostionActuel());
-			
+			tuileSelect.setAleatoire(true);
 			//Log.w("test1", "Tuile aleatoirement valeur : " + uneValeurCarreAleatoire);
-			return true;
+			return tuileSelect;
 			
-		} else return false;
+		} else {
+            return null;
+        }
 	}
 	
 	/**
@@ -199,10 +221,14 @@ public class Grille {
 	 * 
 	 * @return	ArrayList<Tuile> Un tableau de tuile avec la valeur 0
 	 */
-	private ArrayList<Tuile> getFreeTuille() {
-		ArrayList<Tuile> freeTuile = new ArrayList<Tuile>();
-		for (int i = 0; i < getSizeY(); i++) for (int u = 0; u < getSizeX(); u++) 
-			if (this.grille[i][u].getValeur() == 0) freeTuile.add(this.grille[i][u]);
+	private ArrayList<TuileGraphique> getFreeTuille() {
+		ArrayList<TuileGraphique> freeTuile = new ArrayList<TuileGraphique>();
+		for (int i = 0; i < getSizeY(); i++) {
+            for (int u = 0; u < getSizeX(); u++) {
+                if (this.grille[i][u].getValeur() == 0) freeTuile.add(this.grille[i][u]);
+            }
+
+        }
 				
 		return freeTuile;
 	}
@@ -217,14 +243,41 @@ public class Grille {
 	 */
 	private void inverseX(int i, int j, int j2) {
 		// Var tuile 0 et position de son predeseur
-		Tuile unTuileTemp = this.grille[i][j];
-		Position nouvellePositionFuturZeros = this.grille[i][j2].getPostionActuel();
+		//Tuile unTuileTemp = this.grille[i][j];
+        TuileGraphique unTuileTemp;
+        unTuileTemp = this.grille[i][j];
+        Position nouvellePositionFuturZeros = this.grille[i][j2].getPostionActuel();
+        // CHangement des position
+        this.grille[i][j2].setPositionActuel(unTuileTemp.getPostionActuel());
+
+        unTuileTemp.setPositionActuel(nouvellePositionFuturZeros);
+        // Inverse les tuiles
+        this.grille[i][j] = this.grille[i][j2];
+        this.grille[i][j2] = unTuileTemp;
+        /*int valeur1 =  this.grille[i][j].getValeur();
+        Position posActuel1 = this.grille[i][j].getPostionActuel();
+        Position posPasse1 = this.grille[i][j].getPostionPasse();
+
+        int valeur2 =  this.grille[i][j2].getValeur();
+        Position posActuel2 = this.grille[i][j2].getPostionActuel();
+        Position posPasse2 = this.grille[i][j2].getPostionPasse();
+
+		//Position nouvellePositionFuturZeros = this.grille[i][j2].getPostionActuel();
+
 		// CHangement des position
-		this.grille[i][j2].setPositionActuel(unTuileTemp.getPostionActuel());
-		unTuileTemp.setPositionActuel(nouvellePositionFuturZeros);
+        this.grille[i][j2].setPositionActuel(posActuel1);
+        this.grille[i][j2].setPositionPasse(posPasse1);
+        this.grille[i][j2].setValeur(valeur1);
+
+        this.grille[i][j].setPositionActuel(posActuel2);
+        this.grille[i][j].setPositionPasse(posPasse2);
+        this.grille[i][j].setValeur(valeur2);*/
+		//unTuileTemp.setPositionActuel(nouvellePositionFuturZeros);
+
 		// Inverse les tuiles
-		this.grille[i][j] = this.grille[i][j2];
-		this.grille[i][j2] = unTuileTemp;
+		//this.grille[i][j] = this.grille[i][j2];
+
+		//this.grille[i][j2] = unTuileTemp;
 	}
 	
 	/**
@@ -236,12 +289,32 @@ public class Grille {
 	 * 
 	 */
 	private void inverseY(int i, int j, int j2) {
-		Tuile unTuileTemp = this.grille[j][i];
-		Position nouvellePositionFuturZeros = this.grille[j2][i].getPostionActuel();
-		this.grille[j2][i].setPositionActuel(unTuileTemp.getPostionActuel());
-		unTuileTemp.setPositionActuel(nouvellePositionFuturZeros);
-		this.grille[j][i] = this.grille[j2][i];
-		this.grille[j2][i] = unTuileTemp;
+        TuileGraphique unTuileTemp;
+        unTuileTemp = this.grille[j][i];
+        Position nouvellePositionFuturZeros = this.grille[j2][i].getPostionActuel();
+        this.grille[j2][i].setPositionActuel(unTuileTemp.getPostionActuel());
+        unTuileTemp.setPositionActuel(nouvellePositionFuturZeros);
+        this.grille[j][i] = this.grille[j2][i];
+        this.grille[j2][i] = unTuileTemp;
+
+        /*int valeur1 =  this.grille[j][i].getValeur();
+        Position posActuel1 = this.grille[j][i].getPostionActuel();
+        Position posPasse1 = this.grille[j][i].getPostionPasse();
+
+        int valeur2 =  this.grille[j2][i].getValeur();
+        Position posActuel2 = this.grille[j2][i].getPostionActuel();
+        Position posPasse2 = this.grille[j2][i].getPostionPasse();
+
+        //Position nouvellePositionFuturZeros = this.grille[i][j2].getPostionActuel();
+
+        // CHangement des position
+        this.grille[i][j2].setPositionActuel(posActuel1);
+        this.grille[i][j2].setPositionPasse(posPasse1);
+        this.grille[i][j2].setValeur(valeur1);
+
+        this.grille[i][j].setPositionActuel(posActuel2);
+        this.grille[i][j].setPositionPasse(posPasse2);
+        this.grille[i][j].setValeur(valeur2);*/
 	}
 	
 	/*
@@ -283,7 +356,7 @@ public class Grille {
 	 * @return 	Boolean (True possible de bouger a droite ou gauche : false)
 	 * 
 	 */
-	public Boolean chekcIsPossibleDroiteGauche(Boolean priseEnCompteZerosTrue) {
+    public Boolean chekcIsPossibleDroiteGauche(Boolean priseEnCompteZerosTrue) {
 		
 		for (int i = 0; i < this.getSizeY(); i++) {
 			for (int j = 0; j < this.getSizeX() ; j++) {
@@ -311,35 +384,54 @@ public class Grille {
 	 * @return 	Boolean (True possible de bouger a Haut ou Bas : false)
 	 * 
 	 */
-	public Boolean chekcIsPossiblehHautBas(Boolean priseEnCompteZerosTrue) {
-
+	public Boolean chekcIsPossiblehHautBas(Boolean HautTrueBasFalse) {
+        return  true;
+        /*boolean zerosTrouver = false;
 		for (int i = 0; i < this.getSizeX(); i++) {
 			for (int j = 0; j < this.getSizeY(); j++) {
 				for (int j2 = j + 1; j2 < this.getSizeY(); j2++) {
 
-					if (this.grille[j][i].getValeur() != 0) {
-						if (this.grille[j][i].getValeur() == this.grille[j2][i].getValeur()) return true;
-						else if (this.grille[j2][i].getValeur() != 0) break;
-					}
+					//if (this.grille[j][i].getValeur() != 0) {
+						if (this.grille[j][i].getValeur() == this.grille[j2][i].getValeur()) {
+                            return true;
+                        }
+						else if (this.grille[j2][i].getValeur() != 0) {
+
+                            break;
+                        } else {
+                            zerosTrouver = true;
+                        }*/
+					//} else {
+                   //     zerosTrouver = true;
+                   // }
 					
-					if (priseEnCompteZerosTrue && this.grille[i][j].getValeur() == 0) return true;
-				}
-			}
-		}
-		return false;
+					/*if (priseEnCompteZerosTrue && this.grille[i][j].getValeur() == 0) {
+                        return true;
+                    }*/
+			//	}
+			//}
+		//}
+		//return false;
 	}
-	
+	public void initialisePosition() {
+        for (int i = 0; i < this.getSizeY(); i++){
+            for (int u = 0; u < this.getSizeX(); u++){
+                this.grille[i][u].setPositionPasse(this.grille[i][u].getPostionActuel());
+                this.grille[i][u].setAleatoire(false);
+            }
+        }
+    }
 	/**
 	 * Permet le deplacement des tuiles vers la Droite
 	 * 
 	 * @return 	ArrayList<Tuile> les tuiles bougaient
 	 * 
 	 */
-	public ArrayList<Tuile> deplacementDroite() {
+	public void deplacementDroite() {
 		//Log.i("test1", "************ DROITE **************");
 		// Pacour des Y
-
-		ArrayList<Tuile> tuileMerged = new ArrayList<Tuile>();
+        this.initialisePosition();
+		//ArrayList<TuileGraphique> tuileMerged = new ArrayList<TuileGraphique>();
 		// int indiceIncrement = 0;
 
 		for (int i = 0; i < this.getSizeY(); i++) {
@@ -348,8 +440,8 @@ public class Grille {
 			// suivante
 		
 			for (int j = this.getSizeX()-1; j > 0  ; j--) {
-				this.grille[i][j].setPositionPasse(this.grille[i][j].getPostionActuel());
-				
+				//this.grille[i][j].setPositionPasse(this.grille[i][j].getPostionActuel());
+
 				// Pacours sur les tuiles suivante de la tuile ou on statue
 				// -1 						0				--
 				for (int j2 = j - 1; j2 >= 0 ; j2--) {
@@ -361,7 +453,7 @@ public class Grille {
 						// Si pas egal on avant 1 tuile la valeur prochaine
 						// pour comparais
 						if (this.grille[i][j].getValeur() == this.grille[i][j2].getValeur()) {
-							if (!tuileMerged.contains(this.grille[i][j])) tuileMerged.add(this.grille[i][j]);
+
 							this.grille[i][j].merge(this.grille[i][j2]);
 							this.grille[i][j2].setValeur(0);
 							break;
@@ -373,14 +465,14 @@ public class Grille {
 						// Si la valeur courant et 0 on avance le zeros a la
 						// case prochaine
 						this.inverseX(i, j2, j);
-						if (this.grille[i][j].getValeur() != 0) tuileMerged.add(this.grille[i][j]);
+
 						
 					}
 				}
 			}
 		}
 	//	debog_ListTuile(tuileMerged, "---> Tuile Merged <---");
-		return tuileMerged;
+
 	}
 	
 	/**
@@ -389,19 +481,22 @@ public class Grille {
 	 * @return 	ArrayList<Tuile> les tuiles bougaient
 	 * 
 	 */
-	public ArrayList<Tuile> deplacementGauche() {
+	public void deplacementGauche() {
 	//	Log.i("test1", "************ GAUCHE **************");
-		ArrayList<Tuile> tuileMerged = new ArrayList<Tuile>();
 
+        this.initialisePosition();
 		for (int i = 0; i < this.getSizeY(); i++) {
 			for (int j = 0; j < this.getSizeX() ; j++) {
-				this.grille[i][j].setPositionPasse(this.grille[i][j].getPostionActuel());
+
+				//this.grille[i][j].setPositionPasse(this.grille[i][j].getPostionActuel());
+                //if (!tuileMerged.contains(this.grille[i][j])) tuileMerged.add(this.grille[i][j]);
+
 				for (int j2 = j + 1; j2 < this.getSizeX() ; j2++) {
 
 					if (this.grille[i][j].getValeur() != 0) {
 
 						if (this.grille[i][j].getValeur() == this.grille[i][j2].getValeur()) {
-							if (!tuileMerged.contains(this.grille[i][j])) tuileMerged.add(this.grille[i][j]);
+
 							this.grille[i][j].merge(this.grille[i][j2]);
 							this.grille[i][j2].setValeur(0);
 							break;
@@ -410,13 +505,13 @@ public class Grille {
 			
 					} else {
 						this.inverseX(i, j, j2);
-						if (this.grille[i][j].getValeur() != 0) tuileMerged.add(this.grille[i][j]);
+
 					}
 				}
 			}
 		}
 	//	debog_ListTuile(tuileMerged, "---> Tuile Merged <---");
-		return tuileMerged;
+		//return tuileMerged;
 	}
 	
 	/**
@@ -425,20 +520,23 @@ public class Grille {
 	 * @return 	ArrayList<Tuile> les tuiles bougaient
 	 * 
 	 */
-	public ArrayList<Tuile> deplacementHaut() {
+	public  void deplacementHaut() {
 		//Log.i("test1", "************ HAUT **************");
-	
-		ArrayList<Tuile> tuileMerged = new ArrayList<Tuile>();
+        this.initialisePosition();
+
+		ArrayList<TuileGraphique> tuileMerged = new ArrayList<TuileGraphique>();
 
 		for (int i = 0; i < this.getSizeX(); i++) {
 			for (int j = 0; j < this.getSizeY() ; j++) {
-				this.grille[i][j].setPositionPasse(this.grille[i][j].getPostionActuel());
+
+                if (!tuileMerged.contains(this.grille[j][i])) tuileMerged.add(this.grille[j][i]);
+
 				for (int j2 = j + 1; j2 < this.getSizeY() ; j2++) {
 
 					if (this.grille[j][i].getValeur() != 0) {
 
 						if (this.grille[j][i].getValeur() == this.grille[j2][i].getValeur()) {
-							if (!tuileMerged.contains(this.grille[j][i])) tuileMerged.add(this.grille[j][i]);
+
 							this.grille[j][i].merge(this.grille[j2][i]);
 							this.grille[j2][i].setValeur(0);
 							break;
@@ -447,13 +545,13 @@ public class Grille {
 					
 					} else {
 						this.inverseY(i, j, j2);
-						if (this.grille[j][i].getValeur() != 0) tuileMerged.add(this.grille[j][i]);	
+
 					}
 				}
 			}
 		}
 	//	debog_ListTuile(tuileMerged, "---> Tuile Merged <---");
-		return tuileMerged;
+		//return tuileMerged;
 	}
 	
 	/**
@@ -462,20 +560,22 @@ public class Grille {
 	 * @return 	ArrayList<Tuile> les tuiles bougaient
 	 * 
 	 */
-	public ArrayList<Tuile> deplacementBas() {
+	public void deplacementBas() {
 		//Log.i("test1", "*********************** BAS ************************");
-
-		ArrayList<Tuile> tuileMerged = new ArrayList<Tuile>();
+        this.initialisePosition();
+		//ArrayList<TuileGraphique> tuileMerged = new ArrayList<TuileGraphique>();
 
 		for (int i = 0; i < this.getSizeY(); i++) {
 			for (int j = this.getSizeX()-1; j > 0  ; j--) {	
-				this.grille[i][j].setPositionPasse(this.grille[i][j].getPostionActuel());
+				//this.grille[i][j].setPositionPasse(this.grille[i][j].getPostionActuel());
+               // if (!tuileMerged.contains(this.grille[j][i])) tuileMerged.add(this.grille[j][i]);
+
 				for (int j2 = j - 1; j2 >= 0 ; j2--) {
 					
 					if (this.grille[j][i].getValeur() != 0) {
 
 						if (this.grille[j][i].getValeur() == this.grille[j2][i].getValeur()) {
-							if (!tuileMerged.contains(this.grille[j][i])) tuileMerged.add(this.grille[j][i]);
+
 							this.grille[j][i].merge(this.grille[j2][i]);
 							this.grille[j2][i].setValeur(0);
 							break;
@@ -484,13 +584,13 @@ public class Grille {
 						
 					} else {
 						this.inverseY(i, j2, j);
-						if (this.grille[j][i].getValeur() != 0) tuileMerged.add(this.grille[j][i]);
+
 					}
 				}
 			}
 		}
 		//debog_ListTuile(tuileMerged, "---> Tuile Merged <---");
-		return tuileMerged;
+		//return tuileMerged;
 	}
 	
 	/*
@@ -506,12 +606,12 @@ public class Grille {
 	 * @parem String titre a afficher dans la console
 	 * 
 	 */
-	private void debog_ListTuile(List<Tuile> maList, String titre) {
+	private void debog_ListTuile(List<TuileGraphique> maList, String titre) {
 		Log.i("test1", "******************");
 		Log.i("test1", "*****" + titre + "*****");
 		String chaineAffiche = "";
-		for (ListIterator<Tuile> iteratorLigne = maList.listIterator(); iteratorLigne.hasNext();) {
-			Tuile tuile = (Tuile) iteratorLigne.next();
+		for (ListIterator<TuileGraphique> iteratorLigne = maList.listIterator(); iteratorLigne.hasNext();) {
+			TuileGraphique tuile =  iteratorLigne.next();
 			chaineAffiche += ":" + tuile.getValeur();
 		}
 		Log.i("test1", chaineAffiche);
@@ -539,15 +639,36 @@ public class Grille {
 					chaineAffiche += "   " + valeurRetour;
 				}
 				
-				if(valeurRetour != 0){
+				/*if(valeurRetour != 0){
 					Log.i("test1", "Tuile " + valeurRetour + " : PP -> " 
 							+ this.grille[i][u].getPostionPasse().getPosX() + "/" + this.grille[i][u].getPostionPasse().getPosY()
 							+ " PA -> " + this.grille[i][u].getPostionActuel().getPosX() + "/" + this.grille[i][u].getPostionActuel().getPosY());
-				}
+				}*/
 			}
 			Log.i("test1", chaineAffiche);
 		}
+        chaineAffiche = "";
+        for (int i = 0; i < getSizeY(); i++) {
+            chaineAffiche = "";
+            for (int u = 0; u < getSizeX(); u++) {
+                int valeurRetour = this.grille[i][u].getValeur();
 
+               /* if(valeurRetour > 9) {
+                    chaineAffiche += "  " + valeurRetour;
+                } else if(valeurRetour > 99) {
+                    chaineAffiche += " " + valeurRetour;
+                } else {
+                    chaineAffiche += "   " + valeurRetour;
+                }*/
+
+				if(valeurRetour != 0){
+					Log.i("test1", "Tuile " + valeurRetour + " : Passe -> "
+							+ this.grille[i][u].getPostionPasse().getPosX() + "/" + this.grille[i][u].getPostionPasse().getPosY()
+							+ " Actuel -> " + this.grille[i][u].getPostionActuel().getPosX() + "/" + this.grille[i][u].getPostionActuel().getPosY());
+				}
+            }
+            Log.i("test1", chaineAffiche);
+        }
 
 	}
 

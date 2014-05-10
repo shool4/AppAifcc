@@ -9,7 +9,7 @@ public class Position {
 	private int posX = 0;
 
 	public Position(int posY, int posX) {
-		super();
+
 		this.posX = posX;
 		this.posY = posY;
 	}

@@ -37,7 +37,17 @@ public class ClasseurImages {
 				BitmapFactory.decodeResource(context.getResources(), R.drawable.c512),
 				BitmapFactory.decodeResource(context.getResources(), R.drawable.c1024),
 				BitmapFactory.decodeResource(context.getResources(), R.drawable.c2048),
-				BitmapFactory.decodeResource(context.getResources(), R.drawable.fond_grille)
+				BitmapFactory.decodeResource(context.getResources(), R.drawable.fond_grille),
+                BitmapFactory.decodeResource(context.getResources(), R.drawable.cini1),
+                BitmapFactory.decodeResource(context.getResources(), R.drawable.cini2),
+                BitmapFactory.decodeResource(context.getResources(), R.drawable.cini3),
+                BitmapFactory.decodeResource(context.getResources(), R.drawable.cini4),
+                BitmapFactory.decodeResource(context.getResources(), R.drawable.cini5),
+                BitmapFactory.decodeResource(context.getResources(), R.drawable.cini6),
+                BitmapFactory.decodeResource(context.getResources(), R.drawable.cini7),
+                BitmapFactory.decodeResource(context.getResources(), R.drawable.cini8),
+                BitmapFactory.decodeResource(context.getResources(), R.drawable.cini9)
+
 				};
 		
 		
@@ -52,6 +62,42 @@ public class ClasseurImages {
 	 * @param indiceImage
 	 * @return
 	 */
+    public Bitmap getApparition(int debApp) {
+        switch (debApp) {
+            case 1:
+                return classeurImageTuile[12];
+
+            case 2:
+                return classeurImageTuile[13];
+
+            case 3:
+                return classeurImageTuile[14];
+
+            case 4:
+                return classeurImageTuile[15];
+
+            case 5:
+                return classeurImageTuile[16];
+
+            case 6:
+                return classeurImageTuile[17];
+
+            case 7:
+                return classeurImageTuile[18];
+
+            case 8:
+                return classeurImageTuile[19];
+
+            case 9:
+                return classeurImageTuile[20];
+
+
+
+
+        }
+        return null;
+
+    }
 
 	public Bitmap getFondImage() {
 		return classeurImageTuile[11];
@@ -91,6 +137,8 @@ public class ClasseurImages {
 				
 			case 2048:
 				return classeurImageTuile[10];
+
+
 				
 		}
 		return null;

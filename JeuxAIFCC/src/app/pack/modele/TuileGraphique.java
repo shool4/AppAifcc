@@ -1,30 +1,73 @@
 package app.pack.modele;
 
-import android.graphics.Paint;
-
 public class TuileGraphique extends Tuile {
 	
 	//private Bitmap imgCarre;
-	
-	private float taille;
-	private Paint paint;
+	//private Paint paint;
 	private PositionGraphique posGPasse;
 	private PositionGraphique posGActuel;
 	//private Tuile tuile;
-	private int tailleFond;
-	
-	public TuileGraphique(Tuile uneTuile){
+	//private int tailleFond;
+
+    /**
+     *
+     * @param uneTuile
+     */
+	/*public TuileGraphique(Tuile uneTuile){
 		super(uneTuile);
 
 
 		//this.tailleFond = taille;
 		//this.tuile = tuile;
 		//this.imgCarre = uneBipmap;
+        this.posGActuel = new PositionGraphique(uneTuile.getPostionActuel());
 		this.posGPasse = new PositionGraphique(uneTuile.getPostionPasse());
-		this.posGActuel = new PositionGraphique(uneTuile.getPostionActuel());
+
 		//determinerCouleur();
 		//bitmapCarre();
 	}
+*/
+    /**
+     *
+     * @param unePositionActuel
+     * @param unePositionPasse
+     * @param valeur
+     */
+
+    public TuileGraphique(Position unePositionActuel, Position unePositionPasse, int valeur) {
+        super(unePositionActuel,unePositionPasse,valeur);
+
+        this.posGActuel = new PositionGraphique(unePositionActuel);
+        this.posGPasse = new PositionGraphique(unePositionPasse);
+    }
+
+
+    /**
+     * Setter de position actuel
+     * @param unePosition
+     */
+    public void setPositionActuel(Position unePosition){
+        this.positionActuel = unePosition;
+        this.posGActuel = new PositionGraphique(unePosition);
+    }
+    /**
+     * Setter de position passe
+     * @param	Position
+     * @return	Position
+     */
+    public void setPositionPasse(Position unePosition){
+        this.positionPasse = unePosition;
+        this.posGPasse = new PositionGraphique(unePosition);
+
+    }
+   /* public TuileGraphique(int unePositionActuelY, int unePositionActuelX,int unePositionPasseY, int unePositionPasseX, int uneValeur) {
+        Position unePositionActuel = new Position(unePositionActuelY, unePositionActuelX);
+        Position unePositionPasse = new Position(unePositionPasseY, unePositionPasseX);
+        super(unePositionActuel,unePositionPasse,uneValeur);
+
+        this.posGActuel = new PositionGraphique(unePositionActuel);
+        this.posGPasse = new PositionGraphique(unePositionPasse);
+    }*/
 	/*
 	public Tuile getTuile() {
 		return tuile;
@@ -42,11 +85,11 @@ public class TuileGraphique extends Tuile {
 		this.imgCarre = imgCarre;
 	}*/
 
-	public float getTaille() {
+	/*public float getTaille() {
 		return taille;
-	}
+	}*/
 
-	public void setTaille(float taille) {
+/*	public void setTaille(float taille) {
 		this.taille = taille;
 	}
 
@@ -56,7 +99,7 @@ public class TuileGraphique extends Tuile {
 
 	public void setPaint(Paint paint) {
 		this.paint = paint;
-	}
+	}*/
 /*
 	public Tuile getCarre() {
 		return tuile;
@@ -70,17 +113,19 @@ public class TuileGraphique extends Tuile {
 		return posGPasse;
 	}
 
+	/*
 	public void setPosGPasse(PositionGraphique posGPasse) {
+
 		this.posGPasse = posGPasse;
-	}
+	}*/
 
 	public PositionGraphique getPosGActuel() {
 		return posGActuel;
 	}
 
-	public void setPosGActuel(PositionGraphique posGActuel) {
+	/*public void setPosGActuel(PositionGraphique posGActuel) {
 		this.posGActuel = posGActuel;
-	}
+	}*/
 
 	/*private Paint determinerCouleur(){
 		paint = new Paint();

@@ -1,9 +1,8 @@
 package app.pack.modele;
 
-import java.util.ArrayList;
-
-import android.graphics.Bitmap;
 import android.util.Log;
+
+import java.util.ArrayList;
 
 /**
  * Class qui gere le moteur physique du jeux
@@ -14,7 +13,7 @@ public class MoteurPhysique {
 
 	private Grille grille = null;
 	
-	private ArrayList<Bitmap> tbBitmapCarre;
+	//private ArrayList<Bitmap> tbBitmapCarre;
 	
 	private int nombreForWin = 2048;
 	private int nombreDeTuilePartTour = 1;
@@ -38,7 +37,8 @@ public class MoteurPhysique {
 		
 		//LE NOMBRE DAJOUT DE DEPART
 		for (int i = 1; i <= uneTypeDePartie.getNombreAjoutTuileDepart(); i++) {
-			this.grille.ajoutTuileAleatoire();
+			this.grille.ajoutTuileAleatoire().setAleatoire(false);
+
 		}
 		
 		grille.debog_Tableau();
@@ -57,8 +57,8 @@ public class MoteurPhysique {
 	 * Getter de la grille
 	 * @return 	Grille
 	 */
-	public  ArrayList<Tuile> getGrille() {
-		return this.grille.getGrille();
+    public  ArrayList<TuileGraphique> getGrilleGraphiqueDeTuileNonVide() {
+		return this.grille.getTuileNonVide();
 	}
 	/*
 	 * 
@@ -73,7 +73,7 @@ public class MoteurPhysique {
 	 * 
 	 */
 	public void ajoutTuileAleatoire() {
-		if(!this.grille.ajoutTuileAleatoire()) {Log.i("test1","---> Grille plien ajout imposible <---");}
+		if(this.grille.ajoutTuileAleatoire() == null) {Log.i("test1","---> Grille plien ajout imposible <---");}
 	}
 	
 	/**
@@ -87,7 +87,7 @@ public class MoteurPhysique {
 	 * @param uneTuile
 	 * 
 	 */
-	public void ajoutTuile(Tuile uneTuile) {this.grille.ajoutUneTuile(uneTuile);}
+	public void ajoutTuile(TuileGraphique uneTuile) {this.grille.ajoutUneTuile(uneTuile);}
 	
 	/*
 	 * 
@@ -101,11 +101,11 @@ public class MoteurPhysique {
 	 * Deplacemencement a droite
 	 * 
 	 */
-	public ArrayList<Tuile> droite() {
-		ArrayList<Tuile> arrayTuile = null;
+	public ArrayList<TuileGraphique> droite() {
+		//ArrayList<Tuile> arrayTuile = null;
 		if (this.grille.getNombreTuileVide() > 0 || this.grille.chekcIsPossibleDroiteGauche(false)) {
-			arrayTuile = this.grille.deplacementDroite();
-			if (arrayTuile.size() > 0) {
+			this.grille.deplacementDroite();
+			if (this.grille.getNombreTuileVide() > 0) {
 
 				//Nombre de tuile ajout par tour
 				for (int i = 1; i <= this.nombreDeTuilePartTour; i++) {
@@ -122,11 +122,11 @@ public class MoteurPhysique {
 		}
 		if(this.grille.isGameWon(this.nombreForWin)) {
 			Log.i("test1", "!!!! !!!! YOU WIN !!!! !!!!");
-		}	
+		}
 		
 
 		this.grille.debog_Tableau();
-		return arrayTuile;
+        return this.grille.getTuileNonVide();
 
 	}
 	
@@ -134,11 +134,11 @@ public class MoteurPhysique {
 	 * Deplacemencement a Gauche
 	 * 
 	 */
-	public ArrayList<Tuile>  gauche(){
-		ArrayList<Tuile> arrayTuile = null;
+	public ArrayList<TuileGraphique>  gauche(){
+		//ArrayList<Tuile> arrayTuile = null;
 		if(this.grille.getNombreTuileVide() > 0 || this.grille.chekcIsPossibleDroiteGauche(false)) {
-			arrayTuile =  this.grille.deplacementGauche();
-			if(arrayTuile.size() > 0) {
+			this.grille.deplacementGauche();
+			if(this.grille.getNombreTuileVide() > 0) {
 				
 				//Nombre de tuile ajout par tour
 				for (int i = 1; i <= this.nombreDeTuilePartTour; i++) {
@@ -160,7 +160,7 @@ public class MoteurPhysique {
 
 		
 		this.grille.debog_Tableau();
-		return arrayTuile;
+        return this.grille.getTuileNonVide();
 		
 		
 	}
@@ -169,11 +169,12 @@ public class MoteurPhysique {
 	 * Deplacemencement a Haut
 	 * 
 	 */
-	public ArrayList<Tuile> haut() {
-		ArrayList<Tuile> arrayTuile = null;
+	public ArrayList<TuileGraphique> haut() {
+		//ArrayList<Tuile> arrayTuile = null;
 		if (this.grille.getNombreTuileVide() > 0 || this.grille.chekcIsPossiblehHautBas(false)) {
-			arrayTuile = this.grille.deplacementHaut();
-			if (arrayTuile.size() > 0) {
+            Log.i("test1"," --> "+this.grille.chekcIsPossiblehHautBas(false));
+			this.grille.deplacementHaut();
+			if (this.grille.getNombreTuileVide() > 0) {
 
 				//Nombre de tuile ajout par tour
 				for (int i = 1; i <= this.nombreDeTuilePartTour; i++) {
@@ -193,7 +194,7 @@ public class MoteurPhysique {
 	
 
 		this.grille.debog_Tableau();
-		return arrayTuile;
+        return this.grille.getTuileNonVide();
 
 	}
 	
@@ -201,11 +202,11 @@ public class MoteurPhysique {
 	 * Deplacemencement a Bas
 	 * 
 	 */
-	public ArrayList<Tuile> bas() {
-		ArrayList<Tuile> arrayTuile = null;
+	public ArrayList<TuileGraphique> bas() {
+		//ArrayList<Tuile> arrayTuile = null;
 		if (this.grille.getNombreTuileVide() > 0 || this.grille.chekcIsPossiblehHautBas(false)) {
-			arrayTuile = this.grille.deplacementBas();
-			if (arrayTuile.size() > 0) {
+			this.grille.deplacementBas();
+			if (this.grille.getNombreTuileVide() > 0) {
 
 				//Nombre de tuile ajout par tour
 				for (int i = 1; i <= this.nombreDeTuilePartTour; i++) {
@@ -223,9 +224,9 @@ public class MoteurPhysique {
 		if(this.grille.isGameWon(this.nombreForWin)) {
 			Log.i("test1", "!!!! !!!! YOU WIN !!!! !!!!");
 		}
-	
+
 		this.grille.debog_Tableau();
-		return arrayTuile;
+		return this.grille.getTuileNonVide();
 		
 	}
 	

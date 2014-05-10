@@ -1,6 +1,4 @@
 package app.pack.vue;
-import java.util.ArrayList;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -9,6 +7,9 @@ import android.graphics.Color;
 import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+
+import java.util.ArrayList;
+
 import app.pack.modele.ClasseurImages;
 import app.pack.modele.TuileGraphique;
 
@@ -19,7 +20,9 @@ public class MoteurGraphique extends SurfaceView implements SurfaceHolder.Callba
 	private DrawingThread mThread;
 	private  int mouvement = 0;
 	private ArrayList<TuileGraphique> listTuilesG = null;
-	
+
+    //private int apparationGif = 1;
+    private boolean mouvementFini = false;
 	/* 
 	 * MODIF YANNICK
 	 */
@@ -61,6 +64,8 @@ public class MoteurGraphique extends SurfaceView implements SurfaceHolder.Callba
 	}
 
 	public void setMouvement(int mouvement) {
+        this.mouvementFini = false;
+        //TODO pour indiquer fini
 		this.mouvement = mouvement;
 	}
 	/*
@@ -117,12 +122,12 @@ public class MoteurGraphique extends SurfaceView implements SurfaceHolder.Callba
 		// Affichage du fond de la grille
 		
 		pCanvas.drawBitmap(this.classeurImages.getFondImage(), 0, 192, null);
-		Log.i("test","ok");
+		//Log.i("test","ok");
 		
 		//Log.v("testo", "X : " + fondTableau.getWidth() + " / Y : " + fondTableau.getHeight());
         //pCanvas.drawBitmap(this.bitmapTableau, (getWidth() - this.bitmapTableau.getWidth()) / 2, 192, mPaint);
 		//Log.v("testo", "Mouvement : " + mouvement);
-		
+		int fini = 0;
 		if(this.listTuilesG != null){
 			for(TuileGraphique uneTuile : this.listTuilesG){
 				/*
@@ -139,90 +144,116 @@ public class MoteurGraphique extends SurfaceView implements SurfaceHolder.Callba
 					/*
 					 * MODIF YANNICK
 					 */
-					Bitmap imageTuile = classeurImages.getTuileImage(valeurTuile);
+                    Bitmap imageTuile = classeurImages.getTuileImage(valeurTuile);
+
+                    if( uneTuile.isAleatoire()) {
+                        //uneTuile.setAleatoire(false);
+                        //valeurTuile = 0;
+                      //  Log.i("test1","aléa"+uneTuile.getValeur());
+                     //   if(mouvementFini) {
+                            //uneTuile.setAleatoire(false);
+                       //     imageTuile = classeurImages.getTuileImage(valeurTuile);
+                           /*
+                           imageTuile = classeurImages.getApparition(apparationGif);
+                           this.apparationGif++;
+                            if(apparationGif >= 10) {
+                               uneTuile.setAleatoire(false);
+                                apparationGif = 1;
+                            }*/
+                    }
+                    //Log.i("test1"," fini ?---> "+this.mouvementFini);
+
+					//Bitmap
 					/*
 					 * END MODIF YANNICK
 					 */
-					
-					switch(this.mouvement){
-						case 1:
-							Log.v("testo", "*********************** GAUCHE *********************");
-							Log.v("testo", "Valeur Y1 PASSE : " + uneTuile.getPosGPasse().getY1());
-							Log.v("testo", "Valeur Y1 ACTUEL : " + uneTuile.getPosGActuel().getY1());
-							if(uneTuile.getPosGPasse().getY1() >= uneTuile.getPosGActuel().getY1()){
-								//classeurImages.getTuileImage(uneTuile.getValeur())
+                   // if(!uneTuile.isAleatoire()) {
+                        switch(this.mouvement){
+                            case 1:
+                                Log.v("testo", "*********************** GAUCHE 1*********************");
+                                Log.v("testo", "Valeur Y1 PASSE : " + uneTuile.getPosGPasse().getY1());
+                                Log.v("testo", "Valeur Y1 ACTUEL : " + uneTuile.getPosGActuel().getY1());
+                                if(uneTuile.getPosGPasse().getY1() >= uneTuile.getPosGActuel().getY1()){
+                                    //classeurImages.getTuileImage(uneTuile.getValeur())
 								/*
 								 * MODIF YANNICK
 								 */
-								pCanvas.drawBitmap(imageTuile, uneTuile.getPosGPasse().getY1(), uneTuile.getPosGPasse().getX1() + 192, null);
-								//pCanvas.drawBitmap(uneTuile.getImgCarre(), uneTuile.getPosGPasse().getY1(), uneTuile.getPosGPasse().getX1() + 192, null);
+                                    pCanvas.drawBitmap(imageTuile, uneTuile.getPosGPasse().getY1(), uneTuile.getPosGPasse().getX1() + 192, null);
+                                    //pCanvas.drawBitmap(uneTuile.getImgCarre(), uneTuile.getPosGPasse().getY1(), uneTuile.getPosGPasse().getX1() + 192, null);
 								/*
 								 * END MODIF YANNICK
 								 */
-								
-								Log.v("testo", "Valeur Y1 départ  : " + uneTuile.getPosGPasse().getY1());
-								uneTuile.mouvGauche(10);
-								Log.v("testo", "Valeur Y1 après modif : " + uneTuile.getPosGPasse().getY1());
-							}else{
-								//pCanvas.drawBitmap(uneTuile.getImgCarre(), uneTuile.getPosGActuel().getY1(), uneTuile.getPosGActuel().getX1() + 192, null);
-								pCanvas.drawBitmap(imageTuile, uneTuile.getPosGActuel().getY1(), uneTuile.getPosGActuel().getX1() + 192, null);
-								
-								//classeurImages
-								//this.mouvement = 0;
-							}
-						break;
-						case 2:
-							Log.v("testo", "*********************** DROITE *********************");
-							Log.v("testo", "Valeur Y1 PASSE : " + uneTuile.getPosGPasse().getY1());
-							Log.v("testo", "Valeur Y1 ACTUEL : " + uneTuile.getPosGActuel().getY1());
-							if(uneTuile.getPosGPasse().getY1() <= uneTuile.getPosGActuel().getY1()){
-								
-								////classeurImages.getTuileImage(uneTuile.getValeur())
-								//pCanvas.drawBitmap(uneTuile.getImgCarre(), uneTuile.getPosGPasse().getY1(), uneTuile.getPosGPasse().getX1() + 192, null);
-								pCanvas.drawBitmap(imageTuile, uneTuile.getPosGPasse().getY1(), uneTuile.getPosGPasse().getX1() + 192, null);
-								
-								
-								uneTuile.mouvDroite(10);
-								Log.v("testo", "Valeur Y1 : " + uneTuile.getPosGPasse().getY1());
-							}else{
-								////classeurImages.getTuileImage(uneTuile.getValeur())
-								//pCanvas.drawBitmap(uneTuile.getImgCarre(), uneTuile.getPosGActuel().getY1(), uneTuile.getPosGActuel().getX1() + 192, null);
-								
-								pCanvas.drawBitmap(imageTuile, uneTuile.getPosGActuel().getY1(), uneTuile.getPosGActuel().getX1() + 192, null);
-								//this.mouvement = 0;
-							}
-						break;
-						case 3:
-							Log.v("testo", "*********************** HAUT *********************");
-							if(uneTuile.getPosGPasse().getX1() >= uneTuile.getPosGActuel().getX1()){
-								
-								
-						
-								pCanvas.drawBitmap(imageTuile, uneTuile.getPosGPasse().getY1(), uneTuile.getPosGPasse().getX1() + 192, null);
-								
-								uneTuile.mouvHaut(10);
-								Log.v("testo", "Valeur X1 : " + uneTuile.getPosGPasse().getX1());
-							}else{
-								pCanvas.drawBitmap(imageTuile, uneTuile.getPosGActuel().getY1(), uneTuile.getPosGActuel().getX1() + 192, null);
-								//this.mouvement = 0;
-							}
-						break;
-						case 4:
-							Log.v("testo", "*********************** BAS *********************");
-							if(uneTuile.getPosGPasse().getX1() <= uneTuile.getPosGActuel().getX1()){
-								pCanvas.drawBitmap(imageTuile, uneTuile.getPosGPasse().getY1(), uneTuile.getPosGPasse().getX1() + 192, null);
-								uneTuile.mouvBas(10);
-								Log.v("testo", "Valeur X1 : " + uneTuile.getPosGPasse().getX1());
-							}else{
-								pCanvas.drawBitmap(imageTuile, uneTuile.getPosGActuel().getY1(), uneTuile.getPosGActuel().getX1() + 192, null);
-								//this.mouvement = 0;
-							}
-						break;
-						default:
-							Log.v("testo", "*********************** AUCUN *********************");
-							pCanvas.drawBitmap(imageTuile, uneTuile.getPosGActuel().getY1(), uneTuile.getPosGActuel().getX1() + 192, null);
-						break;
-					}
+
+                                    Log.v("testo", "Valeur Y1 départ  : " + uneTuile.getPosGPasse().getY1());
+                                    uneTuile.mouvGauche(100);
+                                    Log.v("testo", "Valeur Y1 après modif : " + uneTuile.getPosGPasse().getY1());
+                                }else{
+                                    //pCanvas.drawBitmap(uneTuile.getImgCarre(), uneTuile.getPosGActuel().getY1(), uneTuile.getPosGActuel().getX1() + 192, null);
+                                    pCanvas.drawBitmap(imageTuile, uneTuile.getPosGActuel().getY1(), uneTuile.getPosGActuel().getX1() + 192, null);
+                                    fini++;
+                                    //classeurImages
+                                    //this.mouvement = 0;
+                                }
+                                break;
+                            case 2:
+                                Log.v("testo", "*********************** DROITE *********************");
+                                Log.v("testo", "Valeur Y1 PASSE : " + uneTuile.getPosGPasse().getY1());
+                                Log.v("testo", "Valeur Y1 ACTUEL : " + uneTuile.getPosGActuel().getY1());
+                                if(uneTuile.getPosGPasse().getY1() <= uneTuile.getPosGActuel().getY1()){
+
+                                    ////classeurImages.getTuileImage(uneTuile.getValeur())
+                                    //pCanvas.drawBitmap(uneTuile.getImgCarre(), uneTuile.getPosGPasse().getY1(), uneTuile.getPosGPasse().getX1() + 192, null);
+                                    pCanvas.drawBitmap(imageTuile, uneTuile.getPosGPasse().getY1(), uneTuile.getPosGPasse().getX1() + 192, null);
+
+
+                                    uneTuile.mouvDroite(100);
+                                    Log.v("testo", "Valeur Y1 : " + uneTuile.getPosGPasse().getY1());
+                                }else{
+                                    ////classeurImages.getTuileImage(uneTuile.getValeur())
+                                    //pCanvas.drawBitmap(uneTuile.getImgCarre(), uneTuile.getPosGActuel().getY1(), uneTuile.getPosGActuel().getX1() + 192, null);
+                                    fini++;
+                                    pCanvas.drawBitmap(imageTuile, uneTuile.getPosGActuel().getY1(), uneTuile.getPosGActuel().getX1() + 192, null);
+                                    //this.mouvement = 0;
+                                }
+                                break;
+                            case 3:
+                                Log.v("testo", "*********************** HAUT *********************");
+                                if(uneTuile.getPosGPasse().getX1() >= uneTuile.getPosGActuel().getX1()){
+
+
+
+                                    pCanvas.drawBitmap(imageTuile, uneTuile.getPosGPasse().getY1(), uneTuile.getPosGPasse().getX1() + 192, null);
+
+                                    uneTuile.mouvHaut(100);
+                                    Log.v("testo", "Valeur X1 : " + uneTuile.getPosGPasse().getX1());
+                                }else{
+                                    pCanvas.drawBitmap(imageTuile, uneTuile.getPosGActuel().getY1(), uneTuile.getPosGActuel().getX1() + 192, null);
+                                    //this.mouvement = 0;
+                                    fini++;
+                                }
+                                break;
+                            case 4:
+                                Log.v("testo", "*********************** BAS *********************");
+                                if(uneTuile.getPosGPasse().getX1() <= uneTuile.getPosGActuel().getX1()){
+                                    pCanvas.drawBitmap(imageTuile, uneTuile.getPosGPasse().getY1(), uneTuile.getPosGPasse().getX1() + 192, null);
+                                    uneTuile.mouvBas(100);
+                                    Log.v("testo", "Valeur X1 : " + uneTuile.getPosGPasse().getX1());
+                                }else{
+                                    pCanvas.drawBitmap(imageTuile, uneTuile.getPosGActuel().getY1(), uneTuile.getPosGActuel().getX1() + 192, null);
+                                    //this.mouvement = 0;
+                                    fini++;
+                                }
+                                break;
+                            default:
+                                Log.v("testo", "*********************** AUCUN *********************");
+                                pCanvas.drawBitmap(imageTuile, uneTuile.getPosGActuel().getY1(), uneTuile.getPosGActuel().getX1() + 192, null);
+                                fini++;
+                                break;
+                        }
+                   // } else {
+                    //    fini++;
+                   // }
+
 					//pCanvas.drawBitmap(carreGraphique.getImgCarre(), carreGraphique.getPosGActuel().getY1(), carreGraphique.getPosGActuel().getX1() + 192, null);
 					
 					/*if(carreGraphique.getPosGPasse().getX1() != carreGraphique.getPosGActuel().getX1()){
@@ -235,7 +266,12 @@ public class MoteurGraphique extends SurfaceView implements SurfaceHolder.Callba
 				
 				//Log.v("testo", "X : " + posG.getX1() + " Y : " + posG.getY1());
 			}
-			
+			if(fini == listTuilesG.size()) {
+                mouvementFini = true;
+
+            } else {
+                mouvementFini = false;
+            }
 		}
 		
 	}
@@ -270,13 +306,14 @@ public class MoteurGraphique extends SurfaceView implements SurfaceHolder.Callba
 
 				// Pour dessiner � 50 fps
 				try {
-					Thread.sleep(100);
+					Thread.sleep(10);
 				} catch (InterruptedException e) {
 				}
 			}
 		}
 	}
-	
-	
-	
+
+    public void setMouvementFini(boolean mouvementFini) {
+        this.mouvementFini = mouvementFini;
+    }
 }

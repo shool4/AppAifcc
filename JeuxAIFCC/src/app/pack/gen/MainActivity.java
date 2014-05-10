@@ -1,19 +1,17 @@
 package app.pack.gen;
 
-import java.util.ArrayList;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+
 import app.pack.controleur.EcouteurToucherEcran;
-import app.pack.modele.ClasseurImages;
 import app.pack.modele.MoteurPhysique;
-import app.pack.modele.Tuile;
 import app.pack.modele.TuileGraphique;
 import app.pack.modele.TypePartie;
 import app.pack.vue.MoteurGraphique;
@@ -48,31 +46,36 @@ public class MainActivity extends Activity{
 
 	public void gauche() {
 		Log.i("test1", "*********************** GAUCHE *********************");
-		ArrayList<Tuile> arrayTuile = this.moteurPhysique.gauche();
+     //   this.moteurGraphique.setMouvementFini(false);
+		ArrayList<TuileGraphique> arrayTuileGraphique = this.moteurPhysique.gauche();
 		this.moteurGraphique.setMouvement(1);
-		this.moteurGraphique.setListTuilesG(conversionTuile());
+		this.moteurGraphique.setListTuilesG(arrayTuileGraphique);
 	}
 
 	public void droite() {
 		Log.i("test1", "*********************** DROITE *********************");
-		ArrayList<Tuile> arrayTuile = this.moteurPhysique.droite();
+     //   this.moteurGraphique.setMouvementFini(false);
+		ArrayList<TuileGraphique> arrayTuileGraphique = this.moteurPhysique.droite();
 		//this.moteurGraphique.mouvement = 2;
 		this.moteurGraphique.setMouvement(2);
-		this.moteurGraphique.setListTuilesG(conversionTuile());
+		this.moteurGraphique.setListTuilesG(arrayTuileGraphique);
 	}
 	public void haut() {
 		Log.i("test1", "*********************** HAUT ***********************");
-		ArrayList<Tuile> arrayTuile = this.moteurPhysique.haut();
+      //  this.moteurGraphique.setMouvementFini(false);
+		ArrayList<TuileGraphique> arrayTuileGraphique = this.moteurPhysique.haut();
 		//this.moteurGraphique.mouvement = 3;
+
 		this.moteurGraphique.setMouvement(3);
-		this.moteurGraphique.setListTuilesG(conversionTuile());
+		this.moteurGraphique.setListTuilesG(arrayTuileGraphique);
 	}
 	public void bas() {
 		Log.i("test1", "*********************** BAS ************************");
-		ArrayList<Tuile> arrayTuile = this.moteurPhysique.bas();
+       // this.moteurGraphique.setMouvementFini(false);
+		ArrayList<TuileGraphique> arrayTuileGraphique = this.moteurPhysique.bas();
 		//this.moteurGraphique.mouvement = 4;
 		this.moteurGraphique.setMouvement(4);
-		this.moteurGraphique.setListTuilesG(conversionTuile());
+		this.moteurGraphique.setListTuilesG(arrayTuileGraphique);
 	}
 	
 	@SuppressWarnings("deprecation")
@@ -89,15 +92,15 @@ public class MainActivity extends Activity{
 	    switch (v.getId()) {
 	      case R.id.button1:
 			moteurPhysique = new MoteurPhysique(TypePartie.easy);
-			this.moteurGraphique.setListTuilesG(conversionTuile());
+			this.moteurGraphique.setListTuilesG(this.moteurPhysique.getGrilleGraphiqueDeTuileNonVide());
 	        break;
 	      case R.id.button2:
 			moteurPhysique = new MoteurPhysique(TypePartie.normal);
-			this.moteurGraphique.setListTuilesG(conversionTuile());
+			this.moteurGraphique.setListTuilesG(this.moteurPhysique.getGrilleGraphiqueDeTuileNonVide());
 	        break;
 	      case R.id.button3:
 			moteurPhysique = new MoteurPhysique(TypePartie.normal);
-			this.moteurGraphique.setListTuilesG(conversionTuile());
+			this.moteurGraphique.setListTuilesG(this.moteurPhysique.getGrilleGraphiqueDeTuileNonVide());
 	        break;
 	      case R.id.button4:
 	    	  AlertDialog alertDialog = new AlertDialog.Builder(
@@ -129,19 +132,26 @@ public class MainActivity extends Activity{
 
 	}
 	
-	public ArrayList<TuileGraphique> conversionTuile(){
+	/*public ArrayList<TuileGraphique> conversionTuile(){
 		ArrayList<TuileGraphique> listTuilesG = new ArrayList<TuileGraphique>();
-		
+
 		for(Tuile uneTuile : this.moteurPhysique.getGrille()){
-			int valeurTuile = uneTuile.getValeur();
-			
-			if(valeurTuile != 0){
-				TuileGraphique tuileG = new TuileGraphique(uneTuile);
-				listTuilesG.add(tuileG);
-				//tuileG.setPosGPasse(tuileG.getPosGActuel());
-			}
-		}
+            boolean isAleatoire;
+            if(uneTuile.getValeur() != 0 ) {
+                //Log.i("test1"," "+uneTuile.getValeur()+" --> "+uneTuile.isAleatoire());
+                isAleatoire = uneTuile.isAleatoire();
+                TuileGraphique tuileG = new TuileGraphique(uneTuile);
+                // Log.i("test1"," "+tuileG.getValeur()+" --> "+tuileG.isAleatoire());
+                tuileG.setAleatoire(isAleatoire);
+                listTuilesG.add(tuileG);
+                   // if(uneTuile.isAleatoire()) {
+                   //     uneTuile.setPositionPasse(uneTuile.getPostionActuel());
+                   // }
+
+                //tuileG.setPosGPasse(tuileG.getPosGActuel());
+            }
+        }
 		
 		return listTuilesG;
-	}
+	}*/
 }
