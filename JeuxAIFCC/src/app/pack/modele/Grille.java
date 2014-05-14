@@ -13,7 +13,7 @@ import java.util.ListIterator;
 public class Grille {
 
 	private TuileGraphique[][] grille = null;
-
+    private ArrayList<TuileGraphique> tuileMerge = null;
 	/**
 	 * Constructeur 
 	 * Dimensionne celons la taille et charge la grille de tuile zeros
@@ -21,6 +21,7 @@ public class Grille {
 	 */
 	public Grille(int tailleY, int tailleX) {
 		super();
+        this.tuileMerge = new ArrayList<TuileGraphique>();
 		this.grille = new TuileGraphique[tailleY][tailleX];
 		this.mettreZero();
 
@@ -59,15 +60,24 @@ public class Grille {
 	public ArrayList<TuileGraphique> getTuileNonVide() {
 		
 		ArrayList<TuileGraphique> list = new ArrayList<TuileGraphique>();
+
+        for (TuileGraphique uneTuile : tuileMerge) {
+
+            list.add(uneTuile);
+
+
+        }
+
 		for (int i = 0; i < this.getSizeY(); i++) {
             for (int u = 0; u < this.getSizeX(); u++) {
-                if(this.grille[i][u].getValeur() != 0){
+                if(this.grille[i][u].getValeur() != 0  ) {
                     list.add(this.grille[i][u]);
                 }
 
             }
 
         }
+
 		return list;
 		//;)
 	}
@@ -356,22 +366,35 @@ public class Grille {
 	 * @return 	Boolean (True possible de bouger a droite ou gauche : false)
 	 * 
 	 */
-    public Boolean chekcIsPossibleDroiteGauche(Boolean priseEnCompteZerosTrue) {
-		
-		for (int i = 0; i < this.getSizeY(); i++) {
-			for (int j = 0; j < this.getSizeX() ; j++) {
-				for (int j2 = j + 1; j2 < this.getSizeX() ; j2++) {
+    public Boolean chekcIsPossibleDroiteGauche(Boolean DroiteTrueGaucheFalse) {
 
-					if (this.grille[i][j].getValeur() != 0) {
-						if (this.grille[i][j].getValeur() == this.grille[i][j2].getValeur()) return true;
-						else if (this.grille[i][j2].getValeur() != 0) break;
-					}
-					
-					if(priseEnCompteZerosTrue && this.grille[i][j].getValeur() == 0) return true;	
-				}
-			}
-		}
-		return false;
+        for (int i = 0; i < this.getSizeX(); i++) {
+            for (int j = 0; j < this.getSizeY(); j++) {
+
+                for (int j2 = j + 1; j2 < this.getSizeY(); j2++) {
+
+                    if (this.grille[i][j].getValeur() != 0) {
+                        if (this.grille[i][j].getValeur() == this.grille[i][j2].getValeur()) {
+                            return true;
+                            // } else if (this.grille[j2][i].getValeur() != 0 && zerosTrouver && HautTrueBasFalse) {
+                            //    return true;
+                            // } else if (this.grille[j2][i].getValeur() != 0 && zerosTrouver && HautTrueBasFalse) {
+
+                        } else if (this.grille[i][j2].getValeur() != 0) {
+                            break;
+                        } else if (DroiteTrueGaucheFalse && this.grille[i][j2].getValeur() == 0) {
+                            return true;
+                        }
+                    } else {
+                        if (!DroiteTrueGaucheFalse && (this.grille[i][j2].getValeur() != 0)) {
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+
 	}
 	
 	/**
@@ -385,35 +408,37 @@ public class Grille {
 	 * 
 	 */
 	public Boolean chekcIsPossiblehHautBas(Boolean HautTrueBasFalse) {
-        return  true;
-        /*boolean zerosTrouver = false;
+        //boolean zerosTrouver = false;
+
 		for (int i = 0; i < this.getSizeX(); i++) {
 			for (int j = 0; j < this.getSizeY(); j++) {
+
 				for (int j2 = j + 1; j2 < this.getSizeY(); j2++) {
 
-					//if (this.grille[j][i].getValeur() != 0) {
-						if (this.grille[j][i].getValeur() == this.grille[j2][i].getValeur()) {
+					if (this.grille[j][i].getValeur() != 0) {
+                        if (this.grille[j][i].getValeur() == this.grille[j2][i].getValeur()) {
+                            return true;
+                       // } else if (this.grille[j2][i].getValeur() != 0 && zerosTrouver && HautTrueBasFalse) {
+                        //    return true;
+                       // } else if (this.grille[j2][i].getValeur() != 0 && zerosTrouver && HautTrueBasFalse) {
+
+                        } else if (this.grille[j2][i].getValeur() != 0) {
+                            break;
+                        } else if (!HautTrueBasFalse && this.grille[j2][i].getValeur() == 0) {
                             return true;
                         }
-						else if (this.grille[j2][i].getValeur() != 0) {
-
-                            break;
-                        } else {
-                            zerosTrouver = true;
-                        }*/
-					//} else {
-                   //     zerosTrouver = true;
-                   // }
-					
-					/*if (priseEnCompteZerosTrue && this.grille[i][j].getValeur() == 0) {
-                        return true;
-                    }*/
-			//	}
-			//}
-		//}
-		//return false;
+                    } else {
+                        if (HautTrueBasFalse && this.grille[j2][i].getValeur() != 0) {
+                            return true;
+                        }
+                    }
+				}
+			}
+		}
+		return false;
 	}
 	public void initialisePosition() {
+        tuileMerge = new ArrayList<TuileGraphique>();
         for (int i = 0; i < this.getSizeY(); i++){
             for (int u = 0; u < this.getSizeX(); u++){
                 this.grille[i][u].setPositionPasse(this.grille[i][u].getPostionActuel());
@@ -454,7 +479,7 @@ public class Grille {
 						// pour comparais
 						if (this.grille[i][j].getValeur() == this.grille[i][j2].getValeur()) {
 
-							this.grille[i][j].merge(this.grille[i][j2]);
+                            tuileMerge.add(this.merge(this.grille[i][j], this.grille[i][j2]));
 							this.grille[i][j2].setValeur(0);
 							break;
 							
@@ -497,7 +522,7 @@ public class Grille {
 
 						if (this.grille[i][j].getValeur() == this.grille[i][j2].getValeur()) {
 
-							this.grille[i][j].merge(this.grille[i][j2]);
+                            tuileMerge.add(this.merge(this.grille[i][j], this.grille[i][j2]));
 							this.grille[i][j2].setValeur(0);
 							break;
 							
@@ -537,7 +562,7 @@ public class Grille {
 
 						if (this.grille[j][i].getValeur() == this.grille[j2][i].getValeur()) {
 
-							this.grille[j][i].merge(this.grille[j2][i]);
+                            tuileMerge.add(this.merge(this.grille[j][i], this.grille[j2][i]));
 							this.grille[j2][i].setValeur(0);
 							break;
 							
@@ -576,7 +601,7 @@ public class Grille {
 
 						if (this.grille[j][i].getValeur() == this.grille[j2][i].getValeur()) {
 
-							this.grille[j][i].merge(this.grille[j2][i]);
+                            tuileMerge.add(this.merge(this.grille[j][i], this.grille[j2][i]));
 							this.grille[j2][i].setValeur(0);
 							break;
 							
@@ -689,5 +714,29 @@ public class Grille {
 		}
 		Log.i("test1", "******************");
 	}
+    /**
+     * merger les tuiles
+     * @param uneTuille
+     */
+    public TuileGraphique merge(TuileGraphique uneTuilleMerge,TuileGraphique uneTuilleAjout){
+
+        TuileGraphique uneTuileMergedDisparait = new TuileGraphique(uneTuilleMerge);
+        uneTuileMergedDisparait.setPrecendant(true);
+        uneTuileMergedDisparait.setPositionPasse(uneTuilleAjout.getPostionActuel());
+
+        uneTuilleMerge.setMerged(true);
+
+        uneTuilleMerge.setValeur(uneTuilleAjout.getValeur()*2);
+       // uneTuille.valeurPrecendant = uneTuille.getValeur();
+
+        //Multiplication des valeurs des carres
+        //this.valeur = uneTuille.getValeur()*2;
+        //Mise a jour de la position passe
+        //this.setPositionPasse(uneTuille.getPostionActuel());
+        //TODO MERGE Ancien ^^
+        //uneTuille.setPositionActuel(this.getPostionActuel());
+
+        return uneTuileMergedDisparait;
+    }
 	
 }

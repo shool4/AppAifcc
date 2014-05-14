@@ -20,7 +20,7 @@ public class MainActivity extends Activity{
 	// Le moteur graphique du jeu
 	public MoteurGraphique moteurGraphique = null;
 	public MoteurPhysique moteurPhysique = null;
-	
+
 	
 	public int taillePlateau = 4;
 
@@ -47,35 +47,44 @@ public class MainActivity extends Activity{
 	public void gauche() {
 		Log.i("test1", "*********************** GAUCHE *********************");
      //   this.moteurGraphique.setMouvementFini(false);
-		ArrayList<TuileGraphique> arrayTuileGraphique = this.moteurPhysique.gauche();
-		this.moteurGraphique.setMouvement(1);
-		this.moteurGraphique.setListTuilesG(arrayTuileGraphique);
+        if(moteurGraphique.isMouvementFini()) {
+            ArrayList<TuileGraphique> arrayTuileGraphique = this.moteurPhysique.gauche();
+            this.moteurGraphique.setMouvement(1);
+            this.moteurGraphique.setListTuilesG(arrayTuileGraphique);
+        }
+
 	}
 
 	public void droite() {
 		Log.i("test1", "*********************** DROITE *********************");
      //   this.moteurGraphique.setMouvementFini(false);
-		ArrayList<TuileGraphique> arrayTuileGraphique = this.moteurPhysique.droite();
-		//this.moteurGraphique.mouvement = 2;
-		this.moteurGraphique.setMouvement(2);
-		this.moteurGraphique.setListTuilesG(arrayTuileGraphique);
+        if(moteurGraphique.isMouvementFini()) {
+            ArrayList<TuileGraphique> arrayTuileGraphique = this.moteurPhysique.droite();
+            //this.moteurGraphique.mouvement = 2;
+            this.moteurGraphique.setMouvement(2);
+            this.moteurGraphique.setListTuilesG(arrayTuileGraphique);
+        }
 	}
 	public void haut() {
 		Log.i("test1", "*********************** HAUT ***********************");
       //  this.moteurGraphique.setMouvementFini(false);
-		ArrayList<TuileGraphique> arrayTuileGraphique = this.moteurPhysique.haut();
-		//this.moteurGraphique.mouvement = 3;
+        if(moteurGraphique.isMouvementFini()) {
+            ArrayList<TuileGraphique> arrayTuileGraphique = this.moteurPhysique.haut();
+            //this.moteurGraphique.mouvement = 3;
 
-		this.moteurGraphique.setMouvement(3);
-		this.moteurGraphique.setListTuilesG(arrayTuileGraphique);
+            this.moteurGraphique.setMouvement(3);
+            this.moteurGraphique.setListTuilesG(arrayTuileGraphique);
+        }
 	}
 	public void bas() {
 		Log.i("test1", "*********************** BAS ************************");
        // this.moteurGraphique.setMouvementFini(false);
-		ArrayList<TuileGraphique> arrayTuileGraphique = this.moteurPhysique.bas();
-		//this.moteurGraphique.mouvement = 4;
-		this.moteurGraphique.setMouvement(4);
-		this.moteurGraphique.setListTuilesG(arrayTuileGraphique);
+        if(moteurGraphique.isMouvementFini()) {
+            ArrayList<TuileGraphique> arrayTuileGraphique = this.moteurPhysique.bas();
+            //this.moteurGraphique.mouvement = 4;
+            this.moteurGraphique.setMouvement(4);
+            this.moteurGraphique.setListTuilesG(arrayTuileGraphique);
+        }
 	}
 	
 	@SuppressWarnings("deprecation")

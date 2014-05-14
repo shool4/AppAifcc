@@ -4,11 +4,13 @@ public class TuileGraphique extends Tuile {
 	
 	//private Bitmap imgCarre;
 	//private Paint paint;
+
+
 	private PositionGraphique posGPasse;
 	private PositionGraphique posGActuel;
 	//private Tuile tuile;
 	//private int tailleFond;
-
+    private int animationApparition = 0;
     /**
      *
      * @param uneTuile
@@ -41,11 +43,17 @@ public class TuileGraphique extends Tuile {
         this.posGPasse = new PositionGraphique(unePositionPasse);
     }
 
+    public  TuileGraphique(TuileGraphique uneTuileGraphique) {
+        super(uneTuileGraphique.getPostionActuel(),uneTuileGraphique.getPostionPasse(),uneTuileGraphique.getValeur());
 
+        this.posGActuel = new PositionGraphique(uneTuileGraphique.getPostionActuel());
+        this.posGPasse = new PositionGraphique(uneTuileGraphique.getPostionPasse());
+    }
     /**
      * Setter de position actuel
      * @param unePosition
      */
+    @Override
     public void setPositionActuel(Position unePosition){
         this.positionActuel = unePosition;
         this.posGActuel = new PositionGraphique(unePosition);
@@ -113,15 +121,16 @@ public class TuileGraphique extends Tuile {
 		return posGPasse;
 	}
 
-	/*
+
 	public void setPosGPasse(PositionGraphique posGPasse) {
 
 		this.posGPasse = posGPasse;
-	}*/
+	}
 
 	public PositionGraphique getPosGActuel() {
 		return posGActuel;
 	}
+
 
 	/*public void setPosGActuel(PositionGraphique posGActuel) {
 		this.posGActuel = posGActuel;
@@ -165,5 +174,12 @@ public class TuileGraphique extends Tuile {
 	public void mouvHaut(int valeur){
 		this.posGPasse.setX1(posGPasse.getX1() - valeur);
 	}
-	
+
+    public int getAnimationApparition() {
+        return animationApparition;
+    }
+
+    public void setAnimationApparition(int animationApparition) {
+        this.animationApparition = animationApparition;
+    }
 }

@@ -103,7 +103,8 @@ public class MoteurPhysique {
 	 */
 	public ArrayList<TuileGraphique> droite() {
 		//ArrayList<Tuile> arrayTuile = null;
-		if (this.grille.getNombreTuileVide() > 0 || this.grille.chekcIsPossibleDroiteGauche(false)) {
+		if (this.grille.chekcIsPossibleDroiteGauche(true)) {
+            Log.i("test1"," --> "+this.grille.chekcIsPossibleDroiteGauche(true));
 			this.grille.deplacementDroite();
 			if (this.grille.getNombreTuileVide() > 0) {
 
@@ -136,7 +137,8 @@ public class MoteurPhysique {
 	 */
 	public ArrayList<TuileGraphique>  gauche(){
 		//ArrayList<Tuile> arrayTuile = null;
-		if(this.grille.getNombreTuileVide() > 0 || this.grille.chekcIsPossibleDroiteGauche(false)) {
+		if(this.grille.chekcIsPossibleDroiteGauche(false)) {
+            Log.i("test1"," --> "+this.grille.chekcIsPossibleDroiteGauche(false));
 			this.grille.deplacementGauche();
 			if(this.grille.getNombreTuileVide() > 0) {
 				
@@ -171,8 +173,8 @@ public class MoteurPhysique {
 	 */
 	public ArrayList<TuileGraphique> haut() {
 		//ArrayList<Tuile> arrayTuile = null;
-		if (this.grille.getNombreTuileVide() > 0 || this.grille.chekcIsPossiblehHautBas(false)) {
-            Log.i("test1"," --> "+this.grille.chekcIsPossiblehHautBas(false));
+		if (this.grille.chekcIsPossiblehHautBas(true)) {
+            Log.i("test1"," --> "+this.grille.chekcIsPossiblehHautBas(true));
 			this.grille.deplacementHaut();
 			if (this.grille.getNombreTuileVide() > 0) {
 
@@ -204,7 +206,8 @@ public class MoteurPhysique {
 	 */
 	public ArrayList<TuileGraphique> bas() {
 		//ArrayList<Tuile> arrayTuile = null;
-		if (this.grille.getNombreTuileVide() > 0 || this.grille.chekcIsPossiblehHautBas(false)) {
+		if (this.grille.chekcIsPossiblehHautBas(false)) {
+            Log.i("test1"," --> "+this.grille.chekcIsPossiblehHautBas(false));
 			this.grille.deplacementBas();
 			if (this.grille.getNombreTuileVide() > 0) {
 

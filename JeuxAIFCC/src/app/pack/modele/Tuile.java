@@ -8,10 +8,15 @@ package app.pack.modele;
 
 public class Tuile {
 
+    private boolean merged;
+    //private boolean merge;
+    private boolean precendant;
 
     private boolean aleatoire;
 	//Valeur
 	private int valeur;
+
+
 	//Postion
 	protected Position positionActuel;
 	protected Position positionPasse;
@@ -28,6 +33,8 @@ public class Tuile {
 		this.positionPasse = unePositionPasse;
 		this.valeur = valeur;
         this.aleatoire = false;
+        this.precendant = false;
+        this.merged = false;
 	}
 
     /**
@@ -95,21 +102,14 @@ public class Tuile {
 	 *
 	 */
 
-    /**
-     * merger les tuiles
-     * @param uneTuille
-     */
-	public void merge(Tuile uneTuille){
 
-		//Multiplication des valeurs des carres
-		this.valeur = uneTuille.getValeur()*2;
-		//Mise a jour de la position passe
-		this.setPositionPasse(uneTuille.getPostionActuel());
+    public boolean isPrecendant() {
+        return precendant;
+    }
 
-	}
-
-
-
+    public void setPrecendant(boolean precendant) {
+        this.precendant = precendant;
+    }
 
     public boolean isAleatoire() {
         return aleatoire;
@@ -119,4 +119,11 @@ public class Tuile {
         this.aleatoire = aleatoire;
     }
 
+    public boolean isMerged() {
+        return merged;
+    }
+
+    public void setMerged(boolean merged) {
+        this.merged = merged;
+    }
 }

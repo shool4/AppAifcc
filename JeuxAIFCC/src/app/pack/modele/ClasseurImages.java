@@ -46,7 +46,18 @@ public class ClasseurImages {
                 BitmapFactory.decodeResource(context.getResources(), R.drawable.cini6),
                 BitmapFactory.decodeResource(context.getResources(), R.drawable.cini7),
                 BitmapFactory.decodeResource(context.getResources(), R.drawable.cini8),
-                BitmapFactory.decodeResource(context.getResources(), R.drawable.cini9)
+                BitmapFactory.decodeResource(context.getResources(), R.drawable.cini9),
+                BitmapFactory.decodeResource(context.getResources(), R.drawable.cini10),
+                BitmapFactory.decodeResource(context.getResources(), R.drawable.c4ini1),
+                BitmapFactory.decodeResource(context.getResources(), R.drawable.c4ini2),
+                BitmapFactory.decodeResource(context.getResources(), R.drawable.c4ini3),
+                BitmapFactory.decodeResource(context.getResources(), R.drawable.c4ini4),
+                BitmapFactory.decodeResource(context.getResources(), R.drawable.c4ini5),
+                BitmapFactory.decodeResource(context.getResources(), R.drawable.c4ini6),
+                BitmapFactory.decodeResource(context.getResources(), R.drawable.c4ini7),
+                BitmapFactory.decodeResource(context.getResources(), R.drawable.c4ini8),
+                BitmapFactory.decodeResource(context.getResources(), R.drawable.c4ini9),
+                BitmapFactory.decodeResource(context.getResources(), R.drawable.c4ini10)
 
 				};
 		
@@ -62,38 +73,73 @@ public class ClasseurImages {
 	 * @param indiceImage
 	 * @return
 	 */
-    public Bitmap getApparition(int debApp) {
-        switch (debApp) {
-            case 1:
-                return classeurImageTuile[12];
+    public Bitmap getApparition(int debApp, int valeurTuile) {
+        if(valeurTuile == 2) {
+            switch (debApp) {
+                case 1:
+                    return classeurImageTuile[12];
 
-            case 2:
-                return classeurImageTuile[13];
+                case 2:
+                    return classeurImageTuile[13];
 
-            case 3:
-                return classeurImageTuile[14];
+                case 3:
+                    return classeurImageTuile[14];
 
-            case 4:
-                return classeurImageTuile[15];
+                case 4:
+                    return classeurImageTuile[15];
 
-            case 5:
-                return classeurImageTuile[16];
+                case 5:
+                    return classeurImageTuile[16];
 
-            case 6:
-                return classeurImageTuile[17];
+                case 6:
+                    return classeurImageTuile[17];
 
-            case 7:
-                return classeurImageTuile[18];
+                case 7:
+                    return classeurImageTuile[18];
 
-            case 8:
-                return classeurImageTuile[19];
+                case 8:
+                    return classeurImageTuile[19];
 
-            case 9:
-                return classeurImageTuile[20];
+                case 9:
+                    return classeurImageTuile[20];
 
+                case 10:
+                    return classeurImageTuile[21];
 
+            }
+        } else if (valeurTuile == 4 ) {
+            switch (debApp) {
+                case 1:
+                    return classeurImageTuile[22];
 
+                case 2:
+                    return classeurImageTuile[23];
 
+                case 3:
+                    return classeurImageTuile[24];
+
+                case 4:
+                    return classeurImageTuile[25];
+
+                case 5:
+                    return classeurImageTuile[26];
+
+                case 6:
+                    return classeurImageTuile[27];
+
+                case 7:
+                    return classeurImageTuile[28];
+
+                case 8:
+                    return classeurImageTuile[29];
+
+                case 9:
+                    return classeurImageTuile[30];
+
+                case 10:
+                    return classeurImageTuile[31];
+
+            }
         }
         return null;
 
