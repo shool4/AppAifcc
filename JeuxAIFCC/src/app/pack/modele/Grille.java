@@ -173,7 +173,7 @@ public class Grille {
 	 * @return 	Boolean (True pose, false non pose)
 	 * 
 	 */
-	public Tuile ajoutTuileAleatoire() {
+	public TuileGraphique ajoutTuileAleatoire() {
 		// GENERE un tableau de tuile vide sur la grille (permet de les
 		// modifiers en pointant decu)
 		ArrayList<TuileGraphique> lesTuileVides = getFreeTuille();
@@ -183,7 +183,7 @@ public class Grille {
 			if (!(lesTuileVides.size() == 1)){
 				unNombreAleatoire = Outil.aleatoireNombreEntier(0, lesTuileVides.size());
 			}
-			Tuile tuileSelect = lesTuileVides.get(unNombreAleatoire);
+			TuileGraphique tuileSelect = lesTuileVides.get(unNombreAleatoire);
 			tuileSelect.setValeur(uneValeurCarreAleatoire);
 			tuileSelect.setPositionPasse(tuileSelect.getPostionActuel());
 			tuileSelect.setAleatoire(true);

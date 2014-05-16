@@ -73,21 +73,24 @@ public class MoteurPhysique {
 	 * 
 	 */
 	public void ajoutTuileAleatoire() {
-		if(this.grille.ajoutTuileAleatoire() == null) {Log.i("test1","---> Grille plien ajout imposible <---");}
+
+        if(this.grille.ajoutTuileAleatoire() == null) {
+            Log.i("test1","---> MOUVEMENT IMPOSSIBLE GRILLE COMPLET <---");
+        }
 	}
 	
 	/**
 	 * Ajout d'une tuile bonus
-	 * 
+	 * public void ajoutTuileBonus() {}
 	 */
-	public void ajoutTuileBonus() {}
-	
+
+
 	/**
 	 * Ajout d'un tuile
 	 * @param uneTuile
-	 * 
+	 * 	public void ajoutTuile(TuileGraphique uneTuile) {this.grille.ajoutUneTuile(uneTuile);}
 	 */
-	public void ajoutTuile(TuileGraphique uneTuile) {this.grille.ajoutUneTuile(uneTuile);}
+
 	
 	/*
 	 * 
@@ -104,13 +107,13 @@ public class MoteurPhysique {
 	public ArrayList<TuileGraphique> droite() {
 		//ArrayList<Tuile> arrayTuile = null;
 		if (this.grille.chekcIsPossibleDroiteGauche(true)) {
-            Log.i("test1"," --> "+this.grille.chekcIsPossibleDroiteGauche(true));
+          //  Log.i("test1"," --> "+this.grille.chekcIsPossibleDroiteGauche(true));
 			this.grille.deplacementDroite();
 			if (this.grille.getNombreTuileVide() > 0) {
 
 				//Nombre de tuile ajout par tour
 				for (int i = 1; i <= this.nombreDeTuilePartTour; i++) {
-					this.grille.ajoutTuileAleatoire();
+                    this.ajoutTuileAleatoire();
 				}
 				
 
@@ -138,13 +141,13 @@ public class MoteurPhysique {
 	public ArrayList<TuileGraphique>  gauche(){
 		//ArrayList<Tuile> arrayTuile = null;
 		if(this.grille.chekcIsPossibleDroiteGauche(false)) {
-            Log.i("test1"," --> "+this.grille.chekcIsPossibleDroiteGauche(false));
+           // Log.i("test1"," --> "+this.grille.chekcIsPossibleDroiteGauche(false));
 			this.grille.deplacementGauche();
 			if(this.grille.getNombreTuileVide() > 0) {
 				
 				//Nombre de tuile ajout par tour
 				for (int i = 1; i <= this.nombreDeTuilePartTour; i++) {
-					this.grille.ajoutTuileAleatoire();
+                    this.ajoutTuileAleatoire();
 				}
 				
 			}else {
@@ -174,13 +177,13 @@ public class MoteurPhysique {
 	public ArrayList<TuileGraphique> haut() {
 		//ArrayList<Tuile> arrayTuile = null;
 		if (this.grille.chekcIsPossiblehHautBas(true)) {
-            Log.i("test1"," --> "+this.grille.chekcIsPossiblehHautBas(true));
+           // Log.i("test1"," --> "+this.grille.chekcIsPossiblehHautBas(true));
 			this.grille.deplacementHaut();
 			if (this.grille.getNombreTuileVide() > 0) {
 
 				//Nombre de tuile ajout par tour
 				for (int i = 1; i <= this.nombreDeTuilePartTour; i++) {
-					this.grille.ajoutTuileAleatoire();
+                    this.ajoutTuileAleatoire();
 				}
 
 			} else {
@@ -207,13 +210,13 @@ public class MoteurPhysique {
 	public ArrayList<TuileGraphique> bas() {
 		//ArrayList<Tuile> arrayTuile = null;
 		if (this.grille.chekcIsPossiblehHautBas(false)) {
-            Log.i("test1"," --> "+this.grille.chekcIsPossiblehHautBas(false));
+            //Log.i("test1"," --> "+this.grille.chekcIsPossiblehHautBas(false));
 			this.grille.deplacementBas();
 			if (this.grille.getNombreTuileVide() > 0) {
 
 				//Nombre de tuile ajout par tour
 				for (int i = 1; i <= this.nombreDeTuilePartTour; i++) {
-					this.grille.ajoutTuileAleatoire();
+                    this.ajoutTuileAleatoire();
 				}
 
 			} else {
@@ -221,7 +224,7 @@ public class MoteurPhysique {
 			}
 		} 
 		if (this.grille.isGameLost()) {
-		
+
 			Log.i("test1", "!!!! !!!! PERDU !!!! !!!!");
 		}
 		if(this.grille.isGameWon(this.nombreForWin)) {

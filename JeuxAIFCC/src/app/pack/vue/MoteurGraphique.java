@@ -340,7 +340,7 @@ public class MoteurGraphique extends SurfaceView implements SurfaceHolder.Callba
 
 				// Pour dessiner � 50 fps
 				try {
-					Thread.sleep(100);
+					Thread.sleep(10);
 				} catch (InterruptedException e) {
 				}
 			}
