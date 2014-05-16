@@ -147,7 +147,7 @@ public class MoteurGraphique extends SurfaceView implements SurfaceHolder.Callba
 					/*
 					 * MODIF YANNICK
 					 */
-                    Bitmap imageTuile = null;
+                    Bitmap imageTuile;
 
                     if( uneTuile.isAleatoire()) {
 
@@ -351,7 +351,7 @@ public class MoteurGraphique extends SurfaceView implements SurfaceHolder.Callba
         return mouvementFini;
     }
 
-    public void setMouvementFini(boolean mouvementFini) {
+    /*public void setMouvementFini(boolean mouvementFini) {
         this.mouvementFini = mouvementFini;
-    }
+    }*/
 }
