@@ -13,29 +13,29 @@ public class Tuile {
     private boolean precendant;
 
     private boolean aleatoire;
-	//Valeur
-	private int valeur;
+    //Valeur
+    private int valeur;
 
 
-	//Postion
-	protected Position positionActuel;
-	protected Position positionPasse;
+    //Postion
+    protected Position positionActuel;
+    protected Position positionPasse;
 
 
 
-	/**
-	 * 2er Constructeur
-	 * @param position
-	 * @param valeur
-	 */
-	public Tuile(Position unePositionActuel, Position unePositionPasse, int valeur) {
-		this.positionActuel = unePositionActuel;
-		this.positionPasse = unePositionPasse;
-		this.valeur = valeur;
+    /**
+     * 2er Constructeur
+     * @param position
+     * @param valeur
+     */
+    public Tuile(Position unePositionActuel, Position unePositionPasse, int valeur) {
+        this.positionActuel = unePositionActuel;
+        this.positionPasse = unePositionPasse;
+        this.valeur = valeur;
         this.aleatoire = false;
         this.precendant = false;
         this.merged = false;
-	}
+    }
 
     /**
      * Constructeur
@@ -61,39 +61,39 @@ public class Tuile {
 	 ******************************************************************************************************************************
 	 *
 	 */
-	/**
-	 * Getter valeur
-	 * @return int
-	 */
-	public int getValeur() {return valeur;}
+    /**
+     * Getter valeur
+     * @return int
+     */
+    public int getValeur() {return valeur;}
 
     /**
      * Setteur de valeur
      * @param sValeur
      */
-	public void setValeur(int sValeur) {this.valeur = sValeur;}
-	/**
-	 * Getter de position actuel
-	 * @return	Position
-	 */
-	public Position getPostionActuel() {return positionActuel;}
-	/**
-	 * Getter de position Passe
-	 * @return	Position
-	 */
-	public Position getPostionPasse() {return positionPasse;}
+    public void setValeur(int sValeur) {this.valeur = sValeur;}
+    /**
+     * Getter de position actuel
+     * @return	Position
+     */
+    public Position getPostionActuel() {return positionActuel;}
+    /**
+     * Getter de position Passe
+     * @return	Position
+     */
+    public Position getPostionPasse() {return positionPasse;}
 
     /**
      * Setter de position actuel
      * @param unePosition
      */
-	public void setPositionActuel(Position unePosition){this.positionActuel = unePosition;}
-	/**
-	 * Setter de position passe
-	 * @param	Position
-	 * @return	Position
-	 */
-	public void setPositionPasse(Position unePosition){this.positionPasse = unePosition;}
+    public void setPositionActuel(Position unePosition){this.positionActuel = unePosition;}
+    /**
+     * Setter de position passe
+     * @param	Position
+     * @return	Position
+     */
+    public void setPositionPasse(Position unePosition){this.positionPasse = unePosition;}
 	/*
 	 * 
 	 ******************************************************************************************************************************

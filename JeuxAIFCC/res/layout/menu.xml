@@ -12,25 +12,25 @@
     >
 
     <LinearLayout
-     	android:layout_marginTop="150dp"
-     	
 
-        android:layout_centerHorizontal="true"
-        
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-      
+
+        android:layout_width="200dp"
+        android:layout_height="300dp"
+        android:layout_gravity="center_horizontal"
         android:background="@drawable/fond_menu"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true">
 
         <Button
             android:id="@+id/button1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="150dp"
+            android:layout_height="62.5dp"
             android:layout_gravity="center_horizontal|bottom"
+            android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:background="@drawable/select_bleu"
-            android:onClick="ButtonOnClick"
+            android:onClick="buttonOnClick"
             android:text="Easy" />
 
         <Button
@@ -40,7 +40,7 @@
             android:layout_gravity="center_horizontal|bottom"
             android:layout_marginBottom="10dp"
             android:background="@drawable/select_rouge"
-            android:onClick="ButtonOnClick"
+            android:onClick="buttonOnClick"
             android:text="Hard" />
 
         <Button
@@ -50,7 +50,7 @@
             android:layout_gravity="center_horizontal|bottom"
             android:layout_marginBottom="10dp"
             android:background="@drawable/select_orange"
-            android:onClick="ButtonOnClick"
+            android:onClick="buttonOnClick"
             android:text="Normal" />
 
         <Button
@@ -60,7 +60,7 @@
             android:layout_gravity="center_horizontal|bottom"
             android:layout_marginBottom="10dp"
             android:background="@drawable/select_vert"
-            android:onClick="ButtonOnClick"
+            android:onClick="buttonOnClick"
             android:text="Author" />
     </LinearLayout>
 

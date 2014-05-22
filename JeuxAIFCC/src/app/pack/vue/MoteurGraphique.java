@@ -15,135 +15,165 @@ import app.pack.modele.TuileGraphique;
 
 @SuppressLint("WrongCall")
 public class MoteurGraphique extends SurfaceView implements SurfaceHolder.Callback {
-	
-	private SurfaceHolder mSurfaceHolder;
-	private DrawingThread mThread;
-	private  int mouvement = 0;
-	private ArrayList<TuileGraphique> listTuilesG = null;
 
-    //private int apparationGif = 0;
-    private boolean mouvementFini = false;
-    private boolean animationFini = false;
-	/* 
-	 * MODIF YANNICK
-	 */
-	public ClasseurImages classeurImages = null;
-	/*
-	 * END MODIF YANNICK
-	 */
+    private SurfaceHolder mSurfaceHolder;
+    private DrawingThread mThread;
+    private ClasseurImages classeurImages;
 
-	/**
-	 * Constructeur
-	 * 
-	 * @param pContext
-	 */
-	public MoteurGraphique(Context pContext) {
-		super(pContext);
-		
-		mSurfaceHolder = getHolder();
-		mSurfaceHolder.addCallback(this);
-		mThread = new DrawingThread();
-		/* 
-		 * MODIF YANNICK
-		 */
-		this.classeurImages = new ClasseurImages(pContext);
-		/*
-		 * END MODIF YANNICK
-		 */
-	
-	}
-	
-	//##################
-	// GETTERS - SETTERS
-	//##################
+    private  boolean autoMarche = true;
+    private  boolean mouvementFini = false;
+    private  int mouvement  = 0;
+
+    private ArrayList<TuileGraphique> listTuilesG;
+
+
+    /**
+     * Constructeur
+     *
+     * @param pContext
+     */
+    public MoteurGraphique(Context pContext) {
+        super(pContext);
+
+        this.mSurfaceHolder = getHolder();
+        this.mSurfaceHolder.addCallback(this);
+        this.mThread = new DrawingThread();
+        this.classeurImages = new ClasseurImages(pContext);
+
+    }
+
+
+    //##################
+    // GETTERS - SETTERS
+    //##################
 	/*
 	 * MODIF YANNICK
 	 */
 
-	public int getMouvement() {
+	/*public int getMouvement() {
 		return mouvement;
-	}
+	}*/
 
-	public void setMouvement(int mouvement) {
+    public void setMouvement(int mouvement) {
         this.mouvementFini = false;
-        //TODO pour indiquer fini
-		this.mouvement = mouvement;
-	}
+        this.mouvement = mouvement;
+    }
 	/*
 	 * END MODIF YANNICK
 	 */
 	
-	public ArrayList<TuileGraphique> getListTuilesG() {
+	/*public ArrayList<TuileGraphique> getListTuilesG() {
 		return listTuilesG;
-	}
+	}*/
 
-	public void setListTuilesG(ArrayList<TuileGraphique> listTuilesG) {
-		this.listTuilesG = listTuilesG;
-	}
+    public void setListTuilesG(ArrayList<TuileGraphique> listTuilesG) {
+        this.listTuilesG = listTuilesG;
+    }
 
-	/**
-	 * S'affiche au lancement de la surface view
-	 */
-	@Override
-	public void surfaceCreated(SurfaceHolder holder) {
-		mThread.keepDrawing = true;
-		mThread.start();
+    /**
+     * Au démarage de l'application
+     * @param holder
+     */
+    @Override
+    public void surfaceCreated(SurfaceHolder holder) {
 
-	}
 
-	@Override
-	public void surfaceChanged(SurfaceHolder holder, int format, int width,
-			int height) {
-		// TODO Auto-generated method stub
-		//mThread.keepDrawing = true;
-		//mThread.start();
-	}
 
-	@Override
-	public void surfaceDestroyed(SurfaceHolder holder) {
-		// TODO Auto-generated method stub
-		mThread.keepDrawing = false;
-		boolean retry = true;
-		while (retry) {
-			try {
-				mThread.join();
-				retry = false;
-			} catch (InterruptedException e) {
-			}
-		}
+        mThread.setActiveDessineThread(true);
+        try {
+            mThread.start();
+        } catch (IllegalThreadStateException e) {
+            //mThread = new DrawingThread();
+            //mThread.start();
+            //mThread.run();
+            // listTuilesG.add(new TuileGraphique(new Position(1,1),new Position(1,1),2));
+        }
 
-	}
-	
-	@Override
-	protected void onDraw(Canvas pCanvas) {
-		
-		// Couleur de fond de la surface view
-		pCanvas.drawColor(Color.WHITE);
-		
-		// Affichage du fond de la grille
-		
-		pCanvas.drawBitmap(this.classeurImages.getFondImage(), 0, 192, null);
-		//Log.i("test","ok");
-		
-		//Log.v("testo", "X : " + fondTableau.getWidth() + " / Y : " + fondTableau.getHeight());
+
+
+
+
+
+
+
+    }
+
+    /**
+     * Changement de la d'orientation de la surface
+     * @param holder
+     * @param format
+     * @param width
+     * @param height
+     */
+    @Override
+    public void surfaceChanged(SurfaceHolder holder, int format, int width,
+                               int height) {
+
+        //mThread.keepDrawing = true;
+        //mThread.start();
+    }
+
+    /**
+     * Lors de la fermeture de l'application
+     * @param holder
+     */
+    @Override
+    public void surfaceDestroyed(SurfaceHolder holder) {
+        Log.i("test1","entre destroy$$$$$$$$$$$$");
+        // TODO Auto-generated method stub
+        mThread.setActiveDessineThread(false);
+
+
+    }
+
+    /**
+     * KILL
+     */
+    public void kill() {
+        boolean retry = true;
+        while (retry) {
+            try {
+                mThread.join();
+                retry = false;
+            } catch (InterruptedException e) {
+
+            }
+        }
+    }
+    /**
+     * Methode de dessins
+     * @param pCanvas
+     */
+    @Override
+    protected void onDraw(Canvas pCanvas) {
+
+        // Couleur de fond de la surface view
+        pCanvas.drawColor(Color.WHITE);
+
+        // Affichage du fond de la grille
+
+        pCanvas.drawBitmap(this.classeurImages.getFondImage(), 0, 192, null);
+        //Log.i("test","ok");
+
+        //Log.v("testo", "X : " + fondTableau.getWidth() + " / Y : " + fondTableau.getHeight());
         //pCanvas.drawBitmap(this.bitmapTableau, (getWidth() - this.bitmapTableau.getWidth()) / 2, 192, mPaint);
-		//Log.v("testo", "Mouvement : " + mouvement);
-		int fini = 0;
-		if(this.listTuilesG != null){
-			for(TuileGraphique uneTuile : this.listTuilesG){
+        //Log.v("testo", "Mouvement : " + mouvement);
+        int fini = 0;
+        if(this.listTuilesG != null){
+            for(TuileGraphique uneTuile : this.listTuilesG){
 				/*
 				 *  MODIF YANNICK
 				 */
-				int valeurTuile = uneTuile.getValeur();
+                int valeurTuile = uneTuile.getValeur();
                 //int valeurTuilePasse = uneTuile.getValeurPrecendant();
                 //int indiceTuileApparision = uneTuile.getAnimationApparition();
 				/*
 				 * END MODIF YANNICK ok
 				 */
-				if(valeurTuile != 0 ){
-					//Log.v("testo", "X : " + uneTuile.getPostionActuel().getPosX() + " / Y : " + uneTuile.getPostionActuel().getPosY());
-					
-					//carreGraphique = new TuileGraphique(uneTuile, this.fondTableau.getWidth());
+                if(valeurTuile != 0 ){
+                    //Log.v("testo", "X : " + uneTuile.getPostionActuel().getPosX() + " / Y : " + uneTuile.getPostionActuel().getPosY());
+
+                    //carreGraphique = new TuileGraphique(uneTuile, this.fondTableau.getWidth());
 					/*
 					 * MODIF YANNICK
 					 */
@@ -154,7 +184,7 @@ public class MoteurGraphique extends SurfaceView implements SurfaceHolder.Callba
                         if(mouvementFini && uneTuile.getAnimationApparition() < 10) {
 
 
-                                uneTuile.setAnimationApparition(uneTuile.getAnimationApparition()+1);
+                            uneTuile.setAnimationApparition(uneTuile.getAnimationApparition()+1);
 
 
                         }
@@ -165,7 +195,7 @@ public class MoteurGraphique extends SurfaceView implements SurfaceHolder.Callba
 
                             uneTuile.setAleatoire(false);
                             uneTuile.setAnimationApparition(0);
-                           // apparationGif = 0;
+                            // apparationGif = 0;
 
                         }
 
@@ -179,9 +209,9 @@ public class MoteurGraphique extends SurfaceView implements SurfaceHolder.Callba
                     if(!uneTuile.isAleatoire() || (uneTuile.getAnimationApparition() != 0 && mouvementFini)) {
                         switch(this.mouvement){
                             case 1:
-                               Log.v("testo", "*********************** GAUCHE 1*********************");
+                                Log.v("testo", "*********************** GAUCHE 1*********************");
                                 //Log.v("testo", "Valeur Y1 PASSE : " + uneTuile.getPosGPasse().getY1());
-                              //  Log.v("testo", "Valeur Y1 ACTUEL : " + uneTuile.getPosGActuel().getY1());
+                                //  Log.v("testo", "Valeur Y1 ACTUEL : " + uneTuile.getPosGActuel().getY1());
                                 if(uneTuile.getPosGPasse().getY1() >= uneTuile.getPosGActuel().getY1() && !(uneTuile.getPosGPasse().getY1() == uneTuile.getPosGActuel().getY1())){
                                     //classeurImages.getTuileImage(uneTuile.getValeur())
 								/*
@@ -193,9 +223,9 @@ public class MoteurGraphique extends SurfaceView implements SurfaceHolder.Callba
 								 * END MODIF YANNICK
 								 */
 
-                                   // Log.v("testo", "Valeur Y1 départ  : " + uneTuile.getPosGPasse().getY1());
+                                    // Log.v("testo", "Valeur Y1 départ  : " + uneTuile.getPosGPasse().getY1());
                                     uneTuile.mouvGauche(100);
-                                   // Log.v("testo", "Valeur Y1 après modif : " + uneTuile.getPosGPasse().getY1());
+                                    // Log.v("testo", "Valeur Y1 après modif : " + uneTuile.getPosGPasse().getY1());
                                 }else{
                                     //pCanvas.drawBitmap(uneTuile.getImgCarre(), uneTuile.getPosGActuel().getY1(), uneTuile.getPosGActuel().getX1() + 192, null);
                                     pCanvas.drawBitmap(imageTuile, uneTuile.getPosGActuel().getY1(), uneTuile.getPosGActuel().getX1() + 192, null);
@@ -221,7 +251,7 @@ public class MoteurGraphique extends SurfaceView implements SurfaceHolder.Callba
 
 
                                     uneTuile.mouvDroite(100);
-                                   // Log.v("testo", "Valeur Y1 : " + uneTuile.getPosGPasse().getY1());
+                                    // Log.v("testo", "Valeur Y1 : " + uneTuile.getPosGPasse().getY1());
                                 }else{
                                     ////classeurImages.getTuileImage(uneTuile.getValeur())
                                     //pCanvas.drawBitmap(uneTuile.getImgCarre(), uneTuile.getPosGActuel().getY1(), uneTuile.getPosGActuel().getX1() + 192, null);
@@ -243,7 +273,7 @@ public class MoteurGraphique extends SurfaceView implements SurfaceHolder.Callba
                                     pCanvas.drawBitmap(imageTuile, uneTuile.getPosGPasse().getY1(), uneTuile.getPosGPasse().getX1() + 192, null);
 
                                     uneTuile.mouvHaut(100);
-                                   // Log.v("testo", "Valeur X1 : " + uneTuile.getPosGPasse().getX1());
+                                    // Log.v("testo", "Valeur X1 : " + uneTuile.getPosGPasse().getX1());
                                 }else{
                                     pCanvas.drawBitmap(imageTuile, uneTuile.getPosGActuel().getY1(), uneTuile.getPosGActuel().getX1() + 192, null);
                                     //this.mouvement = 0;
@@ -259,7 +289,7 @@ public class MoteurGraphique extends SurfaceView implements SurfaceHolder.Callba
                                 if(uneTuile.getPosGPasse().getX1() <= uneTuile.getPosGActuel().getX1() && !(uneTuile.getPosGPasse().getX1() == uneTuile.getPosGActuel().getX1())){
                                     pCanvas.drawBitmap(imageTuile, uneTuile.getPosGPasse().getY1(), uneTuile.getPosGPasse().getX1() + 192, null);
                                     uneTuile.mouvBas(100);
-                                   // Log.v("testo", "Valeur X1 : " + uneTuile.getPosGPasse().getX1());
+                                    // Log.v("testo", "Valeur X1 : " + uneTuile.getPosGPasse().getX1());
                                 }else{
                                     pCanvas.drawBitmap(imageTuile, uneTuile.getPosGActuel().getY1(), uneTuile.getPosGActuel().getX1() + 192, null);
                                     //this.mouvement = 0;
@@ -278,21 +308,21 @@ public class MoteurGraphique extends SurfaceView implements SurfaceHolder.Callba
 
                                 break;
                         }
-                   } else {
+                    } else {
                         fini++;
-                   }
+                    }
 
 
-				}
-				
-				//Log.v("testo", "X : " + posG.getX1() + " Y : " + posG.getY1());
-			}
-			if(fini == listTuilesG.size()) {
+                }
+
+                //Log.v("testo", "X : " + posG.getX1() + " Y : " + posG.getY1());
+            }
+            if(fini == listTuilesG.size()) {
                 mouvementFini = true;
 
                 for (int i = 0; i < listTuilesG.size(); i++) {
 
-                   if(listTuilesG.get(i).isPrecendant()) {
+                    if(listTuilesG.get(i).isPrecendant()) {
                         listTuilesG.get(i).setPrecendant(false);
                         listTuilesG.remove(i);
                     }
@@ -306,9 +336,9 @@ public class MoteurGraphique extends SurfaceView implements SurfaceHolder.Callba
 
                 mouvementFini = false;
             }
-		}
-		
-	}
+        }
+
+    }
 
 /*	private void drawTextDeTest(Canvas canvas, String stringTest, int posX, int posY) {
 		// TODO Auto-generated method stub
@@ -318,34 +348,83 @@ public class MoteurGraphique extends SurfaceView implements SurfaceHolder.Callba
 		String text = stringTest;
 		canvas.drawText(text, posX, posY, paint);
 	}*/
-	
-	private class DrawingThread extends Thread {
-		boolean keepDrawing = true;
-		
-		@Override
-		public void run() {
-			Canvas canvas;
-			while (keepDrawing) {
-				canvas = null;
 
-				try {
-					canvas = mSurfaceHolder.lockCanvas();
-					synchronized (mSurfaceHolder) {
-						onDraw(canvas);
-					}
-				} finally {
-					if (canvas != null)
-						mSurfaceHolder.unlockCanvasAndPost(canvas);
-				}
+    /**
+     *
+     */
+    private class DrawingThread extends Thread {
+        public boolean autoDessine = true;
 
-				// Pour dessiner � 50 fps
-				try {
-					Thread.sleep(10);
-				} catch (InterruptedException e) {
-				}
-			}
-		}
-	}
+        //  public int modeThread = 0;
+        //  private Object mPauseLock;
+
+
+
+
+
+
+        @Override
+        public void run() {
+
+
+            Canvas canvas;
+            while (autoMarche) {
+                while (autoDessine) {
+                    canvas = null;
+
+                    try {
+                        canvas = mSurfaceHolder.lockCanvas(null);
+                        synchronized (mSurfaceHolder) {
+                            onDraw(canvas);
+                            try {
+
+                                Thread.sleep(10);
+                            } catch (InterruptedException e) {
+                            }
+                        }
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    } finally {
+                        if (canvas != null)
+                            mSurfaceHolder.unlockCanvasAndPost(canvas);
+                    }
+                }
+
+            }
+        }
+        private void setActiveDessineThread(boolean run) {
+
+            this.autoDessine = run;
+
+
+
+        }
+
+    }
+/*
+        public void onPause() {
+            synchronized (mPauseLock) {
+                keepDrawing = false;
+                modeThread = 1;
+            }
+        }
+
+
+        public void onResume() {
+            synchronized (mPauseLock) {
+                modeThread = 3;
+                keepDrawing = true;
+                mPauseLock.notifyAll();
+            }
+        }*/
+
+
+    public void setPauseResumeThread(boolean activeThread) {
+        mThread.setActiveDessineThread(activeThread);
+    }
+
+
 
     public boolean isMouvementFini() {
         return mouvementFini;

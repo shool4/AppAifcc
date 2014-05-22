@@ -1,15 +1,15 @@
 package app.pack.modele;
 
 public class TuileGraphique extends Tuile {
-	
-	//private Bitmap imgCarre;
-	//private Paint paint;
+
+    //private Bitmap imgCarre;
+    //private Paint paint;
 
 
-	private PositionGraphique posGPasse;
-	private PositionGraphique posGActuel;
-	//private Tuile tuile;
-	//private int tailleFond;
+    private PositionGraphique posGPasse;
+    private PositionGraphique posGActuel;
+    //private Tuile tuile;
+    //private int tailleFond;
     private int animationApparition = 0;
     /**
      *
@@ -97,17 +97,17 @@ public class TuileGraphique extends Tuile {
 		return taille;
 	}*/
 
-/*	public void setTaille(float taille) {
-		this.taille = taille;
-	}
+    /*	public void setTaille(float taille) {
+            this.taille = taille;
+        }
 
-	public Paint getPaint() {
-		return paint;
-	}
+        public Paint getPaint() {
+            return paint;
+        }
 
-	public void setPaint(Paint paint) {
-		this.paint = paint;
-	}*/
+        public void setPaint(Paint paint) {
+            this.paint = paint;
+        }*/
 /*
 	public Tuile getCarre() {
 		return tuile;
@@ -117,19 +117,19 @@ public class TuileGraphique extends Tuile {
 		this.tuile = carre;
 	}
 */
-	public PositionGraphique getPosGPasse() {
-		return posGPasse;
-	}
+    public PositionGraphique getPosGPasse() {
+        return posGPasse;
+    }
 
 
-	public void setPosGPasse(PositionGraphique posGPasse) {
+    public void setPosGPasse(PositionGraphique posGPasse) {
 
-		this.posGPasse = posGPasse;
-	}
+        this.posGPasse = posGPasse;
+    }
 
-	public PositionGraphique getPosGActuel() {
-		return posGActuel;
-	}
+    public PositionGraphique getPosGActuel() {
+        return posGActuel;
+    }
 
 
 	/*public void setPosGActuel(PositionGraphique posGActuel) {
@@ -162,18 +162,18 @@ public class TuileGraphique extends Tuile {
 		this.imgCarre = copieCarre;
 	}*/
 
-	public void mouvDroite(int valeur){
-		this.posGPasse.setY1(posGPasse.getY1() + valeur);
-	}
-	public void mouvGauche(int valeur){
-		this.posGPasse.setY1(posGPasse.getY1() - valeur);
-	}
-	public void mouvBas(int valeur){
-		this.posGPasse.setX1(posGPasse.getX1() + valeur);
-	}
-	public void mouvHaut(int valeur){
-		this.posGPasse.setX1(posGPasse.getX1() - valeur);
-	}
+    public void mouvDroite(int valeur){
+        this.posGPasse.setY1(posGPasse.getY1() + valeur);
+    }
+    public void mouvGauche(int valeur){
+        this.posGPasse.setY1(posGPasse.getY1() - valeur);
+    }
+    public void mouvBas(int valeur){
+        this.posGPasse.setX1(posGPasse.getX1() + valeur);
+    }
+    public void mouvHaut(int valeur){
+        this.posGPasse.setX1(posGPasse.getX1() - valeur);
+    }
 
     public int getAnimationApparition() {
         return animationApparition;
