@@ -14,6 +14,9 @@ import app.pack.modele.ClasseurImages;
 import app.pack.modele.TuileGraphique;
 
 @SuppressLint("WrongCall")
+/**
+ * CLasse permettant l'affichage du jeux
+ */
 public class MoteurGraphique extends SurfaceView implements SurfaceHolder.Callback {
 
     private SurfaceHolder mSurfaceHolder;
@@ -322,7 +325,7 @@ public class MoteurGraphique extends SurfaceView implements SurfaceHolder.Callba
 
                 for (int i = 0; i < listTuilesG.size(); i++) {
 
-                    if(listTuilesG.get(i).isPrecendant()) {
+                    if(listTuilesG.get(i).isPrecedant()) {
                         listTuilesG.get(i).setPrecendant(false);
                         listTuilesG.remove(i);
                     }
@@ -350,7 +353,7 @@ public class MoteurGraphique extends SurfaceView implements SurfaceHolder.Callba
 	}*/
 
     /**
-     *
+     * Class THREAD permettant de faire un boucle infini
      */
     private class DrawingThread extends Thread {
         public boolean autoDessine = true;
@@ -359,10 +362,9 @@ public class MoteurGraphique extends SurfaceView implements SurfaceHolder.Callba
         //  private Object mPauseLock;
 
 
-
-
-
-
+        /**
+         * Methode qui lance la boucle infini
+         */
         @Override
         public void run() {
 
@@ -419,13 +421,19 @@ public class MoteurGraphique extends SurfaceView implements SurfaceHolder.Callba
             }
         }*/
 
-
+    /**
+     * Activer ou desactiver le dessin dans le thread
+     * @param boolean
+     */
     public void setPauseResumeThread(boolean activeThread) {
         mThread.setActiveDessineThread(activeThread);
     }
 
 
-
+    /**
+     * Si le mouvement des tuiles et fini
+     * @return boolean
+     */
     public boolean isMouvementFini() {
         return mouvementFini;
     }

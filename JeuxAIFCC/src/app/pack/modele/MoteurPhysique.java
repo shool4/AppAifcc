@@ -20,7 +20,7 @@ public class MoteurPhysique {
     private boolean jeuxPerdant = false;
     /**
      * Construcuteur du moteur physique
-     * @param pView
+     * @param TypePartie
      */
     public MoteurPhysique(TypePartie uneTypeDePartie) {
         Log.i("test1", "*********************** START **********************");
@@ -161,12 +161,8 @@ public class MoteurPhysique {
 
         }
 
-
-
-
         this.grille.debog_Tableau();
         return this.grille.getTuileNonVide();
-
 
     }
 
@@ -223,8 +219,6 @@ public class MoteurPhysique {
                 Log.i("test1", "---> Pas deplacement pas possible");
             }
         }
-
-
         jeuxPerdant = this.grille.isGameLost();
 
         if(this.grille.isGameWon(this.nombreForWin)) {
@@ -235,8 +229,6 @@ public class MoteurPhysique {
         return this.grille.getTuileNonVide();
 
     }
-
-
     public boolean isJeuxPerdant() {
         return jeuxPerdant;
     }

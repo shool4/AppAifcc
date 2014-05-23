@@ -6,6 +6,9 @@ import android.view.View.OnTouchListener;
 
 import app.pack.gen.MainActivity;
 
+/**
+ * Class Ecouteur de l'ecran lors du jeux en marche
+ */
 public class EcouteurToucherEcran implements OnTouchListener {
     /* la position de départ du doigt */
     private float start_x;
@@ -20,10 +23,14 @@ public class EcouteurToucherEcran implements OnTouchListener {
 
     }
 
-
+    /**
+     * Methode lors de l'appui sur l'ecran
+     * @param v
+     * @param event
+     * @return
+     */
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-
 
         // obtenir l'indice de pointeur de l'objet de l'événement
         int pointerIndex = event.getActionIndex();
@@ -34,19 +41,13 @@ public class EcouteurToucherEcran implements OnTouchListener {
         // se masqué (non spécifique à un pointeur) l'action
         int maskedAction = event.getActionMasked();
 
-
         switch (maskedAction) {
-
             case MotionEvent.ACTION_DOWN:
                 if(pointerId == 0) {
-
                     start_x = event.getX();
                     start_y = event.getY();
-
-
                     activeMove = true;
 
-                    //Log.i("test1","DOIGT ====>DOWN");
                 }
 
             case MotionEvent.ACTION_POINTER_DOWN: {
@@ -73,20 +74,10 @@ public class EcouteurToucherEcran implements OnTouchListener {
                         activeMove = false;
                     }
                 }
-                //Log.i("test1","DOIGT ====>MOVE");
-                // TODO use data
                 break;
             }
             case MotionEvent.ACTION_UP:
                 activeMove = false;
-                //Log.i("test1","DOIGT ====>UP");
-
-
-
-
-
-
-
             case MotionEvent.ACTION_POINTER_UP:
 
             case MotionEvent.ACTION_CANCEL: {
@@ -94,14 +85,6 @@ public class EcouteurToucherEcran implements OnTouchListener {
                 break;
             }
         }
-
-
         return true;
-
-
-
-
     }
-
-
 }

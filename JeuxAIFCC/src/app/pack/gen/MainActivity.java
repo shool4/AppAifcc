@@ -44,24 +44,12 @@ public class MainActivity extends Activity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.menu);
 
-
-
-
         ecouteurToucherEcran = new EcouteurToucherEcran(this);
         this.moteurGraphique = new MoteurGraphique(this);
         this.moteurGraphique.setOnTouchListener(ecouteurToucherEcran);
-        //moteurGraphique.setTbBitmapCarre(moteurPhysique.ConstructionCarre());
-
-        Log.v("test1", "#########################");
-        Log.v("test1", "Initialisation");
 
         // custom dialog
         dialog = new Dialog(context);
-
-
-
-
-        //this.resources = getResources();
     }
 
     /**
@@ -71,15 +59,10 @@ public class MainActivity extends Activity{
     @Override
     protected void onResume() {
         super.onResume();
-        //isInFront = true;
-        Log.i("test1"," ON RESUME **********************");
-
         moteurGraphique.setPauseResumeThread(true);
 
-        //moteurGraphique.setTbBitmapCarre(moteurPhysique.ConstructionCarre());
+        Log.i("test1","*** Methode onResume ***");
 
-        Log.v("test1", "#########################");
-        Log.v("test1", "Initialisation");
     }
 
     /**
@@ -92,6 +75,8 @@ public class MainActivity extends Activity{
         moteurGraphique.kill();
         finish();
         System.exit(0);
+
+        Log.i("test1","*** Methode onDestroy ***");
     }
     /**
      * Mise en pause de l'application
@@ -100,93 +85,90 @@ public class MainActivity extends Activity{
     @Override
     protected void onPause() {
         super.onPause();
-        Log.i("test1"," ON PAUSE **********************");
         moteurGraphique.setPauseResumeThread(false);
-        // isInFront = false;
+
+        Log.i("test1","*** Methode onPause ***");
     }
 
-    //################################################################################################
+//##########################################################################################################################################################
+// Methode de mouvement
+//##########################################################################################################################################################
 
+    /**
+     * Mouvement Gauche de l'activité
+     */
     public void gauche() {
-        Log.i("test1", "*********************** GAUCHE *********************");
-        //   this.moteurGraphique.setMouvementFini(false);
         if(moteurGraphique.isMouvementFini()) {
             ArrayList<TuileGraphique> arrayTuileGraphique = this.moteurPhysique.gauche();
             this.moteurGraphique.setMouvement(1);
             this.moteurGraphique.setListTuilesG(arrayTuileGraphique);
-
             this.checkGame();
 
         }
-
+        Log.i("test1", "*** Gauche ***");
     }
 
+    /**
+     * Mouvement Droite de l'activité
+     */
     public void droite() {
-        Log.i("test1", "*********************** DROITE *********************");
-        //   this.moteurGraphique.setMouvementFini(false);
         if(moteurGraphique.isMouvementFini()) {
             ArrayList<TuileGraphique> arrayTuileGraphique = this.moteurPhysique.droite();
-            //this.moteurGraphique.mouvement = 2;
             this.moteurGraphique.setMouvement(2);
             this.moteurGraphique.setListTuilesG(arrayTuileGraphique);
-
             this.checkGame();
+
         }
+        Log.i("test1", "*** Droite ***");
     }
+    /**
+     * Mouvement Haut de l'activité
+     */
     public void haut() {
-        Log.i("test1", "*********************** HAUT ***********************");
-        //  this.moteurGraphique.setMouvementFini(false);
         if(moteurGraphique.isMouvementFini()) {
             ArrayList<TuileGraphique> arrayTuileGraphique = this.moteurPhysique.haut();
-            //this.moteurGraphique.mouvement = 3;
-
             this.moteurGraphique.setMouvement(3);
             this.moteurGraphique.setListTuilesG(arrayTuileGraphique);
-
             this.checkGame();
         }
+        Log.i("test1", "*** Haut ***");
     }
+    /**
+     * Mouvement Bas de l'activité
+     */
     public void bas() {
-        Log.i("test1", "*********************** BAS ************************");
-        // this.moteurGraphique.setMouvementFini(false);
         if(moteurGraphique.isMouvementFini()) {
             ArrayList<TuileGraphique> arrayTuileGraphique = this.moteurPhysique.bas();
-            //this.moteurGraphique.mouvement = 4;
             this.moteurGraphique.setMouvement(4);
             this.moteurGraphique.setListTuilesG(arrayTuileGraphique);
-
             this.checkGame();
-
-
         }
+        Log.i("test1", "*** Bas ***");
     }
 
+    /**
+     * Permet de checker le jeux en cours si perdant ou gagnant et methode a appliquer en fonction
+     */
     public void checkGame() {
         this.isPerdant();
         //RESTE ...
     }
+
+    /**
+     * Cheche si le jeux et perdant
+     */
     public void isPerdant(){
         if(this.moteurPhysique.isJeuxPerdant()) {
-
-
             dialog.setContentView(R.layout.dialog_perdu);
-
             dialog.show();
-
-
-
-
-
-
-
-            // return true;
         }
-        //return false;
     }
 
 
-
-
+    /**
+     * Methode appeller sur l'appui d'un bouton
+     * @param v
+     */
     public void buttonOnClick(View v) {
         Log.i("test1","---------------------------------->ok");
         //CHARGEMENT DE LA VUE GRAPHIQUE
@@ -247,47 +229,23 @@ public class MainActivity extends Activity{
 
     }
 
-
-
-
-    /*public ArrayList<TuileGraphique> conversionTuile(){
-        ArrayList<TuileGraphique> listTuilesG = new ArrayList<TuileGraphique>();
-
-        for(Tuile uneTuile : this.moteurPhysique.getGrille()){
-            boolean isAleatoire;
-            if(uneTuile.getValeur() != 0 ) {
-                //Log.i("test1"," "+uneTuile.getValeur()+" --> "+uneTuile.isAleatoire());
-                isAleatoire = uneTuile.isAleatoire();
-                TuileGraphique tuileG = new TuileGraphique(uneTuile);
-                // Log.i("test1"," "+tuileG.getValeur()+" --> "+tuileG.isAleatoire());
-                tuileG.setAleatoire(isAleatoire);
-                listTuilesG.add(tuileG);
-                   // if(uneTuile.isAleatoire()) {
-                   //     uneTuile.setPositionPasse(uneTuile.getPostionActuel());
-                   // }
-
-                //tuileG.setPosGPasse(tuileG.getPosGActuel());
-            }
-        }
-
-        return listTuilesG;
-    }*/
+    /**
+     * Creer un boite de message (a voir si pas a mettre dans outil)
+     * @param activity
+     * @param message
+     */
     public static void showAlert(Activity activity, String message) {
-
         TextView title = new TextView(activity);
         title.setText("Title");
         title.setPadding(10, 10, 10, 10);
         title.setGravity(Gravity.CENTER);
         title.setTextColor(Color.WHITE);
         title.setTextSize(20);
-
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         // builder.setTitle("Title");
         builder.setCustomTitle(title);
         // builder.setIcon(R.drawable.alert_36);
-
         builder.setMessage(message);
-
         builder.setCancelable(false);
         builder.setNegativeButton("OK", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
@@ -296,7 +254,6 @@ public class MainActivity extends Activity{
             }
 
         });
-
         AlertDialog alert = builder.create();
         alert.show();
     }

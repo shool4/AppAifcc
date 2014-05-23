@@ -1,10 +1,9 @@
 package app.pack.modele;
 
+/**
+ * Class heritant de tuile pour son affichage
+ */
 public class TuileGraphique extends Tuile {
-
-    //private Bitmap imgCarre;
-    //private Paint paint;
-
 
     private PositionGraphique posGPasse;
     private PositionGraphique posGActuel;
@@ -117,16 +116,29 @@ public class TuileGraphique extends Tuile {
 		this.tuile = carre;
 	}
 */
+
+    /**
+     * Getter de position passe
+     * @return PositionGraphique
+     */
     public PositionGraphique getPosGPasse() {
         return posGPasse;
     }
 
 
+    /**
+     * Setter de position passe
+     * @param PositionGraphique
+     */
     public void setPosGPasse(PositionGraphique posGPasse) {
 
         this.posGPasse = posGPasse;
     }
 
+    /**
+     * Getter de la position actuel
+     * @return PositionGraphique
+     */
     public PositionGraphique getPosGActuel() {
         return posGActuel;
     }

@@ -5,26 +5,17 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import app.pack.gen.R;
 
+/**
+ * Class stoquant les images de l'application
+ */
 public class ClasseurImages {
 	private Bitmap[] classeurImageTuile = null;
 
 	/**
-	 * 
+	 * Methode de chargement des liens images dans un tableau pour l'appeller par la suite
 	 * @param context
 	 */
 	public ClasseurImages(Context context) {
-		// Init du tableau de Bitmap
-		/*Bitmap carre = BitmapFactory.decodeResource(context.getResources(), R.drawable.c2);
-		carre = Bitmap.createScaledBitmap(carre, carre.getWidth(), carre.getHeight(), false);
-		
-		classeurImageTuile = new Bitmap[] { 
-				carre,
-				carre,
-				carre,
-				carre,
-				carre
-				
-		};*/
 		classeurImageTuile = new Bitmap[] { 
 				BitmapFactory.decodeResource(context.getResources(), R.drawable.c2),
 				BitmapFactory.decodeResource(context.getResources(), R.drawable.c4),
@@ -60,19 +51,16 @@ public class ClasseurImages {
                 BitmapFactory.decodeResource(context.getResources(), R.drawable.c4ini10)
 
 				};
-		
-		
-		//this.imgCarre = Bitmap.createBitmap(this.tailleFond, this.tailleFond, Config.ARGB_8888);
-		
-		
-	
+
 	}
 
-	/**
-	 * 
-	 * @param indiceImage
-	 * @return
-	 */
+
+    /**
+     * Obtenir les tuiles lors de l'apparition
+     * @param debApp
+     * @param valeurTuile
+     * @return Bipmap / Null
+     */
     public Bitmap getApparition(int debApp, int valeurTuile) {
         if(valeurTuile == 2) {
             switch (debApp) {
@@ -145,6 +133,10 @@ public class ClasseurImages {
 
     }
 
+    /**
+     * Ontenir le fond
+     * @return Bipmap
+     */
 	public Bitmap getFondImage() {
 		return classeurImageTuile[11];
 	}
@@ -184,10 +176,7 @@ public class ClasseurImages {
 			case 2048:
 				return classeurImageTuile[10];
 
-
-				
 		}
 		return null;
-		
 	}
 }

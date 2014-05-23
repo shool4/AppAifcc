@@ -103,26 +103,48 @@ public class Tuile {
 	 */
 
 
-    public boolean isPrecendant() {
+    /**
+     * Si c'est un tuile precedant
+     * @return boolean
+     */
+    public boolean isPrecedant() {
         return precendant;
     }
 
+    /**
+     * Setter precedant
+     */
     public void setPrecendant(boolean precendant) {
         this.precendant = precendant;
     }
-
+    /**
+     * Si c'est une tuile aleatoire
+     * @return boolean
+     */
     public boolean isAleatoire() {
         return aleatoire;
     }
 
+    /**
+     * Setter dire que c'est une tuile aleatoire
+     * @param boolean
+     */
     public void setAleatoire(boolean aleatoire) {
         this.aleatoire = aleatoire;
     }
 
+    /**
+     * si c'est une tuile merge
+     * @return boolean
+     */
     public boolean isMerged() {
         return merged;
     }
 
+    /**
+     * Setter de tuile est merge
+     * @param boolean
+     */
     public void setMerged(boolean merged) {
         this.merged = merged;
     }

@@ -58,28 +58,18 @@ public class Grille {
      * @return	une grille
      */
     public ArrayList<TuileGraphique> getTuileNonVide() {
-
         ArrayList<TuileGraphique> list = new ArrayList<TuileGraphique>();
-
         for (TuileGraphique uneTuile : tuileMerge) {
-
             list.add(uneTuile);
-
-
         }
-
         for (int i = 0; i < this.getSizeY(); i++) {
             for (int u = 0; u < this.getSizeX(); u++) {
                 if(this.grille[i][u].getValeur() != 0  ) {
                     list.add(this.grille[i][u]);
                 }
-
             }
-
         }
-
         return list;
-        //;)
     }
 
     /**
@@ -103,7 +93,6 @@ public class Grille {
                 }
             }
         }
-
         return sum;
     }
 
@@ -160,11 +149,7 @@ public class Grille {
                 Position unePosition = new Position(i,u);
                 this.grille[i][u] = new TuileGraphique(unePosition,unePosition, 0);
             }
-
         }
-
-
-
     }
 
     /**
@@ -174,8 +159,6 @@ public class Grille {
      *
      */
     public TuileGraphique ajoutTuileAleatoire() {
-        // GENERE un tableau de tuile vide sur la grille (permet de les
-        // modifiers en pointant decu)
         ArrayList<TuileGraphique> lesTuileVides = getFreeTuille();
         if (lesTuileVides.size() != 0) {
             int uneValeurCarreAleatoire = Outil.aleatoireDeuxQuatre();
@@ -187,7 +170,6 @@ public class Grille {
             tuileSelect.setValeur(uneValeurCarreAleatoire);
             tuileSelect.setPositionPasse(tuileSelect.getPostionActuel());
             tuileSelect.setAleatoire(true);
-            //Log.w("test1", "Tuile aleatoirement valeur : " + uneValeurCarreAleatoire);
             return tuileSelect;
 
         } else {
@@ -202,9 +184,7 @@ public class Grille {
      *
      */
     public Boolean isGameLost() {
-        //Check si aucun tuile a Zeros pour un mouvement possible (cas check avant l'ajout d'un nouvelle tuile)
         if (getNombreTuileVide() == 0) {
-            //Check si des mouvements son possible
             if(this.chekcIsPossibleDroiteGauche(true)) return false;
             if(this.chekcIsPossiblehHautBas(true)) return false;
 
@@ -237,7 +217,6 @@ public class Grille {
             for (int u = 0; u < getSizeX(); u++) {
                 if (this.grille[i][u].getValeur() == 0) freeTuile.add(this.grille[i][u]);
             }
-
         }
 
         return freeTuile;
@@ -252,8 +231,6 @@ public class Grille {
      *
      */
     private void inverseX(int i, int j, int j2) {
-        // Var tuile 0 et position de son predeseur
-        //Tuile unTuileTemp = this.grille[i][j];
         TuileGraphique unTuileTemp;
         unTuileTemp = this.grille[i][j];
         Position nouvellePositionFuturZeros = this.grille[i][j2].getPostionActuel();
@@ -264,30 +241,6 @@ public class Grille {
         // Inverse les tuiles
         this.grille[i][j] = this.grille[i][j2];
         this.grille[i][j2] = unTuileTemp;
-        /*int valeur1 =  this.grille[i][j].getValeur();
-        Position posActuel1 = this.grille[i][j].getPostionActuel();
-        Position posPasse1 = this.grille[i][j].getPostionPasse();
-
-        int valeur2 =  this.grille[i][j2].getValeur();
-        Position posActuel2 = this.grille[i][j2].getPostionActuel();
-        Position posPasse2 = this.grille[i][j2].getPostionPasse();
-
-		//Position nouvellePositionFuturZeros = this.grille[i][j2].getPostionActuel();
-
-		// CHangement des position
-        this.grille[i][j2].setPositionActuel(posActuel1);
-        this.grille[i][j2].setPositionPasse(posPasse1);
-        this.grille[i][j2].setValeur(valeur1);
-
-        this.grille[i][j].setPositionActuel(posActuel2);
-        this.grille[i][j].setPositionPasse(posPasse2);
-        this.grille[i][j].setValeur(valeur2);*/
-        //unTuileTemp.setPositionActuel(nouvellePositionFuturZeros);
-
-        // Inverse les tuiles
-        //this.grille[i][j] = this.grille[i][j2];
-
-        //this.grille[i][j2] = unTuileTemp;
     }
 
     /**
@@ -307,24 +260,6 @@ public class Grille {
         this.grille[j][i] = this.grille[j2][i];
         this.grille[j2][i] = unTuileTemp;
 
-        /*int valeur1 =  this.grille[j][i].getValeur();
-        Position posActuel1 = this.grille[j][i].getPostionActuel();
-        Position posPasse1 = this.grille[j][i].getPostionPasse();
-
-        int valeur2 =  this.grille[j2][i].getValeur();
-        Position posActuel2 = this.grille[j2][i].getPostionActuel();
-        Position posPasse2 = this.grille[j2][i].getPostionPasse();
-
-        //Position nouvellePositionFuturZeros = this.grille[i][j2].getPostionActuel();
-
-        // CHangement des position
-        this.grille[i][j2].setPositionActuel(posActuel1);
-        this.grille[i][j2].setPositionPasse(posPasse1);
-        this.grille[i][j2].setValeur(valeur1);
-
-        this.grille[i][j].setPositionActuel(posActuel2);
-        this.grille[i][j].setPositionPasse(posPasse2);
-        this.grille[i][j].setValeur(valeur2);*/
     }
 	
 	/*
@@ -376,9 +311,6 @@ public class Grille {
                     if (this.grille[i][j].getValeur() != 0) {
                         if (this.grille[i][j].getValeur() == this.grille[i][j2].getValeur()) {
                             return true;
-                            // } else if (this.grille[j2][i].getValeur() != 0 && zerosTrouver && HautTrueBasFalse) {
-                            //    return true;
-                            // } else if (this.grille[j2][i].getValeur() != 0 && zerosTrouver && HautTrueBasFalse) {
 
                         } else if (this.grille[i][j2].getValeur() != 0) {
                             break;
@@ -418,9 +350,6 @@ public class Grille {
                     if (this.grille[j][i].getValeur() != 0) {
                         if (this.grille[j][i].getValeur() == this.grille[j2][i].getValeur()) {
                             return true;
-                            // } else if (this.grille[j2][i].getValeur() != 0 && zerosTrouver && HautTrueBasFalse) {
-                            //    return true;
-                            // } else if (this.grille[j2][i].getValeur() != 0 && zerosTrouver && HautTrueBasFalse) {
 
                         } else if (this.grille[j2][i].getValeur() != 0) {
                             break;
@@ -453,11 +382,7 @@ public class Grille {
      *
      */
     public void deplacementDroite() {
-        //Log.i("test1", "************ DROITE **************");
-        // Pacour des Y
         this.initialisePosition();
-        //ArrayList<TuileGraphique> tuileMerged = new ArrayList<TuileGraphique>();
-        // int indiceIncrement = 0;
 
         for (int i = 0; i < this.getSizeY(); i++) {
 
@@ -465,7 +390,6 @@ public class Grille {
             // suivante
 
             for (int j = this.getSizeX()-1; j > 0  ; j--) {
-                //this.grille[i][j].setPositionPasse(this.grille[i][j].getPostionActuel());
 
                 // Pacours sur les tuiles suivante de la tuile ou on statue
                 // -1 						0				--
@@ -485,19 +409,15 @@ public class Grille {
 
                         } else if (this.grille[i][j2].getValeur() != 0) break;
 
-
                     } else {
                         // Si la valeur courant et 0 on avance le zeros a la
                         // case prochaine
                         this.inverseX(i, j2, j);
 
-
                     }
                 }
             }
         }
-        //	debog_ListTuile(tuileMerged, "---> Tuile Merged <---");
-
     }
 
     /**
@@ -512,9 +432,6 @@ public class Grille {
         this.initialisePosition();
         for (int i = 0; i < this.getSizeY(); i++) {
             for (int j = 0; j < this.getSizeX() ; j++) {
-
-                //this.grille[i][j].setPositionPasse(this.grille[i][j].getPostionActuel());
-                //if (!tuileMerged.contains(this.grille[i][j])) tuileMerged.add(this.grille[i][j]);
 
                 for (int j2 = j + 1; j2 < this.getSizeX() ; j2++) {
 
@@ -535,8 +452,6 @@ public class Grille {
                 }
             }
         }
-        //	debog_ListTuile(tuileMerged, "---> Tuile Merged <---");
-        //return tuileMerged;
     }
 
     /**
@@ -546,7 +461,6 @@ public class Grille {
      *
      */
     public  void deplacementHaut() {
-        //Log.i("test1", "************ HAUT **************");
         this.initialisePosition();
 
         ArrayList<TuileGraphique> tuileMerged = new ArrayList<TuileGraphique>();
@@ -575,8 +489,6 @@ public class Grille {
                 }
             }
         }
-        //	debog_ListTuile(tuileMerged, "---> Tuile Merged <---");
-        //return tuileMerged;
     }
 
     /**
@@ -588,12 +500,9 @@ public class Grille {
     public void deplacementBas() {
         //Log.i("test1", "*********************** BAS ************************");
         this.initialisePosition();
-        //ArrayList<TuileGraphique> tuileMerged = new ArrayList<TuileGraphique>();
 
         for (int i = 0; i < this.getSizeY(); i++) {
             for (int j = this.getSizeX()-1; j > 0  ; j--) {
-                //this.grille[i][j].setPositionPasse(this.grille[i][j].getPostionActuel());
-                // if (!tuileMerged.contains(this.grille[j][i])) tuileMerged.add(this.grille[j][i]);
 
                 for (int j2 = j - 1; j2 >= 0 ; j2--) {
 
@@ -614,10 +523,31 @@ public class Grille {
                 }
             }
         }
-        //debog_ListTuile(tuileMerged, "---> Tuile Merged <---");
-        //return tuileMerged;
     }
-	
+    /**
+     * merger les tuiles
+     * @param uneTuille
+     */
+    public TuileGraphique merge(TuileGraphique uneTuilleMerge,TuileGraphique uneTuilleAjout){
+
+        TuileGraphique uneTuileMergedDisparait = new TuileGraphique(uneTuilleMerge);
+        uneTuileMergedDisparait.setPrecendant(true);
+        uneTuileMergedDisparait.setPositionPasse(uneTuilleAjout.getPostionActuel());
+
+        uneTuilleMerge.setMerged(true);
+
+        uneTuilleMerge.setValeur(uneTuilleAjout.getValeur()*2);
+        // uneTuille.valeurPrecendant = uneTuille.getValeur();
+
+        //Multiplication des valeurs des carres
+        //this.valeur = uneTuille.getValeur()*2;
+        //Mise a jour de la position passe
+        //this.setPositionPasse(uneTuille.getPostionActuel());
+        //TODO MERGE Ancien ^^
+        //uneTuille.setPositionActuel(this.getPostionActuel());
+
+        return uneTuileMergedDisparait;
+    }
 	/*
 	 * 
 	 ******************************************************************************************************************************
@@ -714,29 +644,6 @@ public class Grille {
         }
         Log.i("test1", "******************");
     }
-    /**
-     * merger les tuiles
-     * @param uneTuille
-     */
-    public TuileGraphique merge(TuileGraphique uneTuilleMerge,TuileGraphique uneTuilleAjout){
 
-        TuileGraphique uneTuileMergedDisparait = new TuileGraphique(uneTuilleMerge);
-        uneTuileMergedDisparait.setPrecendant(true);
-        uneTuileMergedDisparait.setPositionPasse(uneTuilleAjout.getPostionActuel());
-
-        uneTuilleMerge.setMerged(true);
-
-        uneTuilleMerge.setValeur(uneTuilleAjout.getValeur()*2);
-        // uneTuille.valeurPrecendant = uneTuille.getValeur();
-
-        //Multiplication des valeurs des carres
-        //this.valeur = uneTuille.getValeur()*2;
-        //Mise a jour de la position passe
-        //this.setPositionPasse(uneTuille.getPostionActuel());
-        //TODO MERGE Ancien ^^
-        //uneTuille.setPositionActuel(this.getPostionActuel());
-
-        return uneTuileMergedDisparait;
-    }
 
 }
