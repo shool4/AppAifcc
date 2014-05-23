@@ -1,5 +1,7 @@
 package app.pack.modele;
 
+import app.pack.gen.MainActivity;
+
 public class PositionGraphique {
 	
 	private float x1;
@@ -52,11 +54,11 @@ public class PositionGraphique {
      */
 	public void conversionPosition(){
 		//1080
-		float ecart = 1080 * (1f/45f);
+		float ecart = MainActivity.tailleGrille * (1f/45f);
 		//float ecart = tailleFond * (1f/45f);
 		
 		//float ecart = tailleFond * 0.022222222222222222f;
-		float tailleCarre = (1080 - (5 * ecart)) / 4;
+		float tailleCarre = (MainActivity.tailleGrille - (5 * ecart)) / 4;
 		//float tailleCarre = (tailleFond - (5 * ecart)) / 4;
 		
 		this.x1 = ((this.pos.getPosY() + 1) * ecart) + (this.pos.getPosY() * tailleCarre);
