@@ -3,6 +3,9 @@ package app.pack.modele;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
+
+import app.pack.gen.MainActivity;
 import app.pack.gen.R;
 
 public class ClasseurImages {
@@ -25,7 +28,8 @@ public class ClasseurImages {
 				carre
 				
 		};*/
-		classeurImageTuile = new Bitmap[] { 
+
+		classeurImageTuile = new Bitmap[] {
 				BitmapFactory.decodeResource(context.getResources(), R.drawable.c2),
 				BitmapFactory.decodeResource(context.getResources(), R.drawable.c4),
 				BitmapFactory.decodeResource(context.getResources(), R.drawable.c8),
@@ -60,17 +64,20 @@ public class ClasseurImages {
                 BitmapFactory.decodeResource(context.getResources(), R.drawable.c4ini10)
 
 				};
-		
-		
+
+        Log.v("tuileM", "Taille grille : " + MainActivity.tailleGrille + " / Taille tuile : " + MainActivity.tailleTuile);
+        for(int i = 0; i < classeurImageTuile.length; i++){
+            if(i != 11){
+                classeurImageTuile[i] = Bitmap.createScaledBitmap(classeurImageTuile[i], MainActivity.tailleTuile, MainActivity.tailleTuile, false );
+            }
+        }
+
 		//this.imgCarre = Bitmap.createBitmap(this.tailleFond, this.tailleFond, Config.ARGB_8888);
-		
-		
-	
 	}
 
 	/**
 	 * 
-	 * @param indiceImage
+	 * @param
 	 * @return
 	 */
     public Bitmap getApparition(int debApp, int valeurTuile) {
@@ -152,6 +159,7 @@ public class ClasseurImages {
 	public Bitmap getTuileImage(int valeurTuile) {
 		switch (valeurTuile) {
 			case 2:
+                //classeurImageTuile[0] = Bitmap.createScaledBitmap(classeurImageTuile[0], MainActivity.tailleTuile, MainActivity.tailleTuile, false );
 				return classeurImageTuile[0];
 			
 			case 4:

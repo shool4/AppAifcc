@@ -3,29 +3,37 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
-    android:weightSum="1" >
+    android:weightSum="1"
+    android:background="@drawable/fond_jeux">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="520dp"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:weightSum="1" >
+        android:weightSum="0.5" >
 
         <TextView
             android:id="@+id/textView"
-            android:layout_width="163dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
             android:layout_weight="0.03"
-            android:text="Grille"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:text="TEST"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="40sp"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:clickable="false"
+            android:layout_gravity="top|center_horizontal"/>
 
-        <app.pack.vue.MoteurGraphique
-            android:id="@+id/surfaceViewGrille"
-            android:layout_width="343dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_weight="0.60" />
     </LinearLayout>
+
+    <app.pack.vue.MoteurGraphique
+        android:id="@+id/surfaceViewGrille"
+        android:weightSum="0.5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:clickable="true"
+        android:layout_gravity="center_horizontal|bottom" />
 
 </LinearLayout>
