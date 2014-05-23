@@ -21,18 +21,24 @@ import app.pack.modele.TuileGraphique;
 import app.pack.modele.TypePartie;
 import app.pack.vue.MoteurGraphique;
 
+/**
+ * ACTIVITE PRINCIPAL
+ *
+ *
+ */
 public class MainActivity extends Activity{
 
-    // Le moteur graphique du jeu
+
     public MoteurGraphique moteurGraphique = null;
     public MoteurPhysique moteurPhysique = null;
     final Context context = this;
     public Dialog dialog = null;
     public EcouteurToucherEcran ecouteurToucherEcran = null;
 
-
-    public int taillePlateau = 4;
-
+    /**
+     * Initialisation de l'application
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,7 +65,8 @@ public class MainActivity extends Activity{
     }
 
     /**
-     * Appel lors de la restauration de l'application
+     * Restauration de l'application
+     *
      */
     @Override
     protected void onResume() {
@@ -76,7 +83,8 @@ public class MainActivity extends Activity{
     }
 
     /**
-     * Fermeture application
+     * Fermeture l'application
+     *
      */
     @Override
     protected void onDestroy() {
@@ -86,7 +94,8 @@ public class MainActivity extends Activity{
         System.exit(0);
     }
     /**
-     * Appel lors de la mise en pause
+     * Mise en pause de l'application
+     *
      */
     @Override
     protected void onPause() {
@@ -95,6 +104,8 @@ public class MainActivity extends Activity{
         moteurGraphique.setPauseResumeThread(false);
         // isInFront = false;
     }
+
+    //################################################################################################
 
     public void gauche() {
         Log.i("test1", "*********************** GAUCHE *********************");
