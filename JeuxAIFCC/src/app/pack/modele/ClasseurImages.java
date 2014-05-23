@@ -3,6 +3,9 @@ package app.pack.modele;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
+
+import app.pack.gen.MainActivity;
 import app.pack.gen.R;
 
 /**
@@ -16,19 +19,19 @@ public class ClasseurImages {
 	 * @param context
 	 */
 	public ClasseurImages(Context context) {
-		classeurImageTuile = new Bitmap[] { 
-				BitmapFactory.decodeResource(context.getResources(), R.drawable.c2),
-				BitmapFactory.decodeResource(context.getResources(), R.drawable.c4),
-				BitmapFactory.decodeResource(context.getResources(), R.drawable.c8),
-				BitmapFactory.decodeResource(context.getResources(), R.drawable.c16),
-				BitmapFactory.decodeResource(context.getResources(), R.drawable.c32),
-				BitmapFactory.decodeResource(context.getResources(), R.drawable.c64),
-				BitmapFactory.decodeResource(context.getResources(), R.drawable.c128),
-				BitmapFactory.decodeResource(context.getResources(), R.drawable.c256),
-				BitmapFactory.decodeResource(context.getResources(), R.drawable.c512),
-				BitmapFactory.decodeResource(context.getResources(), R.drawable.c1024),
-				BitmapFactory.decodeResource(context.getResources(), R.drawable.c2048),
-				BitmapFactory.decodeResource(context.getResources(), R.drawable.fond_grille),
+        classeurImageTuile = new Bitmap[]{
+                BitmapFactory.decodeResource(context.getResources(), R.drawable.c2),
+                BitmapFactory.decodeResource(context.getResources(), R.drawable.c4),
+                BitmapFactory.decodeResource(context.getResources(), R.drawable.c8),
+                BitmapFactory.decodeResource(context.getResources(), R.drawable.c16),
+                BitmapFactory.decodeResource(context.getResources(), R.drawable.c32),
+                BitmapFactory.decodeResource(context.getResources(), R.drawable.c64),
+                BitmapFactory.decodeResource(context.getResources(), R.drawable.c128),
+                BitmapFactory.decodeResource(context.getResources(), R.drawable.c256),
+                BitmapFactory.decodeResource(context.getResources(), R.drawable.c512),
+                BitmapFactory.decodeResource(context.getResources(), R.drawable.c1024),
+                BitmapFactory.decodeResource(context.getResources(), R.drawable.c2048),
+                BitmapFactory.decodeResource(context.getResources(), R.drawable.fond_grille),
                 BitmapFactory.decodeResource(context.getResources(), R.drawable.cini1),
                 BitmapFactory.decodeResource(context.getResources(), R.drawable.cini2),
                 BitmapFactory.decodeResource(context.getResources(), R.drawable.cini3),
@@ -50,10 +53,15 @@ public class ClasseurImages {
                 BitmapFactory.decodeResource(context.getResources(), R.drawable.c4ini9),
                 BitmapFactory.decodeResource(context.getResources(), R.drawable.c4ini10)
 
-				};
+        };
 
-	}
-
+        Log.v("tuileM", "Taille grille : " + MainActivity.tailleGrille + " / Taille tuile : " + MainActivity.tailleTuile);
+        for (int i = 0; i < classeurImageTuile.length; i++) {
+            if (i != 11) {
+                classeurImageTuile[i] = Bitmap.createScaledBitmap(classeurImageTuile[i], MainActivity.tailleTuile, MainActivity.tailleTuile, false);
+            }
+        }
+    }
 
     /**
      * Obtenir les tuiles lors de l'apparition

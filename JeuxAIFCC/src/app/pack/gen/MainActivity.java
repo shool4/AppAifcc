@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -34,7 +35,11 @@ public class MainActivity extends Activity{
     final Context context = this;
     public Dialog dialog = null;
     public EcouteurToucherEcran ecouteurToucherEcran = null;
+    public int taillePlateau = 4;
 
+    // Stock la taille de la grille et des tuiles en fonction de l'ecran
+    public static int tailleGrille;
+    public static int tailleTuile;
     /**
      * Initialisation de l'application
      * @param savedInstanceState
@@ -44,9 +49,10 @@ public class MainActivity extends Activity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.menu);
 
-        ecouteurToucherEcran = new EcouteurToucherEcran(this);
-        this.moteurGraphique = new MoteurGraphique(this);
-        this.moteurGraphique.setOnTouchListener(ecouteurToucherEcran);
+        // Calcul de la taille de la grille en fonction de l'écran
+        this.tailleGrille = dpToPx(39);
+        // Calcul la taille des carrés en fonction de la grille
+        this.tailleTuile = (int) ((tailleGrille - (5 * (tailleGrille * (1f/45f)))) / 4f);
 
         // custom dialog
         dialog = new Dialog(context);
@@ -59,7 +65,10 @@ public class MainActivity extends Activity{
     @Override
     protected void onResume() {
         super.onResume();
-        moteurGraphique.setPauseResumeThread(true);
+        if(moteurGraphique != null) {
+            moteurGraphique.setPauseResumeThread(true);
+        }
+
 
         Log.i("test1","*** Methode onResume ***");
 
@@ -164,6 +173,12 @@ public class MainActivity extends Activity{
         }
     }
 
+    public int dpToPx(int dp) {
+        DisplayMetrics displayMetrics = this.getResources().getDisplayMetrics();
+        int px = Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
+        px = displayMetrics.widthPixels - px;
+        return px;
+    }
 
     /**
      * Methode appeller sur l'appui d'un bouton
@@ -176,7 +191,13 @@ public class MainActivity extends Activity{
                 v.getId() == R.id.button2 ||
                 v.getId() == R.id.button3
                 ) {
-            setContentView(moteurGraphique);
+			setContentView(R.layout.activity_main);
+
+            EcouteurToucherEcran ecouteurToucherEcran = new EcouteurToucherEcran(this);
+            this.moteurGraphique = (MoteurGraphique)findViewById(R.id.surfaceViewGrille);
+
+            //Log.v("tuileM", "Taille grille : " + tailleGrille + " / Taille tuile : " + tailleTuile);
+            this.moteurGraphique.setOnTouchListener(ecouteurToucherEcran);
         }
         showAlert(this,"blr");
         switch (v.getId()) {
