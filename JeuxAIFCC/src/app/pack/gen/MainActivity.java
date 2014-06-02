@@ -11,6 +11,7 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -187,66 +188,119 @@ public class MainActivity extends Activity{
     public void buttonOnClick(View v) {
         Log.i("test1","---------------------------------->ok");
         //CHARGEMENT DE LA VUE GRAPHIQUE
-        if(		v.getId() == R.id.button1 ||
-                v.getId() == R.id.button2 ||
-                v.getId() == R.id.button3
+        /**
+         *
+         * PARTIE
+         *
+         */
+        if(		v.getId() == R.id.button_classique ||
+                v.getId() == R.id.button_middlex2 ||
+                v.getId() == R.id.button_hard
                 ) {
+
 			setContentView(R.layout.activity_main);
-
             EcouteurToucherEcran ecouteurToucherEcran = new EcouteurToucherEcran(this);
+
+
             this.moteurGraphique = (MoteurGraphique)findViewById(R.id.surfaceViewGrille);
-
-            //Log.v("tuileM", "Taille grille : " + tailleGrille + " / Taille tuile : " + tailleTuile);
             this.moteurGraphique.setOnTouchListener(ecouteurToucherEcran);
-        }
-        showAlert(this,"blr");
-        switch (v.getId()) {
-            case R.id.button1:
-                moteurPhysique = new MoteurPhysique(TypePartie.easy);
 
-                this.moteurGraphique.setListTuilesG(this.moteurPhysique.getGrilleGraphiqueDeTuileNonVide());
-                break;
-            case R.id.button2:
+            //CHANGER LE FOND
+            LinearLayout l ;
+            l = (LinearLayout)findViewById(R.id.principal);
+            //****
+            switch (v.getId()) {
+
+                case R.id.button_classique:
+                    moteurPhysique = new MoteurPhysique(TypePartie.easy);
+
+                    l.setBackground(getResources().getDrawable(R.drawable.fond_jeux_easy));
+
+                    break;
+
+
+                case R.id.button_middlex2:
+                    moteurPhysique = new MoteurPhysique(TypePartie.normal);
+                    break;
+                case R.id.button_hard:
+                    moteurPhysique = new MoteurPhysique(TypePartie.hard);
+                    break;
+            }
+            this.moteurGraphique.setListTuilesG(this.moteurPhysique.getGrilleGraphiqueDeTuileNonVide());
+
+            /**
+             *
+             * MENU
+             *
+             */
+        } else {
+
+            switch (v.getId()) {
+
+                case R.id.button_classique:
+                    moteurPhysique = new MoteurPhysique(TypePartie.easy);
+                    this.moteurGraphique.setListTuilesG(this.moteurPhysique.getGrilleGraphiqueDeTuileNonVide());
+                    break;
+
+
+
+                case R.id.button_middlex2:
+                    moteurPhysique = new MoteurPhysique(TypePartie.normal);
+                    this.moteurGraphique.setListTuilesG(this.moteurPhysique.getGrilleGraphiqueDeTuileNonVide());
+                    break;
+                case R.id.button_hard:
+                    moteurPhysique = new MoteurPhysique(TypePartie.hard);
+                    this.moteurGraphique.setListTuilesG(this.moteurPhysique.getGrilleGraphiqueDeTuileNonVide());
+                    break;
+
+                case R.id.ok:
+                    dialog.dismiss();
+
+                    break;
+                case R.id.btn_jouer:
+                    setContentView(R.layout.menu_jouer_partie);
+                    break;
+           /* case R.id.button3:
                 moteurPhysique = new MoteurPhysique(TypePartie.normal);
                 this.moteurGraphique.setListTuilesG(this.moteurPhysique.getGrilleGraphiqueDeTuileNonVide());
-                break;
-            case R.id.button3:
-                moteurPhysique = new MoteurPhysique(TypePartie.normal);
-                this.moteurGraphique.setListTuilesG(this.moteurPhysique.getGrilleGraphiqueDeTuileNonVide());
-                break;
-            case R.id.button4:
-                AlertDialog alertDialog = new AlertDialog.Builder(
-                        MainActivity.this).create();
+                break;*/
+                case R.id.button3:
+                    AlertDialog alertDialog = new AlertDialog.Builder(
+                            MainActivity.this).create();
 
-                // Le titre
-                alertDialog.setTitle("LES SUPER CREATEUR");
+                    // Le titre
+                    alertDialog.setTitle("LES SUPER CREATEUR");
 
-                // Le message
-                alertDialog.setMessage("Aurélien blaise & Yannick Stephan");
+                    // Le message
+                    alertDialog.setMessage("Aurélien blaise & Yannick Stephan");
 
-                // L'icône
-                alertDialog.setIcon(android.R.drawable.btn_star);
+                    // L'icône
+                    alertDialog.setIcon(android.R.drawable.btn_star);
 
-                // Ajout du bouton "OK"
-                alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        // Le code à exécuter après le clique sur le bouton
-                        Toast.makeText(getApplicationContext(), "Bravos ta cliqué sur ok ;)",
-                                Toast.LENGTH_SHORT).show();
-                    }
-                });
+                    // Ajout du bouton "OK"
+                    alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            // Le code à exécuter après le clique sur le bouton
+                            Toast.makeText(getApplicationContext(), "Bravos ta cliqué sur ok ;)",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    });
 
-                // Affichage
-                alertDialog.show();
+                    // Affichage
+                    alertDialog.show();
 
-            case R.id.btnQuitter:
-                this.moteurGraphique.kill();
-            case R.id.BtnRetourMenu:
-                this.moteurGraphique = new MoteurGraphique(this);
-                this.moteurGraphique.setOnTouchListener(ecouteurToucherEcran);
+                case R.id.btnQuitter:
+                    this.moteurGraphique.kill();
+                case R.id.BtnRetourMenu:
+                    this.moteurGraphique = new MoteurGraphique(this);
+                    this.moteurGraphique.setOnTouchListener(ecouteurToucherEcran);
 
-                break;
+                    break;
+            }
         }
+
+
+
 
     }
 
@@ -258,6 +312,7 @@ public class MainActivity extends Activity{
     public static void showAlert(Activity activity, String message) {
         TextView title = new TextView(activity);
         title.setText("Title");
+
         title.setPadding(10, 10, 10, 10);
         title.setGravity(Gravity.CENTER);
         title.setTextColor(Color.WHITE);
@@ -266,6 +321,7 @@ public class MainActivity extends Activity{
         // builder.setTitle("Title");
         builder.setCustomTitle(title);
         // builder.setIcon(R.drawable.alert_36);
+
         builder.setMessage(message);
         builder.setCancelable(false);
         builder.setNegativeButton("OK", new DialogInterface.OnClickListener() {

@@ -2,7 +2,7 @@
 <resources>
 
     <string name="app_name">JeuxAIFCC</string>
-    <string name="hello_world">Hello world!</string>
-  
-
+    <string name="text_jouer">Jouer</string>
+    <string name="text_option">Option</string>
+    <string name="text_Auteur">Auteur</string>
 </resources>

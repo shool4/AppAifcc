@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/fond_jeux"
+
+    android:orientation="vertical"
+    android:layout_gravity="center_vertical|center_horizontal">
+
+
+    <LinearLayout
+
+
+        android:layout_width="300dp"
+        android:layout_height="500dp"
+        android:layout_gravity="center_horizontal"
+
+        android:orientation="vertical"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true">
+        <ImageView
+            android:layout_width="250dp"
+            android:layout_height="80dp"
+            android:background="@drawable/titre_square"
+
+            android:layout_gravity="center_horizontal|bottom"/>
+        <Button
+            android:id="@+id/button_classique"
+            android:layout_width="250dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center_horizontal|bottom"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/select_classique"
+            android:onClick="buttonOnClick"
+            />
+        <Button
+            android:id="@+id/button_middlex2"
+            android:layout_width="250dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center_horizontal|bottom"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/select_middlex2"
+            android:onClick="buttonOnClick"
+            />
+        <Button
+            android:id="@+id/button_lvl3"
+            android:layout_width="250dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center_horizontal|bottom"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/select_lvl3"
+            android:onClick="buttonOnClick"
+            />
+        <Button
+            android:id="@+id/button_hard"
+            android:layout_width="250dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center_horizontal|bottom"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/select_suite_vert"
+            android:onClick="buttonOnClick"
+            />
+
+    </LinearLayout>
+</RelativeLayout>

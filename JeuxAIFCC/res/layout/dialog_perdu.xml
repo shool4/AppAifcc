@@ -12,7 +12,7 @@
         android:layout_width="150dp"
         android:layout_height="62.5dp"
         android:onClick="buttonOnClick"
-        android:background="@drawable/select_rouge"
+        android:background="@drawable/select_auteurs"
 
         android:text="MENU !"
         android:layout_below="@+id/btnQuitter"
@@ -22,7 +22,7 @@
         android:layout_width="150dp"
         android:layout_height="62.5dp"
         android:onClick="buttonOnClick"
-        android:background="@drawable/select_rouge"
+        android:background="@drawable/select_auteurs"
 
         android:text="PERDU !"
         android:layout_marginTop="52dp"
@@ -34,7 +34,7 @@
         android:layout_width="150dp"
         android:layout_height="62.5dp"
         android:onClick="buttonOnClick"
-        android:background="@drawable/select_rouge"
+        android:background="@drawable/select_auteurs"
 
         android:text="RECOMMENCER !"
         android:layout_below="@+id/button1"

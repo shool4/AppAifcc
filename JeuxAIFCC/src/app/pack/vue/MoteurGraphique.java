@@ -1,5 +1,5 @@
 package app.pack.vue;
-import android.annotation.SuppressLint;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -11,7 +11,6 @@ import android.view.SurfaceView;
 
 import java.util.ArrayList;
 
-import app.pack.gen.MainActivity;
 import app.pack.modele.ClasseurImages;
 import app.pack.modele.TuileGraphique;
 
@@ -80,6 +79,7 @@ public class MoteurGraphique extends SurfaceView implements SurfaceHolder.Callba
 
     public MoteurGraphique(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
+
     }
 
     @Override
@@ -284,7 +284,7 @@ public class MoteurGraphique extends SurfaceView implements SurfaceHolder.Callba
 								 */
 
                                         // Log.v("testo", "Valeur Y1 départ  : " + uneTuile.getPosGPasse().getY1());
-                                        uneTuile.mouvGauche(100);
+                                        uneTuile.mouvGauche(80);
                                         // Log.v("testo", "Valeur Y1 après modif : " + uneTuile.getPosGPasse().getY1());
                                     } else {
                                         //pCanvas.drawBitmap(uneTuile.getImgCarre(), uneTuile.getPosGActuel().getY1(), uneTuile.getPosGActuel().getX1() + 192, null);
@@ -310,7 +310,7 @@ public class MoteurGraphique extends SurfaceView implements SurfaceHolder.Callba
                                         pCanvas.drawBitmap(imageTuile, uneTuile.getPosGPasse().getY1(), uneTuile.getPosGPasse().getX1(), null);
 
 
-                                        uneTuile.mouvDroite(100);
+                                        uneTuile.mouvDroite(80);
                                         // Log.v("testo", "Valeur Y1 : " + uneTuile.getPosGPasse().getY1());
                                     } else {
                                         ////classeurImages.getTuileImage(uneTuile.getValeur())
@@ -331,7 +331,7 @@ public class MoteurGraphique extends SurfaceView implements SurfaceHolder.Callba
 
                                         pCanvas.drawBitmap(imageTuile, uneTuile.getPosGPasse().getY1(), uneTuile.getPosGPasse().getX1(), null);
 
-                                        uneTuile.mouvHaut(100);
+                                        uneTuile.mouvHaut(80);
                                         // Log.v("testo", "Valeur X1 : " + uneTuile.getPosGPasse().getX1());
                                     } else {
                                         pCanvas.drawBitmap(imageTuile, uneTuile.getPosGActuel().getY1(), uneTuile.getPosGActuel().getX1(), null);
@@ -346,7 +346,7 @@ public class MoteurGraphique extends SurfaceView implements SurfaceHolder.Callba
                                     Log.v("testo", "*********************** BAS *********************");
                                     if (uneTuile.getPosGPasse().getX1() <= uneTuile.getPosGActuel().getX1() && !(uneTuile.getPosGPasse().getX1() == uneTuile.getPosGActuel().getX1())) {
                                         pCanvas.drawBitmap(imageTuile, uneTuile.getPosGPasse().getY1(), uneTuile.getPosGPasse().getX1(), null);
-                                        uneTuile.mouvBas(100);
+                                        uneTuile.mouvBas(80);
                                         // Log.v("testo", "Valeur X1 : " + uneTuile.getPosGPasse().getX1());
                                     } else {
                                         pCanvas.drawBitmap(imageTuile, uneTuile.getPosGActuel().getY1(), uneTuile.getPosGActuel().getX1(), null);
@@ -432,7 +432,7 @@ public class MoteurGraphique extends SurfaceView implements SurfaceHolder.Callba
                             onDraw(canvas);
                             try {
 
-                                Thread.sleep(10);
+                                Thread.sleep(4);
                             } catch (InterruptedException e) {
                             }
                         }

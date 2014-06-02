@@ -87,4 +87,5 @@ public class EcouteurToucherEcran implements OnTouchListener {
         }
         return true;
     }
+
 }
