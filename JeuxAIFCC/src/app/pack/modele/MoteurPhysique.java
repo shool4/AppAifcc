@@ -14,7 +14,7 @@ public class MoteurPhysique {
     private Grille grille = null;
 
     //private ArrayList<Bitmap> tbBitmapCarre;
-
+    private boolean activeAleatoire;
     private int nombreForWin = 2048;
     private int nombreDeTuilePartTour = 1;
     private boolean jeuxPerdant = false;
@@ -34,10 +34,13 @@ public class MoteurPhysique {
         this.nombreForWin = uneTypeDePartie.getNombreForWinGame();
         //LE NOMBRE DE TUILE PART TOUR
         this.nombreDeTuilePartTour = uneTypeDePartie.getNombreAjoutTuilePartTour();
-
+        this.activeAleatoire = uneTypeDePartie.isActiveAleatoire();
         //LE NOMBRE DAJOUT DE DEPART
         for (int i = 1; i <= uneTypeDePartie.getNombreAjoutTuileDepart(); i++) {
-            this.grille.ajoutTuileAleatoire().setAleatoire(false);
+
+                this.grille.ajoutTuileAleatoire(this.activeAleatoire).setAleatoire(false);
+
+
 
         }
 
@@ -74,7 +77,7 @@ public class MoteurPhysique {
      */
     public void ajoutTuileAleatoire() {
 
-        if(this.grille.ajoutTuileAleatoire() == null) {
+        if(this.grille.ajoutTuileAleatoire(this.activeAleatoire) == null) {
             Log.i("test1","---> MOUVEMENT IMPOSSIBLE GRILLE COMPLET <---");
         }
     }

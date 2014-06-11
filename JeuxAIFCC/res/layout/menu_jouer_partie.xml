@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/fond_jeux"
+    android:background="@drawable/fond_jeux_bleu"
 
     android:orientation="vertical"
     android:layout_gravity="center_vertical|center_horizontal">

@@ -307,7 +307,7 @@ public class MainActivity extends Activity{
                     alertDialog.show();
 
                 case R.id.btnQuitter:
-                    this.moteurGraphique.kill();
+                    onDestroy();
                 case R.id.BtnRetourMenu:
                     this.moteurGraphique = new MoteurGraphique(this);
                     this.moteurGraphique.setOnTouchListener(ecouteurToucherEcran);

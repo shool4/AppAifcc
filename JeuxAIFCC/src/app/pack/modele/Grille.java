@@ -158,7 +158,7 @@ public class Grille {
      * @return 	Boolean (True pose, false non pose)
      *
      */
-    public TuileGraphique ajoutTuileAleatoire() {
+    public TuileGraphique ajoutTuileAleatoire(boolean activeAleatoire) {
         ArrayList<TuileGraphique> lesTuileVides = getFreeTuille();
         if (lesTuileVides.size() != 0) {
             int uneValeurCarreAleatoire = Outil.aleatoireDeuxQuatre();
@@ -167,7 +167,12 @@ public class Grille {
                 unNombreAleatoire = Outil.aleatoireNombreEntier(0, lesTuileVides.size());
             }
             TuileGraphique tuileSelect = lesTuileVides.get(unNombreAleatoire);
+            if(!activeAleatoire) {
+                uneValeurCarreAleatoire = 2;
+            }
             tuileSelect.setValeur(uneValeurCarreAleatoire);
+
+
             tuileSelect.setPositionPasse(tuileSelect.getPostionActuel());
             tuileSelect.setAleatoire(true);
             return tuileSelect;
