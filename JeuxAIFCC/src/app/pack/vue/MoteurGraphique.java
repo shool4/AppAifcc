@@ -184,6 +184,7 @@ public class MoteurGraphique extends SurfaceView implements SurfaceHolder.Callba
     /**
      * KILL
      */
+    /*
     public void kill() {
         boolean retry = true;
         while (retry) {
@@ -194,7 +195,7 @@ public class MoteurGraphique extends SurfaceView implements SurfaceHolder.Callba
 
             }
         }
-    }
+    }*/
     /**
      * Methode de dessins
      * @param pCanvas

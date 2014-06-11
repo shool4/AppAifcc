@@ -82,7 +82,7 @@ public class MainActivity extends Activity{
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        moteurGraphique.kill();
+        //METHODE DE SAVE AVANT
         finish();
         System.exit(0);
 
@@ -186,6 +186,14 @@ public class MainActivity extends Activity{
      * @param v
      */
     public void buttonOnClick(View v) {
+        try {
+
+
+            Thread.sleep(100);
+
+        } catch (InterruptedException e){
+
+        }
         Log.i("test1","---------------------------------->ok");
         //CHARGEMENT DE LA VUE GRAPHIQUE
         /**
@@ -253,9 +261,18 @@ public class MainActivity extends Activity{
                     this.moteurGraphique.setListTuilesG(this.moteurPhysique.getGrilleGraphiqueDeTuileNonVide());
                     break;
 
-                case R.id.ok:
-                    dialog.dismiss();
+                case R.id.btn_aide:
+                    setContentView(R.layout.menu_aide);
 
+                    break;
+                case R.id.btn_quitter:
+                    //METHODE DE SAVE AVANT
+                    finish();
+                    System.exit(0);
+
+                    break;
+                case R.id.btn_retour:
+                    setContentView(R.layout.menu);
                     break;
                 case R.id.btn_jouer:
                     setContentView(R.layout.menu_jouer_partie);
