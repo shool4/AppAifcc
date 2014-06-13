@@ -6,13 +6,12 @@ public class PositionGraphique {
 	
 	private float x1;
 	private float y1;
-
 	private Position pos;
 	//private int tailleFond;
 
     /**
      * Constructeur
-     * @param position
+     * @param position Position
      */
 	public PositionGraphique(Position position) {
 		this.pos = position;

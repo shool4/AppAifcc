@@ -16,7 +16,7 @@ public class ClasseurImages {
 
 	/**
 	 * Methode de chargement des liens images dans un tableau pour l'appeller par la suite
-	 * @param context
+	 * @param context Context
 	 */
 	public ClasseurImages(Context context) {
         classeurImageTuile = new Bitmap[]{
@@ -65,9 +65,9 @@ public class ClasseurImages {
 
     /**
      * Obtenir les tuiles lors de l'apparition
-     * @param debApp
-     * @param valeurTuile
-     * @return Bipmap / Null
+     * @param debApp int
+     * @param valeurTuile int
+     * @return Bipmap  Null ou bipmap
      */
     public Bitmap getApparition(int debApp, int valeurTuile) {
         if(valeurTuile == 2) {
@@ -138,12 +138,11 @@ public class ClasseurImages {
             }
         }
         return null;
-
     }
 
     /**
      * Ontenir le fond
-     * @return Bipmap
+     * @return Bipmap bipmap ou null
      */
 	public Bitmap getFondImage() {
 		return classeurImageTuile[11];

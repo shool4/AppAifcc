@@ -1,40 +1,265 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/principal"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
-    android:weightSum="1"
+
     android:background="@drawable/fond_jeux">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:weightSum="0.5" >
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.03"
-            android:text="TEST"
-            android:textColor="@android:color/darker_gray"
-            android:textSize="40sp"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:clickable="false"
-            android:layout_gravity="top|center_horizontal"/>
-
-    </LinearLayout>
+        <RelativeLayout
+            android:visibility="invisible"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            android:id="@+id/menu_en_partie">
 
         <app.pack.vue.MoteurGraphique
-            android:id="@+id/surfaceViewGrille"
-        android:weightSum="0.5"
-        android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:clickable="true"
-        android:layout_gravity="center_horizontal|bottom" />
 
-</LinearLayout>
+            android:id="@+id/surfaceViewGrille"
+            android:weightSum="0.5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:layout_gravity="center_horizontal|bottom"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"/>
+        </RelativeLayout>
+        <LinearLayout
+
+            android:visibility="invisible"
+            android:id="@+id/menu_dans_jeux"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_gravity="center_horizontal"
+
+            android:orientation="vertical"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:background="#93330000">
+            <ImageView
+                android:layout_width="250dp"
+                android:layout_height="80dp"
+                android:background="@drawable/titre_square"
+
+                android:layout_gravity="center_horizontal|bottom"/>
+            <Button
+                android:id="@+id/button_classique"
+                android:layout_width="250dp"
+                android:layout_height="80dp"
+                android:layout_gravity="center_horizontal|bottom"
+
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/select_classique"
+                android:onClick="buttonOnClick"
+                />
+
+
+            <Button
+                android:id="@+id/btn_dans_jeux_retour_menu"
+                android:layout_width="250dp"
+                android:layout_height="80dp"
+                android:layout_gravity="center_horizontal|bottom"
+
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/select_retour"
+                android:onClick="buttonOnClick"
+                />
+
+        </LinearLayout>
+        <LinearLayout
+
+            android:visibility="invisible"
+            android:id="@+id/menu_dans_jeux_reprise"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_gravity="center_horizontal"
+
+            android:orientation="vertical"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:background="#93330000">
+            <ImageView
+                android:layout_width="250dp"
+                android:layout_height="80dp"
+                android:background="@drawable/titre_square"
+
+                android:layout_gravity="center_horizontal|bottom"/>
+            <Button
+                android:id="@+id/btn_dans_jeux_retour_jeux"
+                android:layout_width="250dp"
+                android:layout_height="80dp"
+                android:layout_gravity="center_horizontal|bottom"
+
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/select_retour"
+                android:onClick="buttonOnClick"
+                />
+            <TextView
+                android:layout_width="300dp"
+                android:layout_height="15dp"
+                android:text="REPRENDRE"
+                android:layout_gravity="center_horizontal"/>
+
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/menu_acceuil"
+            android:visibility="visible"
+            android:layout_width="300dp"
+            android:layout_height="450dp"
+            android:layout_gravity="center_horizontal"
+
+            android:orientation="vertical"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true">
+            <ImageView
+                android:layout_width="250dp"
+                android:layout_height="80dp"
+                android:background="@drawable/titre_square"
+
+                android:layout_gravity="center_horizontal|bottom"/>
+            <Button
+                android:id="@+id/btn_jouer"
+                android:layout_width="250dp"
+                android:layout_height="80dp"
+                android:layout_gravity="center_horizontal|bottom"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/select_jouer"
+                android:onClick="buttonOnClick"
+                />
+
+
+
+            <Button
+                android:id="@+id/btn_aide"
+                android:layout_width="250dp"
+                android:layout_height="80dp"
+                android:layout_gravity="center_horizontal|bottom"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/select_aide"
+                android:onClick="buttonOnClick"
+                />
+
+            <Button
+                android:id="@+id/button3"
+                android:layout_width="250dp"
+                android:layout_height="80dp"
+                android:layout_gravity="center_horizontal|bottom"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/select_auteurs"
+                android:onClick="buttonOnClick"
+                />
+            <Button
+                android:id="@+id/btn_quitter"
+                android:layout_width="250dp"
+                android:layout_height="80dp"
+                android:layout_gravity="center_horizontal|bottom"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/select_quitter"
+                android:onClick="buttonOnClick"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/menu_type_jeux"
+            android:visibility="invisible"
+            android:layout_width="300dp"
+            android:layout_height="450dp"
+            android:layout_gravity="center_horizontal"
+
+            android:orientation="vertical"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true">
+            <ImageView
+                android:layout_width="250dp"
+                android:layout_height="80dp"
+                android:background="@drawable/titre_square"
+
+                android:layout_gravity="center_horizontal|bottom"/>
+            <Button
+                android:id="@+id/button_classique"
+                android:layout_width="250dp"
+                android:layout_height="80dp"
+                android:layout_gravity="center_horizontal|bottom"
+
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/select_classique"
+                android:onClick="buttonOnClick"
+                />
+            <Button
+                android:id="@+id/button_middlex2"
+                android:layout_width="250dp"
+                android:layout_height="80dp"
+                android:layout_gravity="center_horizontal|bottom"
+
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/select_middlex2"
+                android:onClick="buttonOnClick"
+                />
+            <Button
+                android:id="@+id/button_lvl3"
+                android:layout_width="250dp"
+                android:layout_height="80dp"
+                android:layout_gravity="center_horizontal|bottom"
+
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/select_lvl3"
+                android:onClick="buttonOnClick"
+                />
+            <Button
+                android:id="@+id/btn_retour"
+                android:layout_width="250dp"
+                android:layout_height="80dp"
+                android:layout_gravity="center_horizontal|bottom"
+
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/select_retour"
+                android:onClick="buttonOnClick"
+                />
+
+        </LinearLayout>
+        <RelativeLayout
+            android:visibility="invisible"
+            android:id="@+id/menu_aide"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="@drawable/fond_aide"
+
+            android:orientation="vertical"
+            android:layout_gravity="center_vertical|center_horizontal">
+
+
+            <Button
+                android:id="@+id/btn_retour"
+                android:layout_width="250dp"
+                android:layout_height="80dp"
+                android:layout_gravity="center_horizontal|bottom"
+                android:background="@drawable/select_retour"
+                android:onClick="buttonOnClick"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="5dp"/>
+
+
+        </RelativeLayout>
+    </RelativeLayout>
+
+
+
+
+
+
+</RelativeLayout>

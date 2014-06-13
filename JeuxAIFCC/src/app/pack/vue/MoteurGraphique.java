@@ -16,10 +16,11 @@ import app.pack.modele.TuileGraphique;
 
 
 /**
- * CLasse permettant l'affichage du jeux
+ * CLass permettant l'affichage du jeux
+ *
  */
 public class MoteurGraphique extends SurfaceView implements SurfaceHolder.Callback {
-
+    public boolean loadImageOk = false;
 	private SurfaceHolder mSurfaceHolder;
 
 	private DrawingThread mThread;
@@ -29,44 +30,31 @@ public class MoteurGraphique extends SurfaceView implements SurfaceHolder.Callba
 
     private boolean autoMarche = true;
     private boolean mouvementFini = false;
-    private boolean animationFini = false;
-	/*
-	 * MODIF YANNICK
-	 */
+    private Bitmap fondGrille;
 	public ClasseurImages classeurImages = null;
-	/*
-	 * END MODIF YANNICK
-	 */
 
     public int score;
 
-    public int getScore() {
-        return score;
-    }
 
-    public void setScore(int score) {
-        this.score = score;
-    }
 
 	/**
-	 * Constructeur
+	 * Constructeur 1er
 	 *
-	 * @param pContext
+	 * @param context Context
 	 */
 	public MoteurGraphique(Context context) {
 		super(context);
 	}
 
-    /* MODIF AUREL
     /**
-     * Constructeur pour la récupération d'une surface view dans un fichier XML
-     *
-     * @param context
-     * @param attrs
+     * Constructeur 2eme
+     * @param context Context
+     * @param attrs AttributeSet
      */
     public MoteurGraphique(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.pContext = context;
+
         mSurfaceHolder = getHolder();
         mSurfaceHolder.addCallback(this);
         mThread = new DrawingThread();
@@ -76,67 +64,90 @@ public class MoteurGraphique extends SurfaceView implements SurfaceHolder.Callba
 
         this.score = 0;
     }
-
+    /**
+     * Constructeur 3eme
+     * @param context Context
+     * @param attrs AttributeSet
+     * @param defStyle int
+     */
     public MoteurGraphique(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
 
     }
-
+private int size = 0;
+    /**
+     * onMeasure recupere la largeur du layout et la hauteur
+     * @param widthMeasureSpec int
+     * @param heightMeasureSpec int
+     */
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec,heightMeasureSpec);
-        int width = MeasureSpec.getSize(widthMeasureSpec);
-        int height = MeasureSpec.getSize(heightMeasureSpec);
-        int size = width > height ? height : width;
-        setMeasuredDimension(size, size);
-        Log.v("tuileM", "onMeasure : " + width);
+        if(this.size == 0) {
+            int width = MeasureSpec.getSize(widthMeasureSpec);
+            int height = MeasureSpec.getSize(heightMeasureSpec);
+            this.size = width > height ? height : width;
+            setMeasuredDimension(this.size,this.size);
+            Log.v("tuileM", "onMeasure : " + width);
+        } else {
+            setMeasuredDimension(this.size,this.size);
+        }
+
     }
-    /*
-    * FIN MODIF AUREL
-    */
+
 
 
 	//##################
 	// GETTERS - SETTERS
 	//##################
-	/*
-	 * MODIF YANNICK
-	 */
 
 	/*public int getMouvement() {
 		return mouvement;
 	}*/
 
+    /**
+     * setMouvement
+     * @param mouvement int
+     */
 	public void setMouvement(int mouvement) {
         this.mouvementFini = false;
         //TODO pour indiquer fini
 		this.mouvement = mouvement;
 	}
-	/*
-	 * END MODIF YANNICK
-	 */
-	
+
 	/*public ArrayList<TuileGraphique> getListTuilesG() {
 		return listTuilesG;
 	}*/
 
+    /**
+     * setListTuilesG
+     * @param listTuilesG ArrayList<TuileGraphique>
+     */
 	public void setListTuilesG(ArrayList<TuileGraphique> listTuilesG) {
+        mThread.autoDessine = true;
 		this.listTuilesG = listTuilesG;
 	}
-
+public void load() {
+    loadImageOk = true;
+    //Charge les images donc a metttre en thread
+    this.classeurImages = new ClasseurImages(this.pContext);
+    this.fondGrille = this.classeurImages.getFondImage();
+    this.fondGrille = Bitmap.createScaledBitmap(fondGrille, this.getWidth(), this.getWidth(), false);
+}
     /**
-     * Au démarage de l'application
-     * @param holder
+     * Au demarage de l'application
+     * @param holder SurfaceHolder
      */
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
 
 
 
-        mThread.setActiveDessineThread(true);
         try {
+
             mThread.start();
-        this.classeurImages = new ClasseurImages(this.pContext);
+
+
         } catch (IllegalThreadStateException e) {
             //mThread = new DrawingThread();
             //mThread.start();
@@ -155,50 +166,47 @@ public class MoteurGraphique extends SurfaceView implements SurfaceHolder.Callba
 
     /**
      * Changement de la d'orientation de la surface
-     * @param holder
-     * @param format
-     * @param width
-     * @param height
+     * @param holder SurfaceHolder
+     * @param format int
+     * @param width int
+     * @param height int
      */
     @Override
-    public void surfaceChanged(SurfaceHolder holder, int format, int width,
-                               int height) {
-
-        //mThread.keepDrawing = true;
-        //mThread.start();
-    }
+    public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) { }
 
     /**
      * Lors de la fermeture de l'application
-     * @param holder
+     * @param holder SurfaceHolder
      */
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
         Log.i("test1","entre destroy$$$$$$$$$$$$");
         // TODO Auto-generated method stub
-        mThread.setActiveDessineThread(false);
-
-
+        if(this.mThread != null) {
+            mThread.setActiveDessineThread(false);
+        }
     }
 
     /**
      * KILL
      */
-    /*
     public void kill() {
-        boolean retry = true;
-        while (retry) {
-            try {
-                mThread.join();
-                retry = false;
-            } catch (InterruptedException e) {
+        // We need to tell the drawing thread to stop, and block until
+        // it has done so.
+        synchronized (mThread) {
+            setPauseResumeThread(false);
+            mThread.autoDessine = false;
 
+
+            if(mThread!=null){
+                mThread.interrupt();
+                mThread = null;
             }
         }
-    }*/
+    }
     /**
      * Methode de dessins
-     * @param pCanvas
+     * @param pCanvas Canvas
      */
     @Override
     protected void onDraw(Canvas pCanvas) {
@@ -212,8 +220,7 @@ public class MoteurGraphique extends SurfaceView implements SurfaceHolder.Callba
         //Log.i("test","ok");
 
         if (this.classeurImages != null) {
-            Bitmap fondGrille = this.classeurImages.getFondImage();
-            fondGrille = Bitmap.createScaledBitmap(fondGrille, this.getWidth(), this.getWidth(), false);
+
             pCanvas.drawBitmap(fondGrille, 0, 0, null);
 
             //Log.v("testo", "X : " + fondTableau.getWidth() + " / Y : " + fondTableau.getHeight());
@@ -270,7 +277,7 @@ public class MoteurGraphique extends SurfaceView implements SurfaceHolder.Callba
                         if (!uneTuile.isAleatoire() || (uneTuile.getAnimationApparition() != 0 && mouvementFini)) {
                             switch (this.mouvement) {
                                 case 1:
-                                    Log.v("testo", "*********************** GAUCHE 1*********************");
+
                                     //Log.v("testo", "Valeur Y1 PASSE : " + uneTuile.getPosGPasse().getY1());
                                     //  Log.v("testo", "Valeur Y1 ACTUEL : " + uneTuile.getPosGActuel().getY1());
                                     if (uneTuile.getPosGPasse().getY1() >= uneTuile.getPosGActuel().getY1() && !(uneTuile.getPosGPasse().getY1() == uneTuile.getPosGActuel().getY1())) {
@@ -285,7 +292,7 @@ public class MoteurGraphique extends SurfaceView implements SurfaceHolder.Callba
 								 */
 
                                         // Log.v("testo", "Valeur Y1 départ  : " + uneTuile.getPosGPasse().getY1());
-                                        uneTuile.mouvGauche(80);
+                                        uneTuile.mouvGauche(50);
                                         // Log.v("testo", "Valeur Y1 après modif : " + uneTuile.getPosGPasse().getY1());
                                     } else {
                                         //pCanvas.drawBitmap(uneTuile.getImgCarre(), uneTuile.getPosGActuel().getY1(), uneTuile.getPosGActuel().getX1() + 192, null);
@@ -301,7 +308,7 @@ public class MoteurGraphique extends SurfaceView implements SurfaceHolder.Callba
                                     }
                                     break;
                                 case 2:
-                                    Log.v("testo", "*********************** DROITE *********************");
+
                                     //Log.v("testo", "Valeur Y1 PASSE : " + uneTuile.getPosGPasse().getY1());
                                     //Log.v("testo", "Valeur Y1 ACTUEL : " + uneTuile.getPosGActuel().getY1());
                                     if (uneTuile.getPosGPasse().getY1() <= uneTuile.getPosGActuel().getY1() && !(uneTuile.getPosGPasse().getY1() == uneTuile.getPosGActuel().getY1())) {
@@ -311,7 +318,7 @@ public class MoteurGraphique extends SurfaceView implements SurfaceHolder.Callba
                                         pCanvas.drawBitmap(imageTuile, uneTuile.getPosGPasse().getY1(), uneTuile.getPosGPasse().getX1(), null);
 
 
-                                        uneTuile.mouvDroite(80);
+                                        uneTuile.mouvDroite(50);
                                         // Log.v("testo", "Valeur Y1 : " + uneTuile.getPosGPasse().getY1());
                                     } else {
                                         ////classeurImages.getTuileImage(uneTuile.getValeur())
@@ -326,13 +333,13 @@ public class MoteurGraphique extends SurfaceView implements SurfaceHolder.Callba
                                     }
                                     break;
                                 case 3:
-                                    Log.v("testo", "*********************** HAUT *********************");
+
                                     if (uneTuile.getPosGPasse().getX1() >= uneTuile.getPosGActuel().getX1() && !(uneTuile.getPosGPasse().getX1() == uneTuile.getPosGActuel().getX1())) {
 
 
                                         pCanvas.drawBitmap(imageTuile, uneTuile.getPosGPasse().getY1(), uneTuile.getPosGPasse().getX1(), null);
 
-                                        uneTuile.mouvHaut(80);
+                                        uneTuile.mouvHaut(50);
                                         // Log.v("testo", "Valeur X1 : " + uneTuile.getPosGPasse().getX1());
                                     } else {
                                         pCanvas.drawBitmap(imageTuile, uneTuile.getPosGActuel().getY1(), uneTuile.getPosGActuel().getX1(), null);
@@ -344,10 +351,10 @@ public class MoteurGraphique extends SurfaceView implements SurfaceHolder.Callba
                                     }
                                     break;
                                 case 4:
-                                    Log.v("testo", "*********************** BAS *********************");
+
                                     if (uneTuile.getPosGPasse().getX1() <= uneTuile.getPosGActuel().getX1() && !(uneTuile.getPosGPasse().getX1() == uneTuile.getPosGActuel().getX1())) {
                                         pCanvas.drawBitmap(imageTuile, uneTuile.getPosGPasse().getY1(), uneTuile.getPosGPasse().getX1(), null);
-                                        uneTuile.mouvBas(80);
+                                        uneTuile.mouvBas(50);
                                         // Log.v("testo", "Valeur X1 : " + uneTuile.getPosGPasse().getX1());
                                     } else {
                                         pCanvas.drawBitmap(imageTuile, uneTuile.getPosGActuel().getY1(), uneTuile.getPosGActuel().getX1(), null);
@@ -358,7 +365,7 @@ public class MoteurGraphique extends SurfaceView implements SurfaceHolder.Callba
                                     }
                                     break;
                                 default:
-                                    Log.v("testo", "*********************** AUCUN *********************");
+
                                     pCanvas.drawBitmap(imageTuile, uneTuile.getPosGActuel().getY1(), uneTuile.getPosGActuel().getX1(), null);
                                     fini++;
                                     uneTuile.setPosGPasse(uneTuile.getPosGActuel());
@@ -409,7 +416,7 @@ public class MoteurGraphique extends SurfaceView implements SurfaceHolder.Callba
      * Class THREAD permettant de faire un boucle infini
      */
     private class DrawingThread extends Thread {
-        public boolean autoDessine = true;
+        public boolean autoDessine = false;
 
         //  public int modeThread = 0;
         //  private Object mPauseLock;
@@ -417,6 +424,7 @@ public class MoteurGraphique extends SurfaceView implements SurfaceHolder.Callba
 
         /**
          * Methode qui lance la boucle infini
+         *
          */
         @Override
         public void run() {
@@ -424,31 +432,48 @@ public class MoteurGraphique extends SurfaceView implements SurfaceHolder.Callba
 
             Canvas canvas;
             while (autoMarche) {
+
                 while (autoDessine) {
-                    canvas = null;
 
-                    try {
-                        canvas = mSurfaceHolder.lockCanvas(null);
-                        synchronized (mSurfaceHolder) {
-                            onDraw(canvas);
-                            try {
+                        canvas = null;
+                    Log.i("test1","OnDraw !"+autoDessine);
+                        try {
+                            canvas = mSurfaceHolder.lockCanvas(null);
+                            synchronized (mSurfaceHolder) {
+                                if(canvas != null) {onDraw(canvas);}
 
-                                Thread.sleep(4);
-                            } catch (InterruptedException e) {
+
+                                try {
+
+                                    Thread.sleep(8);
+                                } catch (InterruptedException e) {
+                                }
                             }
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        } finally {
+                            if (canvas != null)
+                                mSurfaceHolder.unlockCanvasAndPost(canvas);
                         }
 
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    } finally {
-                        if (canvas != null)
-                            mSurfaceHolder.unlockCanvasAndPost(canvas);
+
+
+                }
+                if(!autoDessine) {
+                    Log.i("test1","Zzz");
+                    try {
+                        Thread.sleep(50);
+
+                    }
+                    catch (InterruptedException exception) {
+
                     }
                 }
 
             }
         }
-        private void setActiveDessineThread(boolean run) {
+        synchronized private void setActiveDessineThread(boolean run) {
 
             this.autoDessine = run;
 
@@ -476,9 +501,10 @@ public class MoteurGraphique extends SurfaceView implements SurfaceHolder.Callba
 
     /**
      * Activer ou desactiver le dessin dans le thread
-     * @param boolean
+     * @param activeThread boolean
      */
-    public void setPauseResumeThread(boolean activeThread) {
+    synchronized public void setPauseResumeThread(boolean activeThread) {
+
         mThread.setActiveDessineThread(activeThread);
     }
 
@@ -494,4 +520,20 @@ public class MoteurGraphique extends SurfaceView implements SurfaceHolder.Callba
     /*public void setMouvementFini(boolean mouvementFini) {
         this.mouvementFini = mouvementFini;
     }*/
+
+    /**
+     * getScore
+     * @return int
+     */
+    public int getScore() {
+        return score;
+    }
+
+    /**
+     * setScore
+     * @param score int
+     */
+    public void setScore(int score) {
+        this.score = score;
+    }
 }

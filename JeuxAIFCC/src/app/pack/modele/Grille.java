@@ -71,7 +71,24 @@ public class Grille {
         }
         return list;
     }
+    /**
+     * Getter de Grille
+     * @return	une grille
+     */
+    public ArrayList<TuileGraphique> getTuile() {
+        ArrayList<TuileGraphique> list = new ArrayList<TuileGraphique>();
+        for (TuileGraphique uneTuile : tuileMerge) {
+            list.add(uneTuile);
+        }
+        for (int i = 0; i < this.getSizeY(); i++) {
+            for (int u = 0; u < this.getSizeX(); u++) {
 
+                    list.add(this.grille[i][u]);
+
+            }
+        }
+        return list;
+    }
     /**
      * Setter de Grille
      * @param 	Tuile[][] de tuile
@@ -114,7 +131,7 @@ public class Grille {
     /**
      * ajoute une tuile en fonction de ca position
      *
-     * @param 	Tuile
+     * @param 	Tuile TuileGraphique
      * @return 	Boolean
      *
      */
@@ -230,9 +247,9 @@ public class Grille {
     /**
      * Change 2 tuile sur un axe Y (i) et un indice X (j et j2)
      *
-     * @param 	int i pour l'axe Y
-     * @param	int j pour l'axe X
-     * @param	int j2 pour l'axe X
+     * @param i	int i pour l'axe Y
+     * @param j int j pour l'axe X
+     * @param j2 int j2 pour l'axe X
      *
      */
     private void inverseX(int i, int j, int j2) {
@@ -251,9 +268,9 @@ public class Grille {
     /**
      * Change 2 tuile sur un axe X (i) et un indice Y (j et j2)
      *
-     * @param 	int i pour l'axe X
-     * @param	int j pour l'axe Y
-     * @param	int j2 pour l'axe Y
+     * @param i	int i pour l'axe X
+     * @param j	int j pour l'axe Y
+     * @param j2 int j2 pour l'axe Y
      *
      */
     private void inverseY(int i, int j, int j2) {
@@ -299,7 +316,7 @@ public class Grille {
     /**
      * Permet de savoir les deplacements possibles des tuiles vers la gauche ou droite
      *
-     * @param 	Boolean pour prendre en compte les Zeros,
+     * @param DroiteTrueGaucheFalse	Boolean pour prendre en compte les Zeros,
      * 			Si on prend en compte les zeros, si le mouvements est posible (le deplacement),
      * 			Si non prise du zeros cela veut dire si le mouvement et posible juste pour merged une ou plusieurs tuiles
      *
@@ -337,7 +354,7 @@ public class Grille {
     /**
      * Permet de savoir les deplacement posible des tuiles vers la Haut ou Bas
      *
-     * @param 	Boolean pour prendre en compte les Zeros
+     * @param HautTrueBasFalse	Boolean pour prendre en compte les Zeros
      * 			Si on prend en compte les zeros, si le mouvements est posible (le deplacement)
      * 			Si non prise du zeros cela veut dire si le mouvement et posible juste pour merged une ou plusieurs tuiles
      *
@@ -383,7 +400,7 @@ public class Grille {
     /**
      * Permet le deplacement des tuiles vers la Droite
      *
-     * @return 	ArrayList<Tuile> les tuiles bougaient
+     *
      *
      */
     public void deplacementDroite() {
@@ -428,7 +445,7 @@ public class Grille {
     /**
      * Permet le deplacement des tuiles vers la gauche
      *
-     * @return 	ArrayList<Tuile> les tuiles bougaient
+     *
      *
      */
     public void deplacementGauche() {
@@ -462,7 +479,7 @@ public class Grille {
     /**
      * Permet le deplacement des tuiles vers le Haut
      *
-     * @return 	ArrayList<Tuile> les tuiles bougaient
+     *
      *
      */
     public  void deplacementHaut() {
@@ -499,7 +516,7 @@ public class Grille {
     /**
      * Permet le deplacement des tuiles vers le Bas
      *
-     * @return 	ArrayList<Tuile> les tuiles bougaient
+     *
      *
      */
     public void deplacementBas() {
@@ -529,9 +546,12 @@ public class Grille {
             }
         }
     }
+
     /**
-     * merger les tuiles
-     * @param uneTuille
+     * Merger les tuiles
+     * @param uneTuilleMerge TuileGraphique
+     * @param uneTuilleAjout TuileGraphique
+     * @return TuileGraphique
      */
     public TuileGraphique merge(TuileGraphique uneTuilleMerge,TuileGraphique uneTuilleAjout){
 
@@ -562,8 +582,8 @@ public class Grille {
 	 */
     /**
      * DEBUG d'une list de carre
-     * @param List<Tuile> une liste de carre
-     * @parem String titre a afficher dans la console
+     * @param maList List<TuileGraphique> une liste de carre
+     * @param titre String titre a afficher dans la console
      *
      */
     private void debog_ListTuile(List<TuileGraphique> maList, String titre) {
@@ -580,7 +600,7 @@ public class Grille {
 
     /**
      * DEBUG de le grille
-     * @void
+     *
      *
      */
     public void debog_Tableau() {

@@ -7,16 +7,15 @@ import android.view.View.OnTouchListener;
 import app.pack.gen.MainActivity;
 
 /**
- * Class Ecouteur de l'ecran lors du jeux en marche
+ * Class Ecouteur de la zone de jeux lors du jeux en marche
+ *
  */
 public class EcouteurToucherEcran implements OnTouchListener {
     /* la position de départ du doigt */
     private float start_x;
     private float start_y;
-
     private MainActivity mainActivity = null;
-
-    private Boolean activeMove = false;
+    public Boolean activeMove = false;
     public EcouteurToucherEcran(MainActivity mainActivity) {
 
         this.mainActivity = mainActivity;
@@ -25,9 +24,9 @@ public class EcouteurToucherEcran implements OnTouchListener {
 
     /**
      * Methode lors de l'appui sur l'ecran
-     * @param v
-     * @param event
-     * @return
+     * @param v View
+     * @param event MotionEvent
+     * @return boolean
      */
     @Override
     public boolean onTouch(View v, MotionEvent event) {

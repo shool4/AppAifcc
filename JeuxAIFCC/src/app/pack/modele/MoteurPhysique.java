@@ -20,7 +20,7 @@ public class MoteurPhysique {
     private boolean jeuxPerdant = false;
     /**
      * Construcuteur du moteur physique
-     * @param TypePartie
+     * @param uneTypeDePartie TypePartie
      */
     public MoteurPhysique(TypePartie uneTypeDePartie) {
         Log.i("test1", "*********************** START **********************");
@@ -62,6 +62,10 @@ public class MoteurPhysique {
      */
     public  ArrayList<TuileGraphique> getGrilleGraphiqueDeTuileNonVide() {
         return this.grille.getTuileNonVide();
+    }
+
+    public  ArrayList<TuileGraphique> getGrilleGraphiqueDeTuile() {
+        return this.grille.getTuile();
     }
 	/*
 	 * 
@@ -105,7 +109,7 @@ public class MoteurPhysique {
 
     /**
      * Deplacemencement a droite
-     *
+     * @return ArrayList<TuileGraphique>
      */
     public ArrayList<TuileGraphique> droite() {
         //ArrayList<Tuile> arrayTuile = null;
@@ -139,7 +143,7 @@ public class MoteurPhysique {
 
     /**
      * Deplacemencement a Gauche
-     *
+     * @return ArrayList<TuileGraphique>
      */
     public ArrayList<TuileGraphique>  gauche(){
         //ArrayList<Tuile> arrayTuile = null;
@@ -171,7 +175,7 @@ public class MoteurPhysique {
 
     /**
      * Deplacemencement a Haut
-     *
+     * @return ArrayList<TuileGraphique>
      */
     public ArrayList<TuileGraphique> haut() {
         //ArrayList<Tuile> arrayTuile = null;
@@ -204,7 +208,7 @@ public class MoteurPhysique {
 
     /**
      * Deplacemencement a Bas
-     *
+     * @return ArrayList<TuileGraphique>
      */
     public ArrayList<TuileGraphique> bas() {
         //ArrayList<Tuile> arrayTuile = null;

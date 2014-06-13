@@ -25,8 +25,9 @@ public class Tuile {
 
     /**
      * 2er Constructeur
-     * @param position
-     * @param valeur
+     * @param unePositionActuel Position
+     * @param unePositionPasse Position
+     * @param valeur int
      */
     public Tuile(Position unePositionActuel, Position unePositionPasse, int valeur) {
         this.positionActuel = unePositionActuel;
@@ -69,7 +70,7 @@ public class Tuile {
 
     /**
      * Setteur de valeur
-     * @param sValeur
+     * @param sValeur int
      */
     public void setValeur(int sValeur) {this.valeur = sValeur;}
     /**
@@ -85,13 +86,12 @@ public class Tuile {
 
     /**
      * Setter de position actuel
-     * @param unePosition
+     * @param unePosition Position
      */
     public void setPositionActuel(Position unePosition){this.positionActuel = unePosition;}
     /**
      * Setter de position passe
-     * @param	Position
-     * @return	Position
+     * @return	unePosition Position
      */
     public void setPositionPasse(Position unePosition){this.positionPasse = unePosition;}
 	/*
@@ -127,7 +127,7 @@ public class Tuile {
 
     /**
      * Setter dire que c'est une tuile aleatoire
-     * @param boolean
+     * @param  aleatoire boolean
      */
     public void setAleatoire(boolean aleatoire) {
         this.aleatoire = aleatoire;
@@ -143,7 +143,7 @@ public class Tuile {
 
     /**
      * Setter de tuile est merge
-     * @param boolean
+     * @param merged boolean
      */
     public void setMerged(boolean merged) {
         this.merged = merged;

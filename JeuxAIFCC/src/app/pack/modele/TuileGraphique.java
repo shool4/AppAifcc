@@ -29,10 +29,10 @@ public class TuileGraphique extends Tuile {
 	}
 */
     /**
-     *
-     * @param unePositionActuel
-     * @param unePositionPasse
-     * @param valeur
+     * Constructeur 1er
+     * @param unePositionActuel Position
+     * @param unePositionPasse Position
+     * @param valeur int
      */
 
     public TuileGraphique(Position unePositionActuel, Position unePositionPasse, int valeur) {
@@ -42,6 +42,10 @@ public class TuileGraphique extends Tuile {
         this.posGPasse = new PositionGraphique(unePositionPasse);
     }
 
+    /**
+     * Constructeur 2eme
+     * @param uneTuileGraphique TuileGraphique
+     */
     public  TuileGraphique(TuileGraphique uneTuileGraphique) {
         super(uneTuileGraphique.getPostionActuel(),uneTuileGraphique.getPostionPasse(),uneTuileGraphique.getValeur());
 
@@ -50,7 +54,7 @@ public class TuileGraphique extends Tuile {
     }
     /**
      * Setter de position actuel
-     * @param unePosition
+     * @param unePosition Position
      */
     @Override
     public void setPositionActuel(Position unePosition){
@@ -59,8 +63,7 @@ public class TuileGraphique extends Tuile {
     }
     /**
      * Setter de position passe
-     * @param	Position
-     * @return	Position
+     * @param	unePosition Position
      */
     public void setPositionPasse(Position unePosition){
         this.positionPasse = unePosition;
@@ -128,7 +131,7 @@ public class TuileGraphique extends Tuile {
 
     /**
      * Setter de position passe
-     * @param PositionGraphique
+     * @param posGPasse PositionGraphique
      */
     public void setPosGPasse(PositionGraphique posGPasse) {
 
@@ -174,23 +177,50 @@ public class TuileGraphique extends Tuile {
 		this.imgCarre = copieCarre;
 	}*/
 
+    /**
+     * mouvDroite
+     * @param valeur int
+     */
     public void mouvDroite(int valeur){
         this.posGPasse.setY1(posGPasse.getY1() + valeur);
     }
+
+    /**
+     * mouvGauche
+     * @param valeur int
+     */
     public void mouvGauche(int valeur){
         this.posGPasse.setY1(posGPasse.getY1() - valeur);
     }
+
+    /**
+     * mouvBas
+     * @param valeur int
+     */
     public void mouvBas(int valeur){
         this.posGPasse.setX1(posGPasse.getX1() + valeur);
     }
+
+    /**
+     * mouvHaut
+     * @param valeur int
+     */
     public void mouvHaut(int valeur){
         this.posGPasse.setX1(posGPasse.getX1() - valeur);
     }
 
+    /**
+     * getAnimationApparition
+     * @return int
+     */
     public int getAnimationApparition() {
         return animationApparition;
     }
 
+    /**
+     * setAnimationApparition
+     * @param animationApparition int
+     */
     public void setAnimationApparition(int animationApparition) {
         this.animationApparition = animationApparition;
     }
