@@ -461,7 +461,7 @@ public void load() {
 
                 }
                 if(!autoDessine) {
-                    Log.i("test1","Zzz");
+                    //Log.i("test1","Zzz");
                     try {
                         Thread.sleep(50);
 

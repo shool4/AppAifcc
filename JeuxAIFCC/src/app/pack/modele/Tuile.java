@@ -1,12 +1,14 @@
 package app.pack.modele;
 
+import java.io.Serializable;
+
 /**
  * Class permettant de genener les tuiles
  * @author dark_d0g
  *
  */
 
-public class Tuile {
+public class Tuile implements Serializable {
 
     private boolean merged;
     //private boolean merge;

@@ -1,9 +1,11 @@
 package app.pack.modele;
 
+import java.io.Serializable;
+
 /**
  * Class enum pour creer des types de parties
  */
-public enum TypePartie {
+public enum TypePartie implements Serializable{
 
 /*
  * 1 / Nombre de point pour gagner

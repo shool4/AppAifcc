@@ -18,19 +18,72 @@
             android:layout_height="fill_parent"
             android:orientation="vertical"
             android:id="@+id/menu_en_partie">
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:id="@+id/linearLayout2"
+                android:layout_alignParentTop="true">
 
-        <app.pack.vue.MoteurGraphique
+                <ImageView
+                    android:layout_width="250dp"
+                    android:layout_height="80dp"
+                    android:background="@drawable/titre_square"
+                    android:layout_gravity="center_horizontal|top"/>
+            </LinearLayout>
 
-            android:id="@+id/surfaceViewGrille"
-            android:weightSum="0.5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:layout_gravity="center_horizontal|bottom"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="0.2"
+                android:layout_above="@+id/linearLayout"
+                android:layout_below="@+id/linearLayout2">
+
+                <TextView
+                    android:id="@+id/txt_score"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Score"
+                    android:textColor="@android:color/white"
+                    android:textSize="40sp"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:clickable="false"
+                    android:layout_gravity="center_horizontal|center_vertical"/>
+                <TextView
+                    android:id="@+id/txt_valeur_score"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textColor="@android:color/white"
+                    android:textSize="40sp"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:clickable="false"
+                    android:layout_gravity="center_horizontal|center_vertical"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="0.7"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:id="@+id/linearLayout" >
+
+                <app.pack.vue.MoteurGraphique
+                    android:id="@+id/surfaceViewGrille"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:clickable="true"
+                    android:layout_gravity="center_horizontal|top" />
+
+            </LinearLayout>
         </RelativeLayout>
         <LinearLayout
 
@@ -117,7 +170,7 @@
             android:id="@+id/menu_acceuil"
             android:visibility="visible"
             android:layout_width="300dp"
-            android:layout_height="450dp"
+            android:layout_height="650dp"
             android:layout_gravity="center_horizontal"
 
             android:orientation="vertical"
@@ -139,8 +192,6 @@
                 android:background="@drawable/select_jouer"
                 android:onClick="buttonOnClick"
                 />
-
-
 
             <Button
                 android:id="@+id/btn_aide"
@@ -170,6 +221,7 @@
                 android:background="@drawable/select_quitter"
                 android:onClick="buttonOnClick"
                 />
+
         </LinearLayout>
 
         <LinearLayout
@@ -224,7 +276,6 @@
                 android:layout_width="250dp"
                 android:layout_height="80dp"
                 android:layout_gravity="center_horizontal|bottom"
-
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/select_retour"
                 android:onClick="buttonOnClick"

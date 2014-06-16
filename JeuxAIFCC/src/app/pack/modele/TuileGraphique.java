@@ -1,9 +1,11 @@
 package app.pack.modele;
 
+import java.io.Serializable;
+
 /**
  * Class heritant de tuile pour son affichage
  */
-public class TuileGraphique extends Tuile {
+public class TuileGraphique extends Tuile implements Serializable{
 
     private PositionGraphique posGPasse;
     private PositionGraphique posGActuel;

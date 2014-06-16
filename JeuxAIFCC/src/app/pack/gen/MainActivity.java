@@ -4,13 +4,22 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 import app.pack.controleur.EcouteurToucherEcran;
@@ -43,11 +52,10 @@ public class MainActivity extends Activity{
         setContentView(R.layout.activity_main);
         this.moteurGraphique = (MoteurGraphique)findViewById(R.id.surfaceViewGrille);
         // Calcul de la taille de la grille en fonction de l'écran
-        this.tailleGrille = dpToPx(39);
+        this.tailleGrille = dpToPx(38);
         // Calcul la taille des carrés en fonction de la grille
         this.tailleTuile = (int) ((tailleGrille - (5 * (tailleGrille * (1f/45f)))) / 4f);
 
-        // custom dialog
 
     }
 
@@ -60,35 +68,71 @@ public class MainActivity extends Activity{
         Log.i("test1","*** Methode onResume ***");
         super.onResume();
 
-            if(!initialise) {
-                initialise = true;
-                if(this.moteurGraphique.loadImageOk == false) {
+        if(!initialise) {
+            initialise = true;
+            if(this.moteurGraphique.loadImageOk == false) {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        loadImage();
+                        // Opération consommatrice en temps exécuté par le nouveau thread
+                        //appel de updateIHM par le nouveau thread
 
+                    }
+                }).start();
+            }
+        }
 
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            loadImage();
-                            // Opération consommatrice en temps exécuté par le nouveau thread
-                            //appel de updateIHM par le nouveau thread
-
-                        }
-                    }).start();
+        File file1 = new File(Environment.getExternalStorageDirectory()+"/saveSquare.xml");
+        if(file1.exists()){
+            LinearLayout linearLayout = (LinearLayout)findViewById(R.id.menu_acceuil);
+            linearLayout.setVisibility(View.INVISIBLE);
+            this.ecouteurToucherEcran = new EcouteurToucherEcran(this);
+            this.moteurGraphique.setOnTouchListener(this.ecouteurToucherEcran);
+            //CHANGER LE FOND
+            RelativeLayout l ;
+            l = (RelativeLayout)findViewById(R.id.principal);
+            ObjectInputStream ois = null;
+            try
+            {
+                Log.v("tuileMerge", "Deserialisation de : " + file1.getAbsolutePath());
+                FileInputStream fos = new FileInputStream(file1);
+                try{
+                    ois = new ObjectInputStream(fos);
+                    Object MP = ois.readObject();
+                    this.moteurPhysique = (MoteurPhysique) MP;
+                    l.setBackground(getResources().getDrawable(R.drawable.fond_jeux_easy));
+                    TextView textScore = (TextView)findViewById(R.id.txt_valeur_score);
+                    textScore.setText("" + this.moteurPhysique.calculScore());
+                }catch(Exception ex){
+                    Log.v("tuileMerge", "Erreur lecture MP : " + ex.getMessage());
+                    ex.printStackTrace();
                 }
             }
-
-            if(moteurPhysique != null && moteurGraphique != null ) {
-                Log.i("test1","moteurGraphique différent de null**");
-
-                moteurGraphique.setPauseResumeThread(true);
-                LinearLayout linearLayout = (LinearLayout)findViewById(R.id.menu_dans_jeux_reprise);
-                linearLayout.setVisibility(View.VISIBLE);
+            catch (FileNotFoundException ex)
+            {
+                ex.printStackTrace();
+            } catch (IOException ex)
+            {
+                ex.printStackTrace();
             }
 
+            this.moteurGraphique.setListTuilesG(this.moteurPhysique.getGrilleGraphiqueDeTuileNonVide());
 
+            linearLayout = (LinearLayout)findViewById(R.id.menu_type_jeux);
+            linearLayout.setVisibility(View.INVISIBLE);
 
+            RelativeLayout relativeLayout = (RelativeLayout)findViewById(R.id.menu_en_partie);
+            relativeLayout.setVisibility(View.VISIBLE);
+        }
 
+        if(moteurPhysique != null && moteurGraphique != null ) {
+            Log.i("test1","moteurGraphique différent de null**");
 
+            moteurGraphique.setPauseResumeThread(true);
+            LinearLayout linearLayout = (LinearLayout)findViewById(R.id.menu_dans_jeux_reprise);
+            linearLayout.setVisibility(View.VISIBLE);
+        }
 
     }
 
@@ -104,7 +148,6 @@ public class MainActivity extends Activity{
         finish();
         System.exit(0);
 
-
     }
     /**
      * Mise en pause de l'application
@@ -113,6 +156,7 @@ public class MainActivity extends Activity{
     @Override
     protected void onPause() {
         super.onPause();
+        sauvegardePartie();
         Log.i("test1","*** Methode onPause ***");
         if(moteurGraphique != null) {
             moteurGraphique.setPauseResumeThread(false);
@@ -135,8 +179,8 @@ public class MainActivity extends Activity{
             ArrayList<TuileGraphique> arrayTuileGraphique = this.moteurPhysique.gauche();
             this.moteurGraphique.setMouvement(1);
             this.moteurGraphique.setListTuilesG(arrayTuileGraphique);
-
-
+            TextView textScore = (TextView)findViewById(R.id.txt_valeur_score);
+            textScore.setText("" + this.moteurPhysique.calculScore());
         }
         Log.i("test1", "*** Gauche ***");
     }
@@ -150,8 +194,8 @@ public class MainActivity extends Activity{
             ArrayList<TuileGraphique> arrayTuileGraphique = this.moteurPhysique.droite();
             this.moteurGraphique.setMouvement(2);
             this.moteurGraphique.setListTuilesG(arrayTuileGraphique);
-
-
+            TextView textScore = (TextView)findViewById(R.id.txt_valeur_score);
+            textScore.setText("" + this.moteurPhysique.calculScore());
         }
         Log.i("test1", "*** Droite ***");
     }
@@ -164,7 +208,8 @@ public class MainActivity extends Activity{
             ArrayList<TuileGraphique> arrayTuileGraphique = this.moteurPhysique.haut();
             this.moteurGraphique.setMouvement(3);
             this.moteurGraphique.setListTuilesG(arrayTuileGraphique);
-
+            TextView textScore = (TextView)findViewById(R.id.txt_valeur_score);
+            textScore.setText("" + this.moteurPhysique.calculScore());
         }
         Log.i("test1", "*** Haut ***");
     }
@@ -177,9 +222,37 @@ public class MainActivity extends Activity{
             ArrayList<TuileGraphique> arrayTuileGraphique = this.moteurPhysique.bas();
             this.moteurGraphique.setMouvement(4);
             this.moteurGraphique.setListTuilesG(arrayTuileGraphique);
-
+            TextView textScore = (TextView)findViewById(R.id.txt_valeur_score);
+            textScore.setText("" + this.moteurPhysique.calculScore());
         }
         Log.i("test1", "*** Bas ***");
+    }
+
+    /**
+     * Sauvegarde de la partie quand l'utilisateur quitte l'application.
+     * Serialisation d'un objet
+     * Enregistrement de "moteurPhysique"
+     */
+    public void sauvegardePartie(){
+        ObjectOutputStream oos = null;
+        try
+        {
+            File file1 = new File(Environment.getExternalStorageDirectory()+"/saveSquare.xml");
+            file1.getParentFile().createNewFile();
+            Log.v("tuileMerge", "Sauvegarde ici : " + file1.getAbsolutePath());
+            FileOutputStream fos = new FileOutputStream(file1);
+            oos = new ObjectOutputStream(fos);
+            oos.writeObject(this.moteurPhysique);
+        }
+        catch (FileNotFoundException ex)
+        {
+            Log.v("serialisation", "File not found : " + ex.getMessage());
+            ex.printStackTrace();
+        } catch (IOException ex)
+        {
+            Log.v("serialisation", "IO exception : " + ex.getMessage());
+            ex.printStackTrace();
+        }
     }
 
     /**
@@ -213,7 +286,7 @@ public class MainActivity extends Activity{
         px = displayMetrics.widthPixels - px;
         return px;
     }
-public void loadImage() {
+    public void loadImage() {
     this.moteurGraphique.load();
 }
     /**
@@ -256,11 +329,8 @@ public void loadImage() {
 
                 case R.id.button_classique:
                     moteurPhysique = new MoteurPhysique(TypePartie.easyOne);
-
                     l.setBackground(getResources().getDrawable(R.drawable.fond_jeux_easy));
-
                     break;
-
 
                 case R.id.button_middlex2:
                     moteurPhysique = new MoteurPhysique(TypePartie.easyTwo);
@@ -292,8 +362,6 @@ public void loadImage() {
             //creer une errreur peu etre trouve la methode qui dit context charger
 
             switch (v.getId()) {
-
-
 
                 case R.id.btn_aide:
 

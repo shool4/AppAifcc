@@ -5,13 +5,15 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
 
+import java.io.Serializable;
+
 import app.pack.gen.MainActivity;
 import app.pack.gen.R;
 
 /**
  * Class stoquant les images de l'application
  */
-public class ClasseurImages {
+public class ClasseurImages implements Serializable{
 	private Bitmap[] classeurImageTuile = null;
 
 	/**

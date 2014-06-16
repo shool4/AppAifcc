@@ -1,7 +1,9 @@
 package app.pack.modele;
 
+import android.os.Environment;
 import android.util.Log;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -9,15 +11,18 @@ import java.util.ArrayList;
  * @author dark_d0g
  *
  */
-public class MoteurPhysique {
+public class MoteurPhysique implements Serializable{
+
+    private static final long serialVersionUID = 16062014;
 
     private Grille grille = null;
-
     //private ArrayList<Bitmap> tbBitmapCarre;
     private boolean activeAleatoire;
     private int nombreForWin = 2048;
     private int nombreDeTuilePartTour = 1;
     private boolean jeuxPerdant = false;
+    public int score;
+
     /**
      * Construcuteur du moteur physique
      * @param uneTypeDePartie TypePartie
@@ -40,9 +45,9 @@ public class MoteurPhysique {
 
                 this.grille.ajoutTuileAleatoire(this.activeAleatoire).setAleatoire(false);
 
-
-
         }
+        //INITIALISATION DU SCORE A 0
+        this.score = 0;
 
         grille.debog_Tableau();
 
@@ -134,7 +139,6 @@ public class MoteurPhysique {
         if(this.grille.isGameWon(this.nombreForWin)) {
 
         }
-
 
         this.grille.debog_Tableau();
         return this.grille.getTuileNonVide();
@@ -236,6 +240,16 @@ public class MoteurPhysique {
         return this.grille.getTuileNonVide();
 
     }
+
+    public int calculScore(){
+        if(this.grille.getTuileMerge().size() != 0){
+            for (TuileGraphique uneTuile : this.grille.getTuileMerge()) {
+                this.score += uneTuile.getValeur()*2;
+            }
+        }
+        return this.score;
+    }
+
     public boolean isJeuxPerdant() {
         return jeuxPerdant;
     }
