@@ -1,12 +1,13 @@
 package app.pack.modele;
 
+import java.io.Serializable;
 import java.util.Random;
 
 /**
  * Class regroupant la Boite a outil
  * 
  */
-public class Outil {
+public class Outil implements Serializable{
 
     /**
      * Fonction qui genere un nombre aleatoire entre un mini et un max

@@ -1,9 +1,11 @@
 package app.pack.modele;
 
+import java.io.Serializable;
+
 /**
  * Class enum pour creer des types de parties
  */
-public enum TypePartie {
+public enum TypePartie implements Serializable{
 
 /*
  * 1 / Nombre de point pour gagner
@@ -15,9 +17,9 @@ public enum TypePartie {
  */
 /**
  *  ESAY : 2048, 4x4, 2 Tuile au depart, ajout 1 tuile par tour, tuile non aleatoire
- *  Description : jouer normal
+ *  Description : jouer normal  (2048,4,4,2,1,false),
  */
-easyOne(2048,4,4,2,1,false),
+easyOne(2048,4,4,2,20,true),
 /**
   *  ESAY : 2048, 4x4, 2 Tuile au depart, ajout 1 tuile par tour, tuile aleatoire
   *  Description : jouer normal

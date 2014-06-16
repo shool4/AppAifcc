@@ -1,15 +1,17 @@
 package app.pack.modele;
 
+import java.io.Serializable;
+
 /**
  * Class heritant de tuile pour son affichage
  */
-public class TuileGraphique extends Tuile {
+public class TuileGraphique extends Tuile implements Serializable{
 
     private PositionGraphique posGPasse;
     private PositionGraphique posGActuel;
     //private Tuile tuile;
     //private int tailleFond;
-    private int animationApparition = 0;
+    private int animationApparition = 5;
     /**
      *
      * @param uneTuile
@@ -57,7 +59,7 @@ public class TuileGraphique extends Tuile {
      * @param unePosition Position
      */
     @Override
-    public void setPositionActuel(Position unePosition){
+     public void setPositionActuel(Position unePosition){
         this.positionActuel = unePosition;
         this.posGActuel = new PositionGraphique(unePosition);
     }
@@ -65,7 +67,7 @@ public class TuileGraphique extends Tuile {
      * Setter de position passe
      * @param	unePosition Position
      */
-    public void setPositionPasse(Position unePosition){
+     public void setPositionPasse(Position unePosition){
         this.positionPasse = unePosition;
         this.posGPasse = new PositionGraphique(unePosition);
 
@@ -124,7 +126,7 @@ public class TuileGraphique extends Tuile {
      * Getter de position passe
      * @return PositionGraphique
      */
-    public PositionGraphique getPosGPasse() {
+     public PositionGraphique getPosGPasse() {
         return posGPasse;
     }
 
@@ -133,7 +135,7 @@ public class TuileGraphique extends Tuile {
      * Setter de position passe
      * @param posGPasse PositionGraphique
      */
-    public void setPosGPasse(PositionGraphique posGPasse) {
+     public void setPosGPasse(PositionGraphique posGPasse) {
 
         this.posGPasse = posGPasse;
     }
@@ -142,7 +144,7 @@ public class TuileGraphique extends Tuile {
      * Getter de la position actuel
      * @return PositionGraphique
      */
-    public PositionGraphique getPosGActuel() {
+     public PositionGraphique getPosGActuel() {
         return posGActuel;
     }
 
@@ -181,7 +183,7 @@ public class TuileGraphique extends Tuile {
      * mouvDroite
      * @param valeur int
      */
-    public void mouvDroite(int valeur){
+     public void mouvDroite(float valeur){
         this.posGPasse.setY1(posGPasse.getY1() + valeur);
     }
 
@@ -189,7 +191,7 @@ public class TuileGraphique extends Tuile {
      * mouvGauche
      * @param valeur int
      */
-    public void mouvGauche(int valeur){
+     public void mouvGauche(float valeur){
         this.posGPasse.setY1(posGPasse.getY1() - valeur);
     }
 
@@ -197,7 +199,7 @@ public class TuileGraphique extends Tuile {
      * mouvBas
      * @param valeur int
      */
-    public void mouvBas(int valeur){
+     public void mouvBas(float valeur){
         this.posGPasse.setX1(posGPasse.getX1() + valeur);
     }
 
@@ -205,7 +207,7 @@ public class TuileGraphique extends Tuile {
      * mouvHaut
      * @param valeur int
      */
-    public void mouvHaut(int valeur){
+     public void mouvHaut(float valeur){
         this.posGPasse.setX1(posGPasse.getX1() - valeur);
     }
 
@@ -213,7 +215,7 @@ public class TuileGraphique extends Tuile {
      * getAnimationApparition
      * @return int
      */
-    public int getAnimationApparition() {
+     public int getAnimationApparition() {
         return animationApparition;
     }
 
@@ -221,7 +223,7 @@ public class TuileGraphique extends Tuile {
      * setAnimationApparition
      * @param animationApparition int
      */
-    public void setAnimationApparition(int animationApparition) {
+     public void setAnimationApparition(int animationApparition) {
         this.animationApparition = animationApparition;
     }
 }

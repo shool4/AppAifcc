@@ -1,8 +1,10 @@
 package app.pack.modele;
 
+import java.io.Serializable;
+
 import app.pack.gen.MainActivity;
 
-public class PositionGraphique {
+public class PositionGraphique implements Serializable{
 	
 	private float x1;
 	private float y1;

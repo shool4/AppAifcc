@@ -1,9 +1,12 @@
 package app.pack.modele;
+
+import java.io.Serializable;
+
 /**
  * Class qui permet de faire facilement la conversion d'un objet a l'affichage des coordonnee
  * @author DaRk-_-D0G
  */
-public class Position {
+public class Position implements Serializable {
 	//Coordonnee TB
 	private int posY = 0;
 	private int posX = 0;

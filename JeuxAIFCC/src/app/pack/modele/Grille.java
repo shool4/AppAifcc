@@ -2,6 +2,7 @@ package app.pack.modele;
 
 import android.util.Log;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
@@ -10,7 +11,7 @@ import java.util.ListIterator;
  * @author dark_d0g
  *
  */
-public class Grille {
+public class Grille implements Serializable {
 
     private TuileGraphique[][] grille = null;
     private ArrayList<TuileGraphique> tuileMerge = null;
@@ -52,6 +53,15 @@ public class Grille {
      *
      */
     //public int getSize() {return getSizeX() * getSizeY();}
+
+    /**
+     * Tableau des tuiles merge
+     *
+     * @return
+     */
+    public ArrayList<TuileGraphique> getTuileMerge() {
+        return tuileMerge;
+    }
 
     /**
      * Getter de Grille

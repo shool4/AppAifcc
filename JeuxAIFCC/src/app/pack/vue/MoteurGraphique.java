@@ -3,7 +3,6 @@ package app.pack.vue;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.SurfaceHolder;
@@ -30,7 +29,11 @@ public class MoteurGraphique extends SurfaceView implements SurfaceHolder.Callba
 
     private boolean autoMarche = true;
     private boolean mouvementFini = false;
+
+
+
     private Bitmap fondGrille;
+  //  private Bitmap autre;
 	public ClasseurImages classeurImages = null;
 
     public int score;
@@ -55,7 +58,12 @@ public class MoteurGraphique extends SurfaceView implements SurfaceHolder.Callba
         super(context, attrs);
         this.pContext = context;
 
+
+
         mSurfaceHolder = getHolder();
+
+        //mSurfaceHolder.setFormat(PixelFormat.TRANSPARENT);
+        //this.setZOrderOnTop(true);
         mSurfaceHolder.addCallback(this);
         mThread = new DrawingThread();
 
@@ -75,6 +83,7 @@ public class MoteurGraphique extends SurfaceView implements SurfaceHolder.Callba
 
     }
 private int size = 0;
+private float sizeDeplacement = 0;
     /**
      * onMeasure recupere la largeur du layout et la hauteur
      * @param widthMeasureSpec int
@@ -88,7 +97,9 @@ private int size = 0;
             int height = MeasureSpec.getSize(heightMeasureSpec);
             this.size = width > height ? height : width;
             setMeasuredDimension(this.size,this.size);
+            this.sizeDeplacement = (size/100)*10;
             Log.v("tuileM", "onMeasure : " + width);
+            Log.v("tuileM", "TAILE DEPLACEMENT : " + sizeDeplacement);
         } else {
             setMeasuredDimension(this.size,this.size);
         }
@@ -115,6 +126,8 @@ private int size = 0;
 		this.mouvement = mouvement;
 	}
 
+
+    //public int void
 	/*public ArrayList<TuileGraphique> getListTuilesG() {
 		return listTuilesG;
 	}*/
@@ -129,10 +142,16 @@ private int size = 0;
 	}
 public void load() {
     loadImageOk = true;
+
     //Charge les images donc a metttre en thread
     this.classeurImages = new ClasseurImages(this.pContext);
     this.fondGrille = this.classeurImages.getFondImage();
-    this.fondGrille = Bitmap.createScaledBitmap(fondGrille, this.getWidth(), this.getWidth(), false);
+    this.fondGrille = Bitmap.createScaledBitmap(this.fondGrille, this.getWidth(), this.getWidth(), false);
+
+   // this.autre = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getContext().getResources(), R.drawable.fond_jeux_easy), getWidth(), getHeight(), true);
+  /* this.autre = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.fond_jeux_easy); */
+
+
 }
     /**
      * Au demarage de l'application
@@ -212,27 +231,35 @@ public void load() {
     protected void onDraw(Canvas pCanvas) {
 
         // Couleur de fond de la surface view
-        pCanvas.drawColor(Color.WHITE);
 
+        //SpCanvas.drawBitmap(autre, 0, 0, null);
         // Affichage du fond de la grille
 
         //pCanvas.drawBitmap(this.classeurImages.getFondImage(), 0, 192, null);
         //Log.i("test","ok");
 
         if (this.classeurImages != null) {
-
+            //TODO REMETTRE
             pCanvas.drawBitmap(fondGrille, 0, 0, null);
 
             //Log.v("testo", "X : " + fondTableau.getWidth() + " / Y : " + fondTableau.getHeight());
             //pCanvas.drawBitmap(this.bitmapTableau, (getWidth() - this.bitmapTableau.getWidth()) / 2, 192, mPaint);
             //Log.v("testo", "Mouvement : " + mouvement);
             int fini = 0;
+
             if (this.listTuilesG != null) {
                 for (TuileGraphique uneTuile : this.listTuilesG) {
 				/*
 				 *  MODIF YANNICK
 				 */
+
                     int valeurTuile = uneTuile.getValeur();
+
+                    Log.v("test1", "Valeur X1 ACTUEL : "+valeurTuile+" : " + uneTuile.getPosGActuel().getX1());
+                    Log.v("test1", "Valeur Y1 ACTUEL : "+valeurTuile+" : "  + uneTuile.getPosGActuel().getY1());
+
+                    Log.v("test1", "Valeur X1 Pass : "+valeurTuile+" : "  + uneTuile.getPosGPasse().getX1());
+                    Log.v("test1", "Valeur Y1 Pass : "+valeurTuile+" : " + uneTuile.getPosGPasse().getY1());
                     //int valeurTuilePasse = uneTuile.getValeurPrecendant();
                     //int indiceTuileApparision = uneTuile.getAnimationApparition();
 				/*
@@ -292,7 +319,7 @@ public void load() {
 								 */
 
                                         // Log.v("testo", "Valeur Y1 départ  : " + uneTuile.getPosGPasse().getY1());
-                                        uneTuile.mouvGauche(50);
+                                        uneTuile.mouvGauche(sizeDeplacement);
                                         // Log.v("testo", "Valeur Y1 après modif : " + uneTuile.getPosGPasse().getY1());
                                     } else {
                                         //pCanvas.drawBitmap(uneTuile.getImgCarre(), uneTuile.getPosGActuel().getY1(), uneTuile.getPosGActuel().getX1() + 192, null);
@@ -318,7 +345,7 @@ public void load() {
                                         pCanvas.drawBitmap(imageTuile, uneTuile.getPosGPasse().getY1(), uneTuile.getPosGPasse().getX1(), null);
 
 
-                                        uneTuile.mouvDroite(50);
+                                        uneTuile.mouvDroite(sizeDeplacement);
                                         // Log.v("testo", "Valeur Y1 : " + uneTuile.getPosGPasse().getY1());
                                     } else {
                                         ////classeurImages.getTuileImage(uneTuile.getValeur())
@@ -339,7 +366,7 @@ public void load() {
 
                                         pCanvas.drawBitmap(imageTuile, uneTuile.getPosGPasse().getY1(), uneTuile.getPosGPasse().getX1(), null);
 
-                                        uneTuile.mouvHaut(50);
+                                        uneTuile.mouvHaut(sizeDeplacement);
                                         // Log.v("testo", "Valeur X1 : " + uneTuile.getPosGPasse().getX1());
                                     } else {
                                         pCanvas.drawBitmap(imageTuile, uneTuile.getPosGActuel().getY1(), uneTuile.getPosGActuel().getX1(), null);
@@ -354,7 +381,7 @@ public void load() {
 
                                     if (uneTuile.getPosGPasse().getX1() <= uneTuile.getPosGActuel().getX1() && !(uneTuile.getPosGPasse().getX1() == uneTuile.getPosGActuel().getX1())) {
                                         pCanvas.drawBitmap(imageTuile, uneTuile.getPosGPasse().getY1(), uneTuile.getPosGPasse().getX1(), null);
-                                        uneTuile.mouvBas(50);
+                                        uneTuile.mouvBas(sizeDeplacement);
                                         // Log.v("testo", "Valeur X1 : " + uneTuile.getPosGPasse().getX1());
                                     } else {
                                         pCanvas.drawBitmap(imageTuile, uneTuile.getPosGActuel().getY1(), uneTuile.getPosGActuel().getX1(), null);
@@ -382,7 +409,7 @@ public void load() {
 
                     //Log.v("testo", "X : " + posG.getX1() + " Y : " + posG.getY1());
                 }
-                if (fini == listTuilesG.size()) {
+                if (fini == listTuilesG.size()  ) {
                     mouvementFini = true;
 
                     for (int i = 0; i < listTuilesG.size(); i++) {
@@ -399,6 +426,8 @@ public void load() {
 
                     mouvementFini = false;
                 }
+
+
             }
 
         }
@@ -435,33 +464,38 @@ public void load() {
 
                 while (autoDessine) {
 
-                        canvas = null;
-                    Log.i("test1","OnDraw !"+autoDessine);
-                        try {
-                            canvas = mSurfaceHolder.lockCanvas(null);
-                            synchronized (mSurfaceHolder) {
-                                if(canvas != null) {onDraw(canvas);}
+                    canvas = null;
 
+                   // Log.i("test1","OnDraw !"+autoDessine);
+                        try {
+                            canvas = mSurfaceHolder.lockCanvas();
+                            synchronized (mSurfaceHolder) {
+
+                                onDraw(canvas);
+                                /*if(canvas != null) {
+                                    onDraw(canvas);
+
+                                }*/
 
                                 try {
 
-                                    Thread.sleep(8);
+                                    Thread.sleep(10);
                                 } catch (InterruptedException e) {
                                 }
+
                             }
 
                         } catch (Exception e) {
-                            e.printStackTrace();
+                           /* e.printStackTrace();*/
                         } finally {
                             if (canvas != null)
                                 mSurfaceHolder.unlockCanvasAndPost(canvas);
                         }
 
 
-
                 }
                 if(!autoDessine) {
-                    Log.i("test1","Zzz");
+                    //Log.i("test1","Zzz");
                     try {
                         Thread.sleep(50);
 

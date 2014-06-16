@@ -15,13 +15,15 @@ public class EcouteurToucherEcran implements OnTouchListener {
     private float start_x;
     private float start_y;
     private MainActivity mainActivity = null;
-    public Boolean activeMove = false;
+    private Boolean activeMove = true;
     public EcouteurToucherEcran(MainActivity mainActivity) {
 
         this.mainActivity = mainActivity;
 
     }
-
+public void setActiveMove(boolean activeOrNot) {
+    this.activeMove = activeOrNot;
+}
     /**
      * Methode lors de l'appui sur l'ecran
      * @param v View
@@ -30,61 +32,68 @@ public class EcouteurToucherEcran implements OnTouchListener {
      */
     @Override
     public boolean onTouch(View v, MotionEvent event) {
+        if(activeMove) {
+            // obtenir l'indice de pointeur de l'objet de l'événement
+            int pointerIndex = event.getActionIndex();
 
-        // obtenir l'indice de pointeur de l'objet de l'événement
-        int pointerIndex = event.getActionIndex();
+            // obtenir pointeur ID
+            int pointerId = event.getPointerId(pointerIndex);
 
-        // obtenir pointeur ID
-        int pointerId = event.getPointerId(pointerIndex);
+            // se masqué (non spécifique à un pointeur) l'action
+            int maskedAction = event.getActionMasked();
 
-        // se masqué (non spécifique à un pointeur) l'action
-        int maskedAction = event.getActionMasked();
+            switch (maskedAction) {
+                case MotionEvent.ACTION_DOWN:
+                    if(pointerId == 0) {
+                        start_x = event.getX();
+                        start_y = event.getY();
+                        //activeMove = true;
 
-        switch (maskedAction) {
-            case MotionEvent.ACTION_DOWN:
-                if(pointerId == 0) {
-                    start_x = event.getX();
-                    start_y = event.getY();
-                    activeMove = true;
+                    }
 
+                case MotionEvent.ACTION_POINTER_DOWN: {
+                    // TODO use data
+                    break;
                 }
+                case MotionEvent.ACTION_MOVE: { // a pointer was moved
+                    if(pointerId == 0) {
 
-            case MotionEvent.ACTION_POINTER_DOWN: {
-                // TODO use data
-                break;
-            }
-            case MotionEvent.ACTION_MOVE: { // a pointer was moved
-                if(pointerId == 0) {
+                        if(start_x+100 <= event.getX() && activeMove) {
+                            mainActivity.droite();
 
-                    if(start_x+100 <= event.getX() && activeMove) {
-                        mainActivity.droite();
-                        activeMove = false;
+
+                            //activeMove = false;
+                        }
+                        if(start_x-100 >= event.getX() && activeMove ) {
+                            mainActivity.gauche();
+
+                        }
+                        if(start_y+100 <= event.getY() && activeMove) {
+                            mainActivity.bas();
+
+                        }
+                        if(start_y-100 >= event.getY() && activeMove ) {
+                            mainActivity.haut();
+
+
+                           // activeMove = false;
+                        }
                     }
-                    if(start_x-100 >= event.getX() && activeMove ) {
-                        mainActivity.gauche();
-                        activeMove = false;
-                    }
-                    if(start_y+100 <= event.getY() && activeMove) {
-                        mainActivity.bas();
-                        activeMove = false;
-                    }
-                    if(start_y-100 >= event.getY() && activeMove ) {
-                        mainActivity.haut();
-                        activeMove = false;
-                    }
+                    break;
                 }
-                break;
-            }
-            case MotionEvent.ACTION_UP:
-                activeMove = false;
-            case MotionEvent.ACTION_POINTER_UP:
+                case MotionEvent.ACTION_UP:
+                   // activeMove = false;
+                case MotionEvent.ACTION_POINTER_UP:
 
-            case MotionEvent.ACTION_CANCEL: {
-                activeMove = false;
-                break;
+                case MotionEvent.ACTION_CANCEL: {
+                   // activeMove = false;
+                    break;
+                }
             }
+
         }
         return true;
     }
+
 
 }
