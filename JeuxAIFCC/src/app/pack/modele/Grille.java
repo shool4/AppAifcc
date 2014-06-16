@@ -14,6 +14,7 @@ import java.util.ListIterator;
 public class Grille implements Serializable {
 
     private TuileGraphique[][] grille = null;
+
     private ArrayList<TuileGraphique> tuileMerge = null;
     /**
      * Constructeur
@@ -436,6 +437,7 @@ public class Grille implements Serializable {
                         if (this.grille[i][j].getValeur() == this.grille[i][j2].getValeur()) {
 
                             tuileMerge.add(this.merge(this.grille[i][j], this.grille[i][j2]));
+
                             this.grille[i][j2].setValeur(0);
                             break;
 
