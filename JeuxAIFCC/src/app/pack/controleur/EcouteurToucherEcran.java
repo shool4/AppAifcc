@@ -15,14 +15,15 @@ public class EcouteurToucherEcran implements OnTouchListener {
     private float start_x;
     private float start_y;
     private MainActivity mainActivity = null;
-    private Boolean activeMove = true;
+    private Boolean activeMove = false;
+    private Boolean EcouteMouvement = true;
     public EcouteurToucherEcran(MainActivity mainActivity) {
 
         this.mainActivity = mainActivity;
 
     }
-public void setActiveMove(boolean activeOrNot) {
-    this.activeMove = activeOrNot;
+public void setActiveEcouteMouvement(boolean activeOrNot) {
+    this.EcouteMouvement = activeOrNot;
 }
     /**
      * Methode lors de l'appui sur l'ecran
@@ -32,7 +33,8 @@ public void setActiveMove(boolean activeOrNot) {
      */
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-        if(activeMove) {
+       //TODO MODIFIER ATTRIBUT
+        if(EcouteMouvement) {
             // obtenir l'indice de pointeur de l'objet de l'événement
             int pointerIndex = event.getActionIndex();
 
@@ -47,7 +49,7 @@ public void setActiveMove(boolean activeOrNot) {
                     if(pointerId == 0) {
                         start_x = event.getX();
                         start_y = event.getY();
-                        //activeMove = true;
+                        activeMove = true;
 
                     }
 
@@ -62,31 +64,31 @@ public void setActiveMove(boolean activeOrNot) {
                             mainActivity.droite();
 
 
-                            //activeMove = false;
+                            activeMove = false;
                         }
                         if(start_x-100 >= event.getX() && activeMove ) {
                             mainActivity.gauche();
-
+                            activeMove = false;
                         }
                         if(start_y+100 <= event.getY() && activeMove) {
                             mainActivity.bas();
-
+                            activeMove = false;
                         }
                         if(start_y-100 >= event.getY() && activeMove ) {
                             mainActivity.haut();
 
 
-                           // activeMove = false;
+                            activeMove = false;
                         }
                     }
                     break;
                 }
                 case MotionEvent.ACTION_UP:
-                   // activeMove = false;
+                    activeMove = false;
                 case MotionEvent.ACTION_POINTER_UP:
 
                 case MotionEvent.ACTION_CANCEL: {
-                   // activeMove = false;
+                   activeMove = false;
                     break;
                 }
             }

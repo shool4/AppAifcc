@@ -121,6 +121,42 @@ public class MainActivity extends Activity{
                 }
             }
 
+                    chargeSauvegarde();
+                    // Gets linearlayout
+
+
+
+
+                    // Changes the height and width to the specified *pixels*
+
+                    // Opération consommatrice en temps exécuté par le nouveau thread
+                    //appel de updateIHM par le nouveau thread
+
+
+
+            if(moteurPhysique != null && moteurGraphique != null ) {
+                this.ecouteurToucherEcran.setActiveEcouteMouvement(false);
+                Log.i("test1","moteurGraphique différent de null**");
+
+                LinearLayout menuPerdu = (LinearLayout)findViewById(R.id.menu_dans_jeux_perdu);
+                moteurGraphique.setPauseResumeThread(true);
+
+                if(menuPerdu.getVisibility() != View.VISIBLE) {
+                    LinearLayout linearLayout = (LinearLayout)findViewById(R.id.menu_dans_jeux_reprise);
+                    linearLayout.setVisibility(View.VISIBLE);
+                }
+
+
+            }
+
+
+
+
+
+
+    }
+
+    public void chargeSauvegarde(){
         File file1 = new File(Environment.getExternalStorageDirectory()+"/saveSquare.xml");
         if(file1.exists()){
             LinearLayout linearLayout = (LinearLayout)findViewById(R.id.menu_acceuil);
@@ -148,7 +184,7 @@ public class MainActivity extends Activity{
                     ex.printStackTrace();
                 }
             }
-             catch (IOException ex)
+            catch (IOException ex)
             {
                 ex.printStackTrace();
             }
@@ -158,32 +194,10 @@ public class MainActivity extends Activity{
             linearLayout = (LinearLayout)findViewById(R.id.menu_type_jeux);
             linearLayout.setVisibility(View.INVISIBLE);
 
-            RelativeLayout relativeLayout = (RelativeLayout)findViewById(R.id.grille_en_jeux_layout);
-            relativeLayout.setVisibility(View.VISIBLE);
+            linearLayout = (LinearLayout)findViewById(R.id.grille_en_jeux_layout);
+            linearLayout.setVisibility(View.VISIBLE);
         }
-
-            if(moteurPhysique != null && moteurGraphique != null ) {
-                this.ecouteurToucherEcran.setActiveMove(false);
-                Log.i("test1","moteurGraphique différent de null**");
-
-                LinearLayout menuPerdu = (LinearLayout)findViewById(R.id.menu_dans_jeux_perdu);
-                moteurGraphique.setPauseResumeThread(true);
-
-                if(menuPerdu.getVisibility() != View.VISIBLE) {
-                    LinearLayout linearLayout = (LinearLayout)findViewById(R.id.menu_dans_jeux_reprise);
-                    linearLayout.setVisibility(View.VISIBLE);
-                }
-
-
-            }
-
-
-
-
-
-
     }
-
     /**
      * Fermeture l'application
      *
@@ -342,7 +356,7 @@ public class MainActivity extends Activity{
     public void isPerdant(){
         if(this.moteurPhysique.isJeuxPerdant()) {
             LinearLayout layoutPerdu;
-            this.ecouteurToucherEcran.setActiveMove(false);
+            this.ecouteurToucherEcran.setActiveEcouteMouvement(false);
             layoutPerdu = (LinearLayout) findViewById(R.id.menu_dans_jeux_perdu);
             //RelativeLayout layoutJeux = (RelativeLayout) findViewById(R.id.layout_jeux);
 
@@ -421,8 +435,8 @@ public void loadImage() {
             linearLayout = (LinearLayout)findViewById(R.id.menu_type_jeux);
             linearLayout.setVisibility(View.INVISIBLE);
 
-            RelativeLayout relativeLayout = (RelativeLayout)findViewById(R.id.grille_en_jeux_layout);
-            relativeLayout.setVisibility(View.VISIBLE);
+            linearLayout = (LinearLayout)findViewById(R.id.grille_en_jeux_layout);
+            linearLayout.setVisibility(View.VISIBLE);
 
 
             /**
@@ -438,10 +452,21 @@ public void loadImage() {
 
             switch (v.getId()) {
 
+                case R.id.btn_menu_reprendre_recommencer :
+                    this.ecouteurToucherEcran.setActiveEcouteMouvement(true);
+                    linearLayout = (LinearLayout)findViewById(R.id.menu_dans_jeux_reprise);
+                    linearLayout.setVisibility(View.INVISIBLE);
+
+                    // this.ecouteurToucherEcran = new EcouteurToucherEcran(this);
+                    //  this.moteurGraphique.setOnTouchListener(this.ecouteurToucherEcran);
+                    moteurPhysique = new MoteurPhysique(this.moteurPhysique.uneTypeDePartie);
+                    this.moteurGraphique.setListTuilesG(this.moteurPhysique.getGrilleGraphiqueDeTuileNonVide());
+
+                    break;
 
 
                 case R.id.btn_menu_perdu_rejouer:
-                    this.ecouteurToucherEcran.setActiveMove(true);
+                    this.ecouteurToucherEcran.setActiveEcouteMouvement(true);
                     linearLayout = (LinearLayout)findViewById(R.id.menu_dans_jeux_perdu);
                     linearLayout.setVisibility(View.INVISIBLE);
 
@@ -476,8 +501,8 @@ public void loadImage() {
                     moteurGraphique.setPauseResumeThread(false);
                     moteurPhysique = null;
 
-                    relativeLayout = (RelativeLayout)findViewById(R.id.grille_en_jeux_layout);
-                    relativeLayout.setVisibility(View.INVISIBLE);
+                    linearLayout = (LinearLayout)findViewById(R.id.grille_en_jeux_layout);
+                    linearLayout.setVisibility(View.INVISIBLE);
 
                     linearLayout = (LinearLayout)findViewById(R.id.menu_dans_jeux_perdu);
                     linearLayout.setVisibility(View.INVISIBLE);
@@ -486,6 +511,12 @@ public void loadImage() {
                     linearLayout.setVisibility(View.VISIBLE);
                     supprimePartie();
                 break;
+
+                case R.id.btn_petit_menu :
+                    this.ecouteurToucherEcran.setActiveEcouteMouvement(false);
+                    linearLayout = (LinearLayout)findViewById(R.id.menu_dans_jeux_reprise);
+                    linearLayout.setVisibility(View.VISIBLE);
+                    break;
                 case R.id.btn_menu_reprendre_aller_menu:
 
 
@@ -493,8 +524,8 @@ public void loadImage() {
 
                     moteurPhysique = null;
 
-                    relativeLayout = (RelativeLayout)findViewById(R.id.grille_en_jeux_layout);
-                    relativeLayout.setVisibility(View.INVISIBLE);
+                    linearLayout = (LinearLayout)findViewById(R.id.grille_en_jeux_layout);
+                    linearLayout.setVisibility(View.INVISIBLE);
 
                     linearLayout = (LinearLayout)findViewById(R.id.menu_dans_jeux_reprise);
                     linearLayout.setVisibility(View.INVISIBLE);
@@ -544,7 +575,7 @@ public void loadImage() {
                     alertDialog.show();
 
                 case R.id.btn_menu_reprendre_reprendre:
-                    this.ecouteurToucherEcran.setActiveMove(true);
+                    this.ecouteurToucherEcran.setActiveEcouteMouvement(true);
                     linearLayout = (LinearLayout)findViewById(R.id.menu_dans_jeux_reprise);
                     linearLayout.setVisibility(View.INVISIBLE);
                     break;

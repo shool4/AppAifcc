@@ -6,42 +6,64 @@
     android:orientation="vertical"
 
     android:background="@drawable/fond_jeux">
-    <RelativeLayout
+
+    <LinearLayout
         android:visibility="invisible"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:orientation="vertical"
-        android:id="@+id/grille_en_jeux_layout"
-        >
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:id="@+id/linearLayout2"
-            android:layout_alignParentTop="true">
+        android:id="@+id/grille_en_jeux_layout">
 
-                <ImageView
-                    android:layout_width="250dp"
-                    android:layout_height="80dp"
-                    android:background="@drawable/titre_square"
-                    android:layout_gravity="center_horizontal|top"/>
-            </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:layout_weight="0.2"
-                android:layout_above="@+id/linearLayout"
-                android:layout_below="@+id/linearLayout2">
 
+
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="200dp"
+                    android:orientation="vertical"
+                    >
+
+
+
+                    <RelativeLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+
+
+                        >
+
+                        <Button
+                            android:id="@+id/btn_petit_menu"
+                            android:layout_width="45dp"
+                            android:layout_height="45dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginRight="20dp"
+                            android:layout_alignParentRight="true"
+
+                            android:background="@drawable/select_menu_petit"
+                            android:onClick="buttonOnClick"
+                            />
+                        <ImageView
+                            android:layout_width="200dp"
+                            android:layout_height="80dp"
+                            android:layout_centerInParent="true"
+                            android:background="@drawable/titre_square"/>
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_gravity="center_vertical|center_horizontal"
+                        >
                 <TextView
                     android:id="@+id/txt_score"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Score"
-                    android:textColor="@android:color/white"
-                    android:textSize="40sp"
+                    android:textColor="@android:color/holo_red_dark"
+                    android:textSize="80sp"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:clickable="false"
                     android:layout_gravity="center_horizontal|center_vertical"/>
@@ -51,30 +73,29 @@
                     android:layout_height="wrap_content"
                     android:text="0"
                     android:textColor="@android:color/white"
-                    android:textSize="40sp"
+                    android:textSize="80sp"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:clickable="false"
                     android:layout_gravity="center_horizontal|center_vertical"/>
-            </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
 
 
 
         <app.pack.vue.MoteurGraphique
 
             android:id="@+id/surfaceViewGrille"
-            android:weightSum="0.5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:clickable="true"
             android:layout_gravity="center_horizontal|bottom"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
 
 
             />
-    </RelativeLayout>
+
+    </LinearLayout>
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
@@ -148,18 +169,22 @@
         <LinearLayout
 
 
+
+
+
+            android:layout_marginTop="250dp"
+            android:layout_marginLeft="20dp"
             android:visibility="invisible"
             android:id="@+id/menu_dans_jeux_perdu"
+
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:layout_gravity="center_horizontal|center"
+            android:layout_gravity="center_horizontal"
             android:orientation="vertical"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true"
+
             android:background="#90000000"
 
             android:gravity="center"
-
              >
 
             <ImageView
@@ -190,45 +215,59 @@
                 />
 
         </LinearLayout>
-        <!--    ####################
+        <!--    ####################################################################################################
                    Menu Reprendre
-               #################### -->
+               #################################################################################################### -->
         <LinearLayout
-            android:gravity="center"
+            android:layout_marginTop="250dp"
+            android:layout_marginLeft="20dp"
             android:visibility="invisible"
             android:id="@+id/menu_dans_jeux_reprise"
-            android:layout_width="300dp"
-            android:layout_height="300dp"
-            android:layout_gravity="center_horizontal"
 
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center_horizontal"
             android:orientation="vertical"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true"
-            android:background="#93330000">
+
+            android:background="#90000000"
+
+            android:gravity="center">
+
             <ImageView
-                android:layout_width="250dp"
-                android:layout_height="80dp"
+                android:layout_marginTop="4dp"
+                android:layout_width="200dp"
+                android:layout_height="50dp"
                 android:background="@drawable/titre_pause"
 
-                android:layout_gravity="center_horizontal|bottom"/>
+               />
             <Button
                 android:id="@+id/btn_menu_reprendre_reprendre"
                 android:layout_width="250dp"
                 android:layout_height="80dp"
-                android:layout_gravity="center_horizontal|bottom"
 
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
+
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="8dp"
                 android:background="@drawable/select_reprendre"
+                android:onClick="buttonOnClick"
+                />
+            <Button
+                 android:id="@+id/btn_menu_reprendre_recommencer"
+                android:layout_width="250dp"
+                android:layout_height="80dp"
+
+
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/select_recommencer"
                 android:onClick="buttonOnClick"
                 />
             <Button
                 android:id="@+id/btn_menu_reprendre_aller_menu"
                 android:layout_width="250dp"
                 android:layout_height="80dp"
-                android:layout_gravity="center_horizontal"
 
-                android:layout_marginBottom="10dp"
+
+                android:layout_marginBottom="8dp"
                 android:background="@drawable/select_menu"
                 android:onClick="buttonOnClick"
                 />
@@ -236,9 +275,9 @@
 
 
         </LinearLayout>
-        <!--    ####################
+        <!--    ####################################################################################################
                       TYPE DE JEUX
-                #################### -->
+                #################################################################################################### -->
 
         <LinearLayout
             android:id="@+id/menu_type_jeux"
